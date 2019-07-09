@@ -3,11 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>...</title>
-<style media="screen">
-html, body {
-    padding: 1rem;
-}
-</style>
+    <link rel="stylesheet" href="./css/app.css" />
 </head>
 <body>
 
@@ -39,37 +35,7 @@ html, body {
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="./js/gpx.js" charset="utf-8"></script>
-<script type="text/javascript">
-
-const Data = {
-    gpx : {
-        duration : { hours : 0, minutes : 0, seconds : 0, ms : 0 },
-        distance : { km : 0, mi : 0 },
-        pace : { perKm : { minutes : 0, seconds : 0 }, perMi : { minutes : 0, seconds : 0 }},
-        speed : { kmh : 0, mih : 0 },
-        elevation : { max : 0, min : 0, loss : 0, gain : 0 }
-    },
-    image : {}
-}
-const App = new Vue({
-
-    el: '#app',
-    data: Data,
-    methods : {
-        loadGPX : function(e) {
-            // TODO : Validate file input
-            readGPX(
-                e.target.files[0],
-                (gpxData) => { Data.gpx = gpxData }
-            );
-        }
-    },
-
-    created : function() {}
-
-})
-
-</script>
+<script src="./js/app.js" charset="utf-8"></script>
 
 </body>
 </html>

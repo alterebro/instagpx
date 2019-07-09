@@ -1,0 +1,7 @@
+html, body {
+    padding: 1rem;
+}
+#app {
+    border: dotted #ccc 1px;
+    padding: 2rem;
+}
