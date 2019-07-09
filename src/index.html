@@ -16,7 +16,7 @@
         </p>
         <p>
             <label for="user-file-gpx">image</label>
-            <br><input type="file" accept="image/*" id="user-file-image" />
+            <br><input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
         </p>
     </div>
 
@@ -29,6 +29,10 @@
         <li>Pace: {{ gpx.pace.perKm.minutes }}:{{ gpx.pace.perKm.seconds }} (min/Km)</li>
         <li>Elevation Gain: {{ gpx.elevation.gain }}m</li>
     </ul>
+
+    <hr>
+
+    <div id="output"></div>
 </div>
 
 

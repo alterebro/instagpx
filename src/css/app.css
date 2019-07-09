@@ -5,3 +5,7 @@ html, body {
     border: dotted #ccc 1px;
     padding: 2rem;
 }
+
+canvas {
+    border: solid #333 2px;
+}
