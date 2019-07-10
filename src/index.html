@@ -8,9 +8,9 @@
 <body>
 
 <header role="banner">
-    <h1>InstaGPX</h1>
+    <!-- <h1>InstaGPX</h1>
     <p>Create a picture to share with your activity stats and any of your photos</p>
-    <p>Upload your GPX acitvity file and image and select your favorite style</p>
+    <p>Upload your GPX acitvity file and image and select your favorite style</p> -->
 </header>
 
 <main role="main" id="app">
@@ -28,6 +28,7 @@
             </p>
         </div>
         <ul>
+            <li><strong>User data loaded</strong> : {{ userDataLoaded }} </li>
             <li>Distance :  {{ gpx.distance.km }} (km)</li>
             <li>Duration : {{ gpx.duration.hours }}h{{ gpx.duration.minutes }}m{{ gpx.duration.seconds }}s</li>
             <li>Speed: {{ gpx.speed.kmh }} (km/h)</li>

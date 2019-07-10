@@ -1,5 +1,6 @@
-function createIMG(file) {
+function createIMG(file, callback) {
 
+    // TODO : take off filters to different file
     function contrastImage(imgData, contrast){  //input range [-100..100]
         let d = imgData.data;
         contrast = (contrast/100) + 1;  //convert to decimal & shift range: [0..2]
@@ -60,18 +61,30 @@ function createIMG(file) {
                               0, 0, width, height
                           );
 
-                  document.getElementById('output').innerHTML = '';
-                  document.getElementById('output').appendChild(el);
+                // let ctxData = ctx.getImageData(0, 0, width, height);
+                // callback(ctxData);
 
-                  window.setTimeout(
-                      function() {
-                          let ctxData = ctx.getImageData(0, 0, width, height);
-                          let _output = contrastImage(ctxData, 30);
+                el.toBlob(function(blob) {
+                    let _output = new File([blob], name, { type, lastModified: Date.now() });
+                    callback(_output);
+                });
 
-                          ctx.putImageData(_output,0,0);
 
-                      }, 2000
-                  );
+
+                  // document.getElementById('output').innerHTML = '';
+                  // document.getElementById('output').appendChild(el);
+
+                  // window.setTimeout(
+                  //     function() {
+                  //         let ctxData = ctx.getImageData(0, 0, width, height);
+                  //         console.log(ctxData);
+                  //         console.log(ctx.toDataUrl)
+                  //         // let _output = contrastImage(ctxData, 30);
+                  //         //
+                  //         // ctx.putImageData(_output,0,0);
+                  //
+                  //     }, 2000
+                  // );
 
                     // el.toBlob(function(blob) {
                     //     return new File([blob], name, { type, lastModified: Date.now() });
