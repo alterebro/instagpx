@@ -64,6 +64,8 @@ a:hover {
     border-radius: 3px;
     background: #fff;
     padding: 2rem;
+    width: 100%;
+    max-width: 72rem;
 }
 
 div[role="form"] {
@@ -107,11 +109,9 @@ canvas#instaGPX {
     z-index: 10;
 }
 
-
-
-header[role="banner"] {
-    padding: 2rem 1rem;
-}
+header[role="banner"] { padding: 2rem 1rem; font-size: 90%; }
+header[role="banner"] img { display: block; width: 250px }
+header[role="banner"] h1 {}
 footer[role="contentinfo"] {
     padding: 2rem 1rem;
     font-size: 90%;
