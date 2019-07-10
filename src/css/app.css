@@ -1,14 +1,117 @@
+
+/* Pseudo-Reset */
+html, body, h1, h2, h3, h4, p, ul, ol, li, dl, dd, dt, figure, form, fieldset, hr , pre {
+    margin: 0;
+    padding: 0;
+}
+li { list-style-type: none; }
+article, aside, footer, header, main, menu, nav, section {
+	display: block;
+}
+button, input, select, textarea {
+    font: inherit;
+	color: inherit;
+	margin: 0;
+    padding: 0;
+    text-transform: none;
+}
+
+/* --- */
+
+html {
+    line-height: 1;
+	text-size-adjust: 100%;
+	box-sizing: border-box;
+	font-size: 62.5%;
+	tab-size: 4;
+	word-break: break-word;
+    cursor: default;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Arial, sans-serif;;
+    font-size: 1.6em;
+    line-height: 1.6;
+    background: #f8f8f8;
+    color: #333;
+}
 html, body {
     padding: 1rem;
 }
+*, *:before, *:after {
+	box-sizing: inherit;
+	background-repeat: no-repeat;
+}
+
+hr {
+    background: transparent;
+    border: solid transparent 1px;
+    border-bottom: solid #ccc 1px;
+    height: 1px;
+    margin: 2rem 0;
+}
+a {
+    color: #069;
+    text-decoration: none;
+    border-bottom: solid transparent 2px;
+}
+a:hover {
+    color: #000;
+    border-bottom: solid #069 2px;
+}
+
+
 #app {
-    border: dotted #ccc 1px;
+    border-radius: 3px;
+    background: #fff;
     padding: 2rem;
 }
 
+div[role="form"] {
+    padding: 0 3rem 0 0;
+}
+
+.app-header {
+    display: flex;
+}
+
+
+
+figure.instagpx {
+    width: 100%;
+    max-width: 640px;
+    position: relative;
+}
+figure.instagpx:after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+}
+#output {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #eee;
+    width: 100%;
+    height: 100%;
+}
 canvas {
-    width: 640px;
-    height: 640px;
-    border: solid #fff 10px;
-    box-shadow: 0 0 0 4px #333;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+header[role="banner"] {
+    padding: 2rem 1rem;
+}
+footer[role="contentinfo"] {
+    padding: 2rem 1rem;
+    font-size: 90%;
+}
+
+footer[role="contentinfo"] h4,
+footer[role="contentinfo"] ul,
+footer[role="contentinfo"] ul li {
+    display: inline-block;
 }

@@ -16,7 +16,7 @@ const App = new Vue({
     methods : {
 
         loadGPX : function(e) {
-            // TODO : Validate file input
+            if ( !e.target.files.length ) { return }
             readGPX(
                 e.target.files[0],
                 (gpxData) => { Data.gpx = gpxData }
@@ -24,9 +24,9 @@ const App = new Vue({
         },
 
         loadIMG : function(e) {
+            if ( !e.target.files.length ) { return }
             createIMG(e.target.files[0])
         }
-
 
     },
 

@@ -7,34 +7,54 @@
 </head>
 <body>
 
+<header role="banner">
+    <h1>InstaGPX</h1>
+    <p>Create a picture to share with your activity stats and any of your photos</p>
+    <p>Upload your GPX acitvity file and image and select your favorite style</p>
+</header>
 
-<div id="app">
-    <div>
-        <p>
-            <label for="user-file-gpx">.gpx file</label>
-            <br><input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
-        </p>
-        <p>
-            <label for="user-file-gpx">image</label>
-            <br><input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
-        </p>
+<main role="main" id="app">
+
+    <div class="app-header">
+        <div role="form">
+            <p>
+                <label for="user-file-gpx">.gpx file</label>
+                <br><input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
+            </p>
+            <hr>
+            <p>
+                <label for="user-file-gpx">image</label>
+                <br><input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
+            </p>
+        </div>
+        <ul>
+            <li>Distance :  {{ gpx.distance.km }} (km)</li>
+            <li>Duration : {{ gpx.duration.hours }}h{{ gpx.duration.minutes }}m{{ gpx.duration.seconds }}s</li>
+            <li>Speed: {{ gpx.speed.kmh }} (km/h)</li>
+            <li>Pace: {{ gpx.pace.perKm.minutes }}:{{ gpx.pace.perKm.seconds }} (min/Km)</li>
+            <li>Elevation Gain: {{ gpx.elevation.gain }}m</li>
+        </ul>
     </div>
 
     <hr>
 
+    <figure class="instagpx">
+        <div id="output"></div>
+    </figure>
+</main>
+
+<footer role="contentinfo">
+    <p>A project By : <strong><a href="https://moro.es" target="_blank" rel="noopener noreferrer" title="Author website: www.moro.es" data-tooltip data-tooltiplocation="top-right">Jorge Moreno</a> &middot; <a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!" data-tooltip>@alterebro</a></strong></p>
+
+    <h4>Share! :</h4>
     <ul>
-        <li>Distance :  {{ gpx.distance.km }} (km)</li>
-        <li>Duration : {{ gpx.duration.hours }}h{{ gpx.duration.minutes }}m{{ gpx.duration.seconds }}s</li>
-        <li>Speed: {{ gpx.speed.kmh }} (km/h)</li>
-        <li>Pace: {{ gpx.pace.perKm.minutes }}:{{ gpx.pace.perKm.seconds }} (min/Km)</li>
-        <li>Elevation Gain: {{ gpx.elevation.gain }}m</li>
+        <li class="twitter"><a href="https://twitter.com/intent/tweet?text={TEXT}&url={URL}" target="_blank" rel="noopener noreferrer" title="Share on Twitter" data-tooltip data-tooltiplocation="top-right">Twitter</a></li>
+        <li class="facebook"><a href="https://www.facebook.com/sharer.php?u={URL}" target="_blank" rel="noopener noreferrer" title="Share on FaceBook" data-tooltip>FaceBook</a></li>
+        <li class="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url={URL}&title={TITLE}&summary={TEXT}&source=moro.es" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn" data-tooltip>LinkedIn</a></li>
+        <li class="email"><a href="mailto:?subject={TITLE}&amp;body={URL}%0A{TEXT}" target="_blank" rel="noopener noreferrer" title="Share it via E-Mail" data-tooltip data-tooltiplocation="top-left">Mail</a></li>
+        <li class="telegram"><a href="https://telegram.me/share/url?url={URL}&amp;text={TEXT}" target="_blank" rel="noopener noreferrer" title="Share it via Telegram" data-tooltip data-tooltiplocation="top-left">Telegram</a></li>
     </ul>
-
-    <hr>
-
-    <div id="output"></div>
-</div>
-
+</footer>
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
