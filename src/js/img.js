@@ -46,11 +46,11 @@ function createIMG(file, callback) {
                         y = Math.round((_heightSrc-_widthSrc)/2);
                     }
 
-                    console.log(
-                        'source: ', _widthSrc, _heightSrc,
-                        'target: ', w, h,
-                        'aspectratio source: ', _aspectRatioSrc
-                    );
+                    // console.log(
+                    //     'source: ', _widthSrc, _heightSrc,
+                    //     'target: ', w, h,
+                    //     'aspectratio source: ', _aspectRatioSrc
+                    // );
 
                     const el = document.createElement('canvas');
                         el.width = width;
