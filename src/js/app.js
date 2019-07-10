@@ -1,13 +1,12 @@
 
+const Config = {
+    width : 1280,
+    height: 1280
+}
+
 const Data = {
     gpxLoaded : false,
-    gpx : {
-        duration : { hours : 0, minutes : 0, seconds : 0, ms : 0 },
-        distance : { km : 0, mi : 0 },
-        pace : { perKm : { minutes : 0, seconds : 0 }, perMi : { minutes : 0, seconds : 0 }},
-        speed : { kmh : 0, mih : 0 },
-        elevation : { max : 0, min : 0, loss : 0, gain : 0 }
-    },
+    gpx : {},
 
     imageLoaded : false,
     image : {},
@@ -24,7 +23,8 @@ const App = new Vue({
             console.log( this.gpx );
 
             // Create the image!
-            // ...
+            // instaGPX(this.gpx, this.image);
+            instaGPX(false, false)
         }
     },
     computed : {

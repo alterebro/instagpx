@@ -61,13 +61,13 @@ function createIMG(file, callback) {
                               0, 0, width, height
                           );
 
-                // let ctxData = ctx.getImageData(0, 0, width, height);
-                // callback(ctxData);
+                let ctxData = ctx.getImageData(0, 0, width, height);
+                    callback(ctxData);
 
-                el.toBlob(function(blob) {
-                    let _output = new File([blob], name, { type, lastModified: Date.now() });
-                    callback(_output);
-                });
+                // el.toBlob(function(blob) {
+                //     let _output = new File([blob], name, { type, lastModified: Date.now() });
+                //     callback(_output);
+                // });
 
 
 

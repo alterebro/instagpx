@@ -100,6 +100,13 @@ canvas {
     height: 100%;
 }
 
+canvas#instaGPX {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
 
 
 header[role="banner"] {

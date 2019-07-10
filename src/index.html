@@ -27,7 +27,7 @@
                 <br><input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
             </p>
         </div>
-        <ul>
+        <ul v-if="gpxLoaded">
             <li><strong>User data loaded</strong> : {{ userDataLoaded }} </li>
             <li>Distance :  {{ gpx.distance.km }} (km)</li>
             <li>Duration : {{ gpx.duration.hours }}h{{ gpx.duration.minutes }}m{{ gpx.duration.seconds }}s</li>
@@ -58,7 +58,61 @@
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script charset="utf-8">
+
+const config = {
+    width: 1280,
+    height: 1280,
+    padding: 80
+}
+
+function instaGPX(gpxData, imgData) {
+    // console.log(gpxData, imgData);
+    // console.log(imgData.height)
+
+    let _canvas = document.createElement('canvas')
+        _canvas.width = 1280;
+        _canvas.height = 1280;
+        _canvas.id = 'instaGPX';
+
+    let ctx = _canvas.getContext('2d');
+        // _ctx.putImageData(imgData, 0, 0);
+
+        ctx.fillStyle = '#fafbfc';
+        ctx.fillRect(10, 10, config.width - 20, config.height - 20);
+
+        ctx.fillStyle = 'black';
+        ctx.textBaseline = 'alphabetic';
+
+        let _third = Math.round((config.width - (config.padding*4))/3)
+        ctx.font = '300 64px sans-serif';
+        ctx.fillText('01h23m34s', config.padding, config.height - config.padding);
+        ctx.fillText('16.78km/h', config.padding*2 + _third, config.height - config.padding);
+        ctx.fillText('12.34km', (config.padding*3) + (_third*2), config.height - config.padding);
+
+        ctx.font = '400 22px sans-serif';
+        ctx.fillText('ACTIVITY TIME', config.padding, config.height - config.padding - 80);
+        ctx.fillText('SPEED', config.padding*2 + _third, config.height - config.padding - 80);
+        ctx.fillText('DISTANCE', (config.padding*3) + (_third*2), config.height - config.padding - 80);
+
+        
+
+
+        // console.log(ctx);
+
+        document.querySelector('#output').innerHTML = '';
+        document.querySelector('#output').appendChild(_canvas);
+
+}
+
+window.onload = function() {
+
+    instaGPX(false, false)
+
+}
+</script>
+
+<script src="./js/vue.min.js"></script>
 <script src="./js/gpx.js" charset="utf-8"></script>
 <script src="./js/img.js" charset="utf-8"></script>
 <script src="./js/app.js" charset="utf-8"></script>
