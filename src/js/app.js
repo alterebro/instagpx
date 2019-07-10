@@ -1,4 +1,3 @@
-
 const Config = {
     width : 1280,
     height: 1280
