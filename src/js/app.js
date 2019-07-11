@@ -23,7 +23,7 @@ const App = new Vue({
 
             // Create the image!
             // instaGPX(this.gpx, this.image);
-            instaGPX(false, false)
+            instaGPX(false, this.image)
         }
     },
     computed : {
