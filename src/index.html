@@ -21,19 +21,21 @@
             <div>
                 <figure>
                     <img src="img/file-code-regular.svg" alt=".GPX File">
+                    <figcaption>Upload your <strong>GPX</strong> Activity file</figcaption>
                 </figure>
                 <p>
-                    <label for="user-file-gpx"><strong>.GPX File</strong></label>
-                    <br><input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
+                    <label for="user-file-gpx"><strong>GPX</strong></label>
+                    <input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
                 </p>
             </div>
             <div>
                 <figure>
                     <img src="img/file-image-regular.svg" alt="Image">
+                    <figcaption>Upload a <strong>Image</strong> file</figcaption>
                 </figure>
                 <p>
-                    <label for="user-file-gpx"><strong>image</strong></label>
-                    <br><input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
+                    <label for="user-file-gpx"><strong>Image</strong></label>
+                    <input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
                 </p>
             </div>
         </div>

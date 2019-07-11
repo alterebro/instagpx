@@ -63,15 +63,19 @@ a:hover {
 #app {
     border-radius: 3px;
     background: #fff;
-    padding: 2rem;
+    padding: 3rem;
     width: 100%;
-    max-width: 72rem;
+    max-width: 70rem;
 }
 
 div[role="form"] {
     padding: 0 3rem 0 0;
     display: flex;
     flex-wrap: nowrap;
+}
+div[role="form"] > div {}
+figure figcaption {
+    font-size: 80%;
 }
 figure img {
     height: 3.6rem;
