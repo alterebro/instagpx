@@ -18,15 +18,24 @@
 
     <div class="app-header">
         <div role="form">
-            <p>
-                <label for="user-file-gpx">.gpx file</label>
-                <br><input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
-            </p>
-            <hr>
-            <p>
-                <label for="user-file-gpx">image</label>
-                <br><input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
-            </p>
+            <div>
+                <figure>
+                    <img src="img/file-code-regular.svg" alt=".GPX File">
+                </figure>
+                <p>
+                    <label for="user-file-gpx"><strong>.GPX File</strong></label>
+                    <br><input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
+                </p>
+            </div>
+            <div>
+                <figure>
+                    <img src="img/file-image-regular.svg" alt="Image">
+                </figure>
+                <p>
+                    <label for="user-file-gpx"><strong>image</strong></label>
+                    <br><input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
+                </p>
+            </div>
         </div>
         <ul v-if="gpxLoaded">
             <li><strong>User data loaded</strong> : {{ userDataLoaded }} </li>

@@ -70,6 +70,13 @@ a:hover {
 
 div[role="form"] {
     padding: 0 3rem 0 0;
+    display: flex;
+    flex-wrap: nowrap;
+}
+figure img {
+    height: 3.6rem;
+    width: auto;
+    opacity: .35;
 }
 
 .app-header {
