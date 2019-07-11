@@ -54,6 +54,58 @@
     <figure class="instagpx">
         <div id="output"></div>
     </figure>
+
+    <div>
+        <dl>
+            <dt><label for="activity-title">Title</label></dt>
+            <dd><input type="text" name="activity-title" id="activity-title" value="..." /></dd>
+
+            <dt><label for="activity-date">Date Format</label></dt>
+            <dd>
+                <select name="activity-date" id="activity-date">
+                    <option value="">12 March 2019 · 12:34AM</option>
+                    <option value="">12/03/2019 23:34</option>
+                    <option value="">March 12, 2019 at 12:34 AM</option>
+                    <option value="">No date</option>
+                </select>
+            </dd>
+
+            <dt>Activity Type</dt>
+            <dd>
+                <label for="activity-type-run">
+                <input type="radio" name="activity-type" id="activity-type-run" value="run" />
+                Run</label>
+
+                <label for="activity-type-ride">
+                <input type="radio" name="activity-type" id="activity-type-ride" checked="checked" value="ride" />
+                Ride</label>
+            </dd>
+
+            <dt>Unit System</dt>
+            <dd>
+                <label for="activity-unit-metric">
+                <input type="radio" name="activity-unit" id="activity-unit-metric" checked="checked" value="metric" />
+                Metric</label>
+
+                <label for="activity-unit-imperial">
+                <input type="radio" name="activity-unit" id="activity-unit-imperial" value="imperial" />
+                Imperial</label>
+            </dd>
+
+            <dt>Options</dt>
+            <dd>
+                <input type="radio" name="activity-show" id="activity-show-elevation" checked="checked" value="elevation" />
+                <label for="activity-show-elevation">Elevation</label>
+
+                <input type="radio" name="activity-show" id="activity-show-speed" value="speed" />
+                <label for="activity-show-speed">Speed / Pace</label>
+            </dd>
+        </dl>
+        <p><button type="button" name="activity-regenerate">Regenerate Image</button></p>
+    </div>
+
+
+
 </main>
 
 <footer role="contentinfo">

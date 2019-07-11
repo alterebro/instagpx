@@ -52,6 +52,23 @@ function instaGPX(gpxData, imgData) {
         padding: 80
     }
 
+    // Bogus data
+    let _data = {
+
+        distance : 61.840184779572205,
+        duration : {
+            hours : 4,
+            minutes :  22,
+            seconds : 5
+        },
+        speed: 14.157371396277261,
+        pace: {
+            minutes : 4,
+            seconds : 14
+        },
+        elevation : 984.4000000000439
+    }
+
     let _canvas = document.createElement('canvas')
         _canvas.width = 1280;
         _canvas.height = 1280;
