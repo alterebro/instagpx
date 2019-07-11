@@ -122,6 +122,6 @@ function instaGPX(gpxData, imgData) {
 
 window.onload = function() {
 
-    // instaGPX(false, false)
+    instaGPX(false, false)
 
 }

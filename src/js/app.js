@@ -40,6 +40,7 @@ const App = new Vue({
                 (gpxData) => {
                     Data.gpx = gpxData
                     Data.gpxLoaded = true;
+                    console.log( gpxData );
                 }
             );
         },
@@ -51,6 +52,7 @@ const App = new Vue({
                 (imgData) => {
                     Data.image = imgData;
                     Data.imageLoaded = true;
+                    console.log( imgData );
                 }
             )
         }

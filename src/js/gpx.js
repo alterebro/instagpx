@@ -61,12 +61,13 @@ function readGPX(file, callback) {
         let hoursDays = parseInt( days * 24, 10 );
             hours += hoursDays;
 
-        return {
-            hours : String(hours).padStart(2, '0'),
-            minutes : String(minutes).padStart(2, '0'),
-            seconds : String(seconds).padStart(2, '0'),
-            ms : ms
-        }
+        return { hours, minutes, seconds, ms }
+        // return {
+        //     hours : String(hours).padStart(2, '0'),
+        //     minutes : String(minutes).padStart(2, '0'),
+        //     seconds : String(seconds).padStart(2, '0'),
+        //     ms : ms
+        // }
     }
 
     function GPX(gpxData) {
@@ -97,16 +98,28 @@ function readGPX(file, callback) {
 
             let _msKm = duration.ms / distance.km;
             let _msMi = duration.ms / distance.mi;
+
             return {
                 'perKm' : {
-                    'minutes' : String(new Date( _msKm ).getUTCMinutes()).padStart(2, '0'),
-                    'seconds' : String(new Date( _msKm ).getUTCSeconds()).padStart(2, '0')
+                    'minutes' : new Date( _msKm ).getUTCMinutes(),
+                    'seconds' : new Date( _msKm ).getUTCSeconds()
                 },
                 'perMile' : {
-                    'minutes' : String(new Date( _msMi ).getUTCMinutes()).padStart(2, '0'),
-                    'seconds' : String(new Date( _msMi ).getUTCSeconds()).padStart(2, '0')
+                    'minutes' : new Date( _msMi ).getUTCMinutes(),
+                    'seconds' : new Date( _msMi ).getUTCSeconds()
                 }
             }
+
+            // return {
+            //     'perKm' : {
+            //         'minutes' : String(new Date( _msKm ).getUTCMinutes()).padStart(2, '0'),
+            //         'seconds' : String(new Date( _msKm ).getUTCSeconds()).padStart(2, '0')
+            //     },
+            //     'perMile' : {
+            //         'minutes' : String(new Date( _msMi ).getUTCMinutes()).padStart(2, '0'),
+            //         'seconds' : String(new Date( _msMi ).getUTCSeconds()).padStart(2, '0')
+            //     }
+            // }
 
         }());
 
