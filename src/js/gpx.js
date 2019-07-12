@@ -94,7 +94,6 @@ function readGPX(file, callback) {
                 lon : endPoint.lon
             }
         }
-        console.log(coords);
 
         const duration = msToTime( Math.abs(end.getTime() - start.getTime()) );
         const distance = (function() {

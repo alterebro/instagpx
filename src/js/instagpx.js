@@ -20,8 +20,8 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
 
 function instaGPX(gpxData, imgData) {
 
-    console.log(gpxData, imgData);
-    console.log(imgData.height, gpxData.timestamp);
+    // console.log(gpxData, imgData);
+    // console.log(imgData.height, gpxData.timestamp);
 
     const config = {...Config, ...Data.options }
 
@@ -55,7 +55,7 @@ function instaGPX(gpxData, imgData) {
             ctx.fillRect(0, 0, config.width, config.height);
 
         // Attach Image
-        // if (imgData) { ctx.putImageData(imgData, 0, 0) }
+        if (imgData) { ctx.putImageData(imgData, 0, 0) }
 
         // Overlaying Shadow BG
         // ctx.globalCompositeOperation = 'overlay';
@@ -159,8 +159,13 @@ function instaGPX(gpxData, imgData) {
         document.querySelector('#output').innerHTML = '';
         document.querySelector('#output').appendChild(_canvas);
 
+        // TODO: Render on an image
+        // let _img = document.createElement('img');
+
 }
 
+
+// Preload Font
 function preloadFont(font) {
     let _preloadFont = document.createElement('div');
         _preloadFont.setAttribute('style', 'font-family: '+font+'; visibility:hidden; height: 0; width: 0; overflow:hidden;');
@@ -169,9 +174,28 @@ function preloadFont(font) {
 }
 preloadFont('Montserrat');
 
+// Fire sample image
+function bogusImage(callback) {
+    const img = new Image();
+        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+        img.onload = function(e) {
+            let _canvas = document.createElement('canvas');
+                _canvas.width = this.width;
+                _canvas.height = this.height;
+            let _ctx = _canvas.getContext('2d');
+                _ctx.drawImage(img, 0, 0);
+            let _ctxData = _ctx.getImageData(0, 0, this.width, this.height);
+                callback(_ctxData);
+        }
+}
+
+// Fire sample gpx data
 window.onload = function() {
 
-    Data.gpx = _sampleGPXdata;
-    instaGPX(_sampleGPXdata, false);
-    console.log(!Data.image.length)
+    bogusImage((imgData) => {
+        Data.gpx = _sampleGPXdata;
+        Data.image = imgData;
+        instaGPX(_sampleGPXdata, imgData);
+    });
+
 }
