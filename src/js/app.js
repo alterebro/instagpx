@@ -9,7 +9,56 @@ const Data = {
 
     imageLoaded : false,
     image : {},
+
+    options : {
+        padding: 80,
+        activity : 'ride', // ride || run
+        units : 'metric', // metric || imperial
+        show : 'speed', // elevation || speed
+        wordSpacing : 10,
+        title : 'Lorem ipsum dolor sit amet...'
+    }
 }
+
+// fake gpx data
+const _sampleGPXdata = {
+
+    duration : {
+        hours : 4,
+        minutes :  22,
+        seconds : 5,
+        ms : 15725000
+    },
+    distance : {
+        km : 61.840184779572205,
+        mi : 38.425697456667564
+    },
+    pace: {
+        perKm : {
+            minutes : 4,
+            seconds : 14
+        },
+        perMile : {
+            minutes : 6,
+            seconds : 49
+        }
+    },
+    speed: {
+        kmh : 14.157371396277261,
+        mih : 8.796980021876198
+    },
+    elevation : {
+        max : 510.7,
+        min : 2.8,
+        loss : -985.100000000051,
+        gain : 984.4000000000439
+    },
+    timestamp : {
+        start : new Date(),
+        end : new Date()
+    }
+}
+
 
 const App = new Vue({
 
@@ -23,7 +72,7 @@ const App = new Vue({
 
             // Create the image!
             // instaGPX(this.gpx, this.image);
-            instaGPX(false, this.image)
+            instaGPX(this.gpx, this.image)
         }
     },
     computed : {
@@ -40,7 +89,7 @@ const App = new Vue({
                 (gpxData) => {
                     Data.gpx = gpxData
                     Data.gpxLoaded = true;
-                    console.log( gpxData );
+                    console.log( this.gpx.elevation );
                 }
             );
         },
@@ -55,6 +104,10 @@ const App = new Vue({
                     console.log( imgData );
                 }
             )
+        },
+
+        regenerateImage : function() {
+            instaGPX(this.gpx, this.image)
         }
     },
 

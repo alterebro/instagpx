@@ -1,11 +1,12 @@
-
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
-    var words = text.split(' ');
-    var line = '';
-    for(var n = 0; n < words.length; n++) {
-        var testLine = line + words[n] + ' ';
-        var metrics = context.measureText(testLine);
-        var testWidth = metrics.width;
+    let words = text.split(' ');
+    let line = '';
+
+    for(let n = 0; n < words.length; n++) {
+        let testLine = line + words[n] + ' ';
+        let metrics = context.measureText(testLine);
+        let testWidth = metrics.width;
+
         if (testWidth > maxWidth && n > 0) {
             context.fillText(line, x, y);
             line = words[n] + ' ';
@@ -17,128 +18,160 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
     context.fillText(line, x, y);
 }
 
-/*
-
-Font :
-Oswald
-Roboto
-Roboto Condensed
-
-*/
-
-// from https://www.html5canvastutorials.com/tutorials/html5-canvas-wrap-text-tutorial/
-// https://codepen.io/nishiohirokazu/pen/jjNyye
-// var canvas = document.getElementById('myCanvas');
-// var context = canvas.getContext('2d');
-// var maxWidth = 400;
-// var lineHeight = 24;
-// var x = (canvas.width - maxWidth) / 2;
-// var y = 60;
-// var text = 'All the world\'s a stage, and all the men and women merely players. They have their exits and their entrances; And one man in his time plays many parts.';
-//
-// context.font = '15pt Calibri';
-// context.fillStyle = '#333';
-// wrapText(context, text, x, y, maxWidth, lineHeight);
-
-
 function instaGPX(gpxData, imgData) {
 
-    // console.log(gpxData, imgData);
-    // console.log(imgData.height)
+    console.log(gpxData, imgData);
+    console.log(imgData.height, gpxData.timestamp);
 
-    let config = {
-        width: 1280,
-        height: 1280,
-        padding: 80
-    }
+    const config = {...Config, ...Data.options }
 
-    // Bogus data
-    let _data = {
+    let _duration = (gpxData.duration.hours > 0)
+        ? [ {v: String(gpxData.duration.hours).padStart(2, '0'), u: 'h'}, {v: String(gpxData.duration.minutes).padStart(2, '0'), u: 'm'} ]
+        : [ {v: String(gpxData.duration.minutes).padStart(2, '0'), u: 'm'}, {v: String(gpxData.duration.seconds).padStart(2, '0'), u: 's'} ];
+    let _pace = gpxData.pace[(config.units == 'metric') ? 'perKm' : 'perMile'];
 
-        distance : 61.840184779572205,
-        duration : {
-            hours : 4,
-            minutes :  22,
-            seconds : 5
-        },
-        speed: 14.157371396277261,
-        pace: {
-            minutes : 4,
-            seconds : 14
-        },
-        elevation : 984.4000000000439
+    let output = {
+        distance : ((config.units == 'metric') ? gpxData.distance.km : gpxData.distance.mi).toFixed(2),
+        distanceUnit : (config.units == 'metric') ? 'km' : 'mi',
+        duration : _duration,
+        elevation : Math.round(gpxData.elevation.gain),
+        speed : (config.units == 'metric') ? (gpxData.speed.kmh).toFixed(1) : (gpxData.speed.mih).toFixed(1),
+        pace : _pace.minutes +'\''+ String(_pace.seconds).padStart(2, '0'),
+        optionLabel : ((config.show == 'elevation') ? 'elevation' : (config.activity == 'ride') ? 'speed' : 'pace')
     }
 
     let _canvas = document.createElement('canvas')
-        _canvas.width = 1280;
-        _canvas.height = 1280;
-        _canvas.id = 'instaGPX';
+        _canvas.width = config.width;
+        _canvas.height = config.height;
 
     let ctx = _canvas.getContext('2d');
-        if (imgData) {
-            ctx.putImageData(imgData, 0, 0);
-        }
 
-        ctx.globalCompositeOperation = 'overlay';
+        // Solid Background :
+        let bgGrad = ctx.createLinearGradient(0, 0, config.width/2, config.width);
+            bgGrad.addColorStop(0, '#797f9f');
+            bgGrad.addColorStop(1, '#606990');
 
-        var grdTop = ctx.createLinearGradient(0, 0, 0, 300);
-            grdTop.addColorStop(0.0, "rgba(0, 0, 0, .5)");
-            grdTop.addColorStop(0.5, "rgba(0, 0, 0, .5)");
-            grdTop.addColorStop(1.0, "rgba(0, 0, 0, 0)");
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, config.width, config.height);
 
-        ctx.fillStyle = grdTop;
-        ctx.fillRect(0, 0, config.width, 300);
+        // Attach Image
+        if (imgData) { ctx.putImageData(imgData, 0, 0) }
 
+        // Overlaying Shadow BG
+        // ctx.globalCompositeOperation = 'overlay';
+        ctx.globalCompositeOperation = 'multiply';
+        let grdTopSize = config.height/4;
+        let grdTop = ctx.createLinearGradient(0, 0, 0, grdTopSize);
+            grdTop.addColorStop(0.0, "rgba(0, 0, 0, 0.50)");
+            grdTop.addColorStop(1.0, "rgba(0, 0, 0, 0.00)");
 
-        var grdBottom = ctx.createLinearGradient(0, config.height - 300, 0, config.height);
-            grdBottom.addColorStop(0.0, "rgba(0, 0, 0, 0)");
-            grdBottom.addColorStop(0.5, "rgba(0, 0, 0, .5)");
-            grdBottom.addColorStop(1.0, "rgba(0, 0, 0, .5)");
+            ctx.fillStyle = grdTop;
+            ctx.fillRect(0, 0, config.width, grdTopSize);
 
-        ctx.fillStyle = grdBottom;
-        ctx.fillRect(0, config.height - 300, config.width, 300);
+        let grdBottomSize = config.height/4;
+        let grdBottom = ctx.createLinearGradient(0, config.height - grdBottomSize, 0, config.height);
+            grdBottom.addColorStop(0.0, "rgba(0, 0, 0, 0.00)");
+            grdBottom.addColorStop(1.0, "rgba(0, 0, 0, 0.50)");
 
+            ctx.fillStyle = grdBottom;
+            ctx.fillRect(0, config.height - grdBottomSize, config.width, grdBottomSize);
 
         ctx.globalCompositeOperation = 'source-over';
-
-
         ctx.shadowColor = "rgba(0,0,0,0.4)";
         ctx.shadowBlur = 4;
 
-        // ctx.fillStyle = '#fafbfc';
-        // ctx.fillRect(10, 10, config.width - 20, config.height - 20);
-
+        let _third = Math.round((config.width - (config.padding*4))/3)
         ctx.fillStyle = "rgba(255, 255, 255, 1)";
         ctx.textBaseline = 'alphabetic';
 
-        let _third = Math.round((config.width - (config.padding*4))/3)
-        ctx.font = '500 64px Roboto Condensed';
-        ctx.fillText('01h23m34s', config.padding, config.height - config.padding);
-        ctx.fillText('16.78km/h', config.padding*2 + _third, config.height - config.padding);
-        ctx.fillText('12.34km', (config.padding*3) + (_third*2), config.height - config.padding);
+        const txtSize = {}
 
-        ctx.font = '400 22px Montserrat';
-        ctx.fillText('ACTIVITY TIME', config.padding, config.height - config.padding - 80);
-        ctx.fillText('SPEED', config.padding*2 + _third, config.height - config.padding - 80);
-        ctx.fillText('DISTANCE', (config.padding*3) + (_third*2), config.height - config.padding - 80);
+        // ----------------
+        // Values output
+        ctx.font = '800 72px Montserrat';
+        ctx.fillText(output.distance, config.padding, config.height - config.padding);
+        txtSize.distance = ctx.measureText(output.distance).width;
+        txtSize.duration = [];
+        output.duration.forEach((el, i) => {
+            ctx.fillText(el.v, config.padding*2 + _third + (i*155), config.height - config.padding);
+            txtSize.duration.push(ctx.measureText(el.v).width);
+        })
 
-        // ctx.font="italic small-caps bold 12px arial";
-        ctx.font = '300 24px Montserrat';
+        ctx.fillText(output[output.optionLabel], (config.padding*3) + (_third*2), config.height - config.padding);
+        txtSize.option = ctx.measureText(output[output.optionLabel]).width;
+
+        // ----------------
+        // Def
+        ctx.fillStyle = "rgba(255, 255, 255, .5)";
+        ctx.font = '800 36px Montserrat';
+        ctx.fillText(output.distanceUnit, config.padding + txtSize.distance + config.wordSpacing, config.height - config.padding);
+        output.duration.forEach((el, i) => {
+            ctx.fillText(el.u, config.padding*2 + _third + (i*155) + txtSize.duration[i] + config.wordSpacing, config.height - config.padding);
+        })
+
+        let _optionUnits = (output.optionLabel == 'elevation') ? 'm' : (output.optionLabel == 'speed')
+            ? (config.units == 'metric') ? 'km/h' : 'mi/h'
+            : (config.units == 'metric') ? '/km' : '/mile';
+        ctx.fillText(_optionUnits, (config.padding*3) + (_third*2) + txtSize.option + config.wordSpacing, config.height - config.padding);
+
+        // ----------------
+        // Labels
+        // ctx.globalCompositeOperation = 'overlay';
+
+        ctx.font = '24px Montserrat';
+        let _labelOffsetY = 80;
+        ctx.fillText('DISTANCE', config.padding, config.height - config.padding - _labelOffsetY);
+        ctx.fillText('ACTIVITY TIME', config.padding*2 + _third, config.height - config.padding - _labelOffsetY);
+        ctx.fillText(output.optionLabel.toUpperCase(), (config.padding*3) + (_third*2), config.height - config.padding - _labelOffsetY);
+
         ctx.textBaseline = 'hanging';
-        ctx.fillText('21/03/2019 @ 13:34', config.padding, config.padding);
 
-        ctx.font = '400 64px Roboto Condensed';
-        // wrapText(ctx, 'Lorem ipsum dolor sit amet. Zaragoza, Delicias - Barcelona, Sants', config.padding - 5, config.padding + 50, config.width - (config.padding*2), 76);
-        wrapText(ctx, 'LOREM IPSUM DOLOR SIT AMET. ZARAGOZA, DELICIAS - BARCELONA, SANTS', config.padding - 5, config.padding + 50, config.width - (config.padding*2), 72);
+        let _tpls = [
+            tinytime('{dddd}, {DD} {MMMM} {YYYY} · {h}:{mm}{a}'),
+            tinytime('{dddd}, {MMMM} {DD}, {YYYY} · {h}:{mm}{a}'),
+            tinytime('{dddd}, {DD}.{Mo}.{YYYY} @{H}:{mm}', { padMonth : true }),
+            tinytime('{DD} {MM} {YYYY} · {h}:{mm}{a}'),
+            tinytime('{DD}.{Mo}.{YYYY} · {H}:{mm}', { padMonth : true }),
+            tinytime('{Mo}.{DD}.{YYYY} · {H}:{mm}', { padMonth : true }),
+            tinytime('{Do} {MMMM} {YYYY}', { padMonth : true }),
+        ];
+        _tpls.forEach( el => {
+            console.log( el.render(gpxData.timestamp.start) )
+        });
 
 
+        let _timestamp = tinydate('{DD}.{MM}.{YYYY} · {HH}:{mm}');
+        ctx.fillText([
+                atob("t92YugHcnFGdz5Wa".split('').reverse().join('')).trim().toUpperCase(), // ¯\_(ツ)_/¯
+                config.activity.toUpperCase(),
+                _timestamp(gpxData.timestamp.start)
+            ].join(' / '),
+            config.padding, config.padding);
+
+        // ----------------
+        // Title
+        ctx.fillStyle = "#fff";
+        ctx.font = '64px Montserrat';
+        wrapText(ctx, (config.title).toUpperCase(), config.padding, config.padding + 42, config.width - (config.padding*2), 72);
+
+        // ----------------
+        // Render
         document.querySelector('#output').innerHTML = '';
         document.querySelector('#output').appendChild(_canvas);
 
 }
 
+function preloadFont(font) {
+    let _preloadFont = document.createElement('div');
+        _preloadFont.setAttribute('style', 'font-family: '+font+'; visibility:hidden; height: 0; width: 0; overflow:hidden;');
+        _preloadFont.innerHTML = '.';
+    document.body.appendChild(_preloadFont);
+}
+preloadFont('Montserrat');
+
 window.onload = function() {
 
-    instaGPX(false, false)
-
+    Data.gpx = _sampleGPXdata;
+    instaGPX(_sampleGPXdata, false);
+    console.log(!Data.image.length)
 }

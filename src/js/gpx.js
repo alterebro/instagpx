@@ -80,6 +80,7 @@ function readGPX(file, callback) {
 
         const start = new Date( trackpoints[ 0 ].time );
         const end = new Date( trackpoints[ trackpoints.length - 1 ].time );
+        const timestamp = { start, end }
         const duration = msToTime( Math.abs(end.getTime() - start.getTime()) );
         const distance = (function() {
 
@@ -167,7 +168,7 @@ function readGPX(file, callback) {
         }());
 
         // return {start, end, duration, distance, pace, speed};
-        return { duration, distance, pace, speed, elevation };
+        return { duration, distance, pace, speed, elevation, timestamp };
     }
 
     let reader = new FileReader();

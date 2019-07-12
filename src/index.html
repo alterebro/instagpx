@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>...</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Roboto+Condensed" />
+    <link rel="stylesheet" href="./css/fonts.css" />
     <link rel="stylesheet" href="./css/app.css" />
 </head>
 <body>
@@ -58,50 +58,57 @@
     <div>
         <dl>
             <dt><label for="activity-title">Title</label></dt>
-            <dd><input type="text" name="activity-title" id="activity-title" value="..." /></dd>
+            <dd><input type="text" name="activity-title" id="activity-title" v-model="options.title" value="..." /></dd>
 
             <dt><label for="activity-date">Date Format</label></dt>
             <dd>
                 <select name="activity-date" id="activity-date">
-                    <option value="">12 March 2019 · 12:34AM</option>
-                    <option value="">12/03/2019 23:34</option>
-                    <option value="">March 12, 2019 at 12:34 AM</option>
-                    <option value="">No date</option>
+                    <option value="">Friday, 12 July 2019 · 5:52PM</option>
+                    <option value="">Friday, July 12, 2019 · 5:52PM</option>
+                    <option value="">Friday, 12.07.2019 @17:52</option>
+                    <option value="">12 Jul 2019 · 5:52PM</option>
+                    <option value="">12.07.2019 · 17:52</option>
+                    <option value="">07.12.2019 · 17:52</option>
+                    <option value="">12th July 2019</option>
+                    <option value="false">No date!</option>
                 </select>
             </dd>
 
-            <dt>Activity Type</dt>
+            <dt>Activity Type : <em>{{ options.activity }}</em></dt>
             <dd>
                 <label for="activity-type-run">
-                <input type="radio" name="activity-type" id="activity-type-run" value="run" />
+                <input type="radio" name="activity-type" id="activity-type-run" v-model="options.activity" value="run" />
                 Run</label>
 
                 <label for="activity-type-ride">
-                <input type="radio" name="activity-type" id="activity-type-ride" checked="checked" value="ride" />
+                <input type="radio" name="activity-type" id="activity-type-ride" v-model="options.activity" value="ride" />
                 Ride</label>
             </dd>
 
-            <dt>Unit System</dt>
+            <dt>Unit System : <em>{{ options.units }}</em></dt>
             <dd>
                 <label for="activity-unit-metric">
-                <input type="radio" name="activity-unit" id="activity-unit-metric" checked="checked" value="metric" />
+                <input type="radio" name="activity-unit" id="activity-unit-metric" v-model="options.units" value="metric" />
                 Metric</label>
 
                 <label for="activity-unit-imperial">
-                <input type="radio" name="activity-unit" id="activity-unit-imperial" value="imperial" />
+                <input type="radio" name="activity-unit" id="activity-unit-imperial" v-model="options.units" value="imperial" />
                 Imperial</label>
             </dd>
 
             <dt>Options</dt>
             <dd>
-                <input type="radio" name="activity-show" id="activity-show-elevation" checked="checked" value="elevation" />
+                <input type="radio" name="activity-show" id="activity-show-elevation" v-model="options.show" value="elevation" />
                 <label for="activity-show-elevation">Elevation</label>
 
-                <input type="radio" name="activity-show" id="activity-show-speed" value="speed" />
-                <label for="activity-show-speed">Speed / Pace</label>
+                <input type="radio" name="activity-show" id="activity-show-speed" v-model="options.show" value="speed" />
+                <label for="activity-show-speed">
+                    <span v-if="options.activity == 'ride'">Speed</span>
+                    <span v-else>Pace</span>
+                </label>
             </dd>
         </dl>
-        <p><button type="button" name="activity-regenerate">Regenerate Image</button></p>
+        <p><button type="button" name="activity-regenerate" v-on:click="regenerateImage">Regenerate Image</button></p>
     </div>
 
 
@@ -121,6 +128,8 @@
     </ul>
 </footer>
 
+<script src="./js/tinydate.js" charset="utf-8"></script>
+<script src="./js/tinytime.js" charset="utf-8"></script>
 <script src="./js/vue.min.js" charset="utf-8"></script>
 <script src="./js/geocode.js" charset="utf-8"></script>
 <script src="./js/instagpx.js" charset="utf-8"></script>
