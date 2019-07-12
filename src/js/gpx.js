@@ -78,8 +78,13 @@ function readGPX(file, callback) {
 
         const trackpoints = gpxToJSON(_trkpts);
 
-        const start = new Date( trackpoints[0].time );
-        const end = new Date( trackpoints[trackpoints.length - 1].time );
+        // let a = new Date(trackpoints[0].time).getTime();
+        // console.log('a: ', a);
+        // let b = tinytime('{dddd}, {DD} {MMMM} {YYYY} · {h}:{mm}{a}')
+        // console.log( b.render(new Date(a)) )
+
+        const start = new Date(trackpoints[0].time).getTime();
+        const end = new Date(trackpoints[trackpoints.length - 1].time).getTime();
         const timestamp = { start, end }
 
         const startPoint = trackpoints[0];
@@ -95,7 +100,8 @@ function readGPX(file, callback) {
             }
         }
 
-        const duration = msToTime( Math.abs(end.getTime() - start.getTime()) );
+        // const duration = msToTime( Math.abs(end.getTime() - start.getTime()) );
+        const duration = msToTime( Math.abs(end - start) );
         const distance = (function() {
 
             let _distance = 0;

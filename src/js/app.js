@@ -1,25 +1,3 @@
-const Config = {
-    width : 1280,
-    height: 1280
-}
-
-const Data = {
-    gpxLoaded : false,
-    gpx : {},
-
-    imageLoaded : false,
-    image : {},
-
-    options : {
-        padding: 80,
-        activity : 'ride', // ride || run
-        units : 'metric', // metric || imperial
-        show : 'speed', // elevation || speed
-        wordSpacing : 10,
-        title : ''
-    }
-}
-
 // fake gpx data
 const _sampleGPXdata = {
 
@@ -54,8 +32,8 @@ const _sampleGPXdata = {
         gain : 984.4000000000439
     },
     timestamp : {
-        start : new Date(),
-        end : new Date()
+        start: 1561211353000,
+        end: 1561227078000
     },
     coords : {
         start: {
@@ -70,18 +48,36 @@ const _sampleGPXdata = {
 }
 
 
+// ---------------------
+
+const Config = {
+    width : 1280,
+    height: 1280
+}
+
+const Data = {
+    gpxLoaded : false,
+    gpx : {},
+
+    imageLoaded : false,
+    image : {},
+
+    options : { // Image default options
+        padding: 80,
+        activity : 'ride', // ride || run
+        units : 'metric', // metric || imperial
+        show : 'speed', // elevation || speed
+        wordSpacing : 10,
+        title : ''
+    }
+}
+
 const App = new Vue({
 
     el: '#app',
     data: Data,
     watch : {
         userDataLoaded : function(current, prev) {
-            console.log( 'new : ' +  current, 'prev : ' + prev );
-            console.log( this.image );
-            console.log( this.gpx );
-
-            // Create the image!
-            // instaGPX(this.gpx, this.image);
             instaGPX(this.gpx, this.image)
         }
     },
@@ -99,12 +95,12 @@ const App = new Vue({
                 (gpxData) => {
                     Data.gpx = gpxData
                     Data.gpxLoaded = true;
-                    console.log( this.gpx.elevation );
+
+                    console.log(gpxData.timestamp);
+                    // TODO : Process gpx file and modify options depending on data
+                    // TODO : Geolocate coords and make title
                 }
             );
-
-            // TODO : Process gpx file and modify options depending on data
-            // TODO : Geolocate coords and make title
         },
 
         loadIMG : function(e) {
@@ -114,7 +110,6 @@ const App = new Vue({
                 (imgData) => {
                     Data.image = imgData;
                     Data.imageLoaded = true;
-                    console.log( imgData );
                 }
             )
         },
@@ -126,3 +121,42 @@ const App = new Vue({
 
     created : function() {}
 })
+
+
+
+// Dev :
+
+// Preload Font
+function preloadFont(font) {
+    let _preloadFont = document.createElement('div');
+        _preloadFont.setAttribute('style', 'font-family: '+font+'; visibility:hidden; height: 0; width: 0; overflow:hidden;');
+        _preloadFont.innerHTML = '.';
+    document.body.appendChild(_preloadFont);
+}
+preloadFont('Montserrat');
+
+// Fire sample image
+function bogusImage(callback) {
+    const img = new Image();
+        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+        img.onload = function(e) {
+            let _canvas = document.createElement('canvas');
+                _canvas.width = this.width;
+                _canvas.height = this.height;
+            let _ctx = _canvas.getContext('2d');
+                _ctx.drawImage(img, 0, 0);
+            let _ctxData = _ctx.getImageData(0, 0, this.width, this.height);
+                callback(_ctxData);
+        }
+}
+
+// Fire sample gpx data
+window.onload = function() {
+
+    bogusImage((imgData) => {
+        Data.gpx = _sampleGPXdata;
+        Data.image = imgData;
+        instaGPX(_sampleGPXdata, imgData);
+    });
+
+}

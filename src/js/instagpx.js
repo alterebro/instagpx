@@ -136,15 +136,17 @@ function instaGPX(gpxData, imgData) {
             tinytime('{Do} {MMMM} {YYYY}', { padMonth : true }),
         ];
         _tpls.forEach( el => {
-            console.log( el.render(gpxData.timestamp.start) )
+            console.log( el.render( new Date(gpxData.timestamp.start) ) );
         });
 
 
-        let _timestamp = tinydate('{DD}.{MM}.{YYYY} · {HH}:{mm}');
+        let _timestamp = tinytime('{DD}.{MM}.{YYYY} · {H}:{mm}');
+        console.log( _timestamp.render(new Date(gpxData.timestamp.start)) );
+
         ctx.fillText([
                 atob("t92YugHcnFGdz5Wa".split('').reverse().join('')).trim().toUpperCase(), // ¯\_(ツ)_/¯
                 config.activity.toUpperCase(),
-                _timestamp(gpxData.timestamp.start)
+                _timestamp.render(new Date(gpxData.timestamp.start))
             ].join(' / '),
             config.padding, config.padding);
 
@@ -161,41 +163,5 @@ function instaGPX(gpxData, imgData) {
 
         // TODO: Render on an image
         // let _img = document.createElement('img');
-
-}
-
-
-// Preload Font
-function preloadFont(font) {
-    let _preloadFont = document.createElement('div');
-        _preloadFont.setAttribute('style', 'font-family: '+font+'; visibility:hidden; height: 0; width: 0; overflow:hidden;');
-        _preloadFont.innerHTML = '.';
-    document.body.appendChild(_preloadFont);
-}
-preloadFont('Montserrat');
-
-// Fire sample image
-function bogusImage(callback) {
-    const img = new Image();
-        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
-        img.onload = function(e) {
-            let _canvas = document.createElement('canvas');
-                _canvas.width = this.width;
-                _canvas.height = this.height;
-            let _ctx = _canvas.getContext('2d');
-                _ctx.drawImage(img, 0, 0);
-            let _ctxData = _ctx.getImageData(0, 0, this.width, this.height);
-                callback(_ctxData);
-        }
-}
-
-// Fire sample gpx data
-window.onload = function() {
-
-    bogusImage((imgData) => {
-        Data.gpx = _sampleGPXdata;
-        Data.image = imgData;
-        instaGPX(_sampleGPXdata, imgData);
-    });
 
 }

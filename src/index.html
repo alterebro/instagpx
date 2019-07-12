@@ -85,7 +85,7 @@
                         Imperial</label>
                     </dd>
 
-                    <dt>Options</dt>
+                    <dt>Options : <em>{{ options.show }}</em></dt>
                     <dd>
                         <input type="radio" name="activity-show" id="activity-show-elevation" v-model="options.show" value="elevation" />
                         <label for="activity-show-elevation">Elevation</label>
@@ -100,14 +100,16 @@
                 <p><button type="button" name="activity-regenerate" v-on:click="regenerateImage">Regenerate Image</button></p>
             </div>
 
-            <ul v-if="gpxLoaded">
-                <li><strong>User data loaded</strong> : {{ userDataLoaded }} </li>
-                <li>Distance :  {{ gpx.distance.km }} (km)</li>
-                <li>Duration : {{ gpx.duration.hours }}h{{ gpx.duration.minutes }}m{{ gpx.duration.seconds }}s</li>
-                <li>Speed: {{ gpx.speed.kmh }} (km/h)</li>
-                <li>Pace: {{ gpx.pace.perKm.minutes }}:{{ gpx.pace.perKm.seconds }} (min/Km)</li>
-                <li>Elevation Gain: {{ gpx.elevation.gain }}m</li>
-            </ul>
+            <div v-if="gpxLoaded">
+                <ul>
+                    <li><strong>User data loaded : {{ userDataLoaded }}</strong></li>
+                    <li>Distance :  {{ gpx.distance.km }} (km)</li>
+                    <li>Duration : {{ gpx.duration.hours }}h{{ gpx.duration.minutes }}m{{ gpx.duration.seconds }}s</li>
+                    <li>Speed: {{ gpx.speed.kmh }} (km/h)</li>
+                    <li>Pace: {{ gpx.pace.perKm.minutes }}:{{ gpx.pace.perKm.seconds }} (min/Km)</li>
+                    <li>Elevation Gain: {{ gpx.elevation.gain }}m</li>
+                </ul>
+            </div>
         </aside>
     </main>
 </div>
