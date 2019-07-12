@@ -70,61 +70,33 @@ header[role="banner"] {
     }
 }
 
-main[role="main"]#app {
-    border-radius: 3px;
-    background: #fff;
-    padding: 3rem;
-    width: 100%;
-    max-width: 70rem;
+#app {
 
-    div[role="form"] {
-        padding: 0 3rem 0 0;
+    section[role="form"] {
         display: flex;
-        flex-wrap: nowrap;
-
-        figure {
-            figcaption {
-                font-size: 80%;
-            }
-            img {
-                height: 3.6rem;
-                width: auto;
-                opacity: .35;
-            }
-        }
+        padding: 2rem;
     }
 
-    figure.instagpx {
+    main[role="main"] {
+        border-radius: 3px;
+        background: #fff;
+        padding: 3rem;
         width: 100%;
-        max-width: 640px;
-        position: relative;
+        display: flex;
 
-        &:after {
-            content: '';
-            display: block;
-            padding-top: 100%;
+        figure {
+            flex: 0 0 640px;
+
+            #output {
+                canvas, img {
+                    width: 100%;
+                    max-width: 640px;
+                }
+            }
         }
-
-        #output {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: #eee;
-            width: 100%;
-            height: 100%;
-
-            canvas {
-                display: block;
-                width: 100%;
-                height: 100%;
-            }
-
-            canvas#instaGPX {
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 10;
-            }
+        aside {
+            flex: 1 1 auto;
+            padding: 0 3rem;
         }
     }
 }

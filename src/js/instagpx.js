@@ -55,7 +55,7 @@ function instaGPX(gpxData, imgData) {
             ctx.fillRect(0, 0, config.width, config.height);
 
         // Attach Image
-        if (imgData) { ctx.putImageData(imgData, 0, 0) }
+        // if (imgData) { ctx.putImageData(imgData, 0, 0) }
 
         // Overlaying Shadow BG
         // ctx.globalCompositeOperation = 'overlay';

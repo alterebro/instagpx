@@ -78,9 +78,24 @@ function readGPX(file, callback) {
 
         const trackpoints = gpxToJSON(_trkpts);
 
-        const start = new Date( trackpoints[ 0 ].time );
-        const end = new Date( trackpoints[ trackpoints.length - 1 ].time );
+        const start = new Date( trackpoints[0].time );
+        const end = new Date( trackpoints[trackpoints.length - 1].time );
         const timestamp = { start, end }
+
+        const startPoint = trackpoints[0];
+        const endPoint = trackpoints[trackpoints.length-1];
+        const coords = {
+            start : {
+                lat : startPoint.lat,
+                lon : startPoint.lon
+            },
+            end : {
+                lat : endPoint.lat,
+                lon : endPoint.lon
+            }
+        }
+        console.log(coords);
+
         const duration = msToTime( Math.abs(end.getTime() - start.getTime()) );
         const distance = (function() {
 
@@ -167,8 +182,7 @@ function readGPX(file, callback) {
 
         }());
 
-        // return {start, end, duration, distance, pace, speed};
-        return { duration, distance, pace, speed, elevation, timestamp };
+        return { duration, distance, pace, speed, elevation, timestamp, coords };
     }
 
     let reader = new FileReader();

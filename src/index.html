@@ -14,119 +14,119 @@
     <p>Upload your GPX acitvity file and image and select your favorite style</p>
 </header>
 
-<main role="main" id="app">
-
-    <div class="app-header">
-        <div role="form">
-            <div>
-                <figure>
-                    <img src="img/file-code-regular.svg" alt=".GPX File">
-                    <figcaption>Upload your <strong>GPX</strong> Activity file</figcaption>
-                </figure>
-                <p>
-                    <label for="user-file-gpx"><strong>GPX</strong></label>
-                    <input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
-                </p>
-            </div>
-            <div>
-                <figure>
-                    <img src="img/file-image-regular.svg" alt="Image">
-                    <figcaption>Upload a <strong>Image</strong> file</figcaption>
-                </figure>
-                <p>
-                    <label for="user-file-gpx"><strong>Image</strong></label>
-                    <input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
-                </p>
-            </div>
+<div id="app">
+    <section role="form">
+        <div>
+            <figure>
+                <img src="img/file-code-regular.svg" alt=".GPX File" width="24" />
+                <figcaption>Upload your <strong>GPX</strong> Activity file</figcaption>
+            </figure>
+            <p>
+                <label for="user-file-gpx"><strong>GPX</strong></label>
+                <input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
+            </p>
         </div>
-        <ul v-if="gpxLoaded">
-            <li><strong>User data loaded</strong> : {{ userDataLoaded }} </li>
-            <li>Distance :  {{ gpx.distance.km }} (km)</li>
-            <li>Duration : {{ gpx.duration.hours }}h{{ gpx.duration.minutes }}m{{ gpx.duration.seconds }}s</li>
-            <li>Speed: {{ gpx.speed.kmh }} (km/h)</li>
-            <li>Pace: {{ gpx.pace.perKm.minutes }}:{{ gpx.pace.perKm.seconds }} (min/Km)</li>
-            <li>Elevation Gain: {{ gpx.elevation.gain }}m</li>
-        </ul>
-    </div>
+        <div>
+            <figure>
+                <img src="img/file-image-regular.svg" alt="Image" width="24" />
+                <figcaption>Upload a <strong>Image</strong> file</figcaption>
+            </figure>
+            <p>
+                <label for="user-file-gpx"><strong>Image</strong></label>
+                <input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
+            </p>
+        </div>
+    </section>
 
-    <hr>
+    <main role="main">
+        <figure>
+            <div id="output"></div>
+        </figure>
 
-    <figure class="instagpx">
-        <div id="output"></div>
-    </figure>
+        <aside role="complementary">
+            <div role="form">
+                <dl>
+                    <dt><label for="activity-title">Title</label></dt>
+                    <dd><input type="text" name="activity-title" id="activity-title" v-model="options.title" value="..." /></dd>
 
-    <div>
-        <dl>
-            <dt><label for="activity-title">Title</label></dt>
-            <dd><input type="text" name="activity-title" id="activity-title" v-model="options.title" value="..." /></dd>
+                    <dt><label for="activity-date">Date Format</label></dt>
+                    <dd>
+                        <select name="activity-date" id="activity-date">
+                            <option value="">Friday, 12 July 2019 · 5:52PM</option>
+                            <option value="">Friday, July 12, 2019 · 5:52PM</option>
+                            <option value="">Friday, 12.07.2019 @17:52</option>
+                            <option value="">12 Jul 2019 · 5:52PM</option>
+                            <option value="">12.07.2019 · 17:52</option>
+                            <option value="">07.12.2019 · 17:52</option>
+                            <option value="">12th July 2019</option>
+                            <option value="false">No date!</option>
+                        </select>
+                    </dd>
 
-            <dt><label for="activity-date">Date Format</label></dt>
-            <dd>
-                <select name="activity-date" id="activity-date">
-                    <option value="">Friday, 12 July 2019 · 5:52PM</option>
-                    <option value="">Friday, July 12, 2019 · 5:52PM</option>
-                    <option value="">Friday, 12.07.2019 @17:52</option>
-                    <option value="">12 Jul 2019 · 5:52PM</option>
-                    <option value="">12.07.2019 · 17:52</option>
-                    <option value="">07.12.2019 · 17:52</option>
-                    <option value="">12th July 2019</option>
-                    <option value="false">No date!</option>
-                </select>
-            </dd>
+                    <dt>Activity Type : <em>{{ options.activity }}</em></dt>
+                    <dd>
+                        <label for="activity-type-run">
+                        <input type="radio" name="activity-type" id="activity-type-run" v-model="options.activity" value="run" />
+                        Run</label>
 
-            <dt>Activity Type : <em>{{ options.activity }}</em></dt>
-            <dd>
-                <label for="activity-type-run">
-                <input type="radio" name="activity-type" id="activity-type-run" v-model="options.activity" value="run" />
-                Run</label>
+                        <label for="activity-type-ride">
+                        <input type="radio" name="activity-type" id="activity-type-ride" v-model="options.activity" value="ride" />
+                        Ride</label>
+                    </dd>
 
-                <label for="activity-type-ride">
-                <input type="radio" name="activity-type" id="activity-type-ride" v-model="options.activity" value="ride" />
-                Ride</label>
-            </dd>
+                    <dt>Unit System : <em>{{ options.units }}</em></dt>
+                    <dd>
+                        <label for="activity-unit-metric">
+                        <input type="radio" name="activity-unit" id="activity-unit-metric" v-model="options.units" value="metric" />
+                        Metric</label>
 
-            <dt>Unit System : <em>{{ options.units }}</em></dt>
-            <dd>
-                <label for="activity-unit-metric">
-                <input type="radio" name="activity-unit" id="activity-unit-metric" v-model="options.units" value="metric" />
-                Metric</label>
+                        <label for="activity-unit-imperial">
+                        <input type="radio" name="activity-unit" id="activity-unit-imperial" v-model="options.units" value="imperial" />
+                        Imperial</label>
+                    </dd>
 
-                <label for="activity-unit-imperial">
-                <input type="radio" name="activity-unit" id="activity-unit-imperial" v-model="options.units" value="imperial" />
-                Imperial</label>
-            </dd>
+                    <dt>Options</dt>
+                    <dd>
+                        <input type="radio" name="activity-show" id="activity-show-elevation" v-model="options.show" value="elevation" />
+                        <label for="activity-show-elevation">Elevation</label>
 
-            <dt>Options</dt>
-            <dd>
-                <input type="radio" name="activity-show" id="activity-show-elevation" v-model="options.show" value="elevation" />
-                <label for="activity-show-elevation">Elevation</label>
+                        <input type="radio" name="activity-show" id="activity-show-speed" v-model="options.show" value="speed" />
+                        <label for="activity-show-speed">
+                            <span v-if="options.activity == 'ride'">Speed</span>
+                            <span v-else>Pace</span>
+                        </label>
+                    </dd>
+                </dl>
+                <p><button type="button" name="activity-regenerate" v-on:click="regenerateImage">Regenerate Image</button></p>
+            </div>
 
-                <input type="radio" name="activity-show" id="activity-show-speed" v-model="options.show" value="speed" />
-                <label for="activity-show-speed">
-                    <span v-if="options.activity == 'ride'">Speed</span>
-                    <span v-else>Pace</span>
-                </label>
-            </dd>
-        </dl>
-        <p><button type="button" name="activity-regenerate" v-on:click="regenerateImage">Regenerate Image</button></p>
-    </div>
-
-
-
-</main>
+            <ul v-if="gpxLoaded">
+                <li><strong>User data loaded</strong> : {{ userDataLoaded }} </li>
+                <li>Distance :  {{ gpx.distance.km }} (km)</li>
+                <li>Duration : {{ gpx.duration.hours }}h{{ gpx.duration.minutes }}m{{ gpx.duration.seconds }}s</li>
+                <li>Speed: {{ gpx.speed.kmh }} (km/h)</li>
+                <li>Pace: {{ gpx.pace.perKm.minutes }}:{{ gpx.pace.perKm.seconds }} (min/Km)</li>
+                <li>Elevation Gain: {{ gpx.elevation.gain }}m</li>
+            </ul>
+        </aside>
+    </main>
+</div>
 
 <footer role="contentinfo">
     <p>A project By : <strong><a href="https://moro.es" target="_blank" rel="noopener noreferrer" title="Author website: www.moro.es" data-tooltip data-tooltiplocation="top-right">Jorge Moreno</a> &middot; <a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!" data-tooltip>@alterebro</a></strong></p>
-
-    <h4>Share! :</h4>
-    <ul>
-        <li class="twitter"><a href="https://twitter.com/intent/tweet?text={TEXT}&url={URL}" target="_blank" rel="noopener noreferrer" title="Share on Twitter" data-tooltip data-tooltiplocation="top-right">Twitter</a></li>
-        <li class="facebook"><a href="https://www.facebook.com/sharer.php?u={URL}" target="_blank" rel="noopener noreferrer" title="Share on FaceBook" data-tooltip>FaceBook</a></li>
-        <li class="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url={URL}&title={TITLE}&summary={TEXT}&source=moro.es" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn" data-tooltip>LinkedIn</a></li>
-        <li class="email"><a href="mailto:?subject={TITLE}&amp;body={URL}%0A{TEXT}" target="_blank" rel="noopener noreferrer" title="Share it via E-Mail" data-tooltip data-tooltiplocation="top-left">Mail</a></li>
-        <li class="telegram"><a href="https://telegram.me/share/url?url={URL}&amp;text={TEXT}" target="_blank" rel="noopener noreferrer" title="Share it via Telegram" data-tooltip data-tooltiplocation="top-left">Telegram</a></li>
-    </ul>
+    <nav>
+        <h4>Share! :</h4>
+        <ul>
+            <li class="twitter"><a href="https://twitter.com/intent/tweet?text={TEXT}&url={URL}" target="_blank" rel="noopener noreferrer" title="Share on Twitter" data-tooltip data-tooltiplocation="top-right">Twitter</a></li>
+            <li class="facebook"><a href="https://www.facebook.com/sharer.php?u={URL}" target="_blank" rel="noopener noreferrer" title="Share on FaceBook" data-tooltip>FaceBook</a></li>
+            <li class="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url={URL}&title={TITLE}&summary={TEXT}&source=moro.es" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn" data-tooltip>LinkedIn</a></li>
+            <li class="email"><a href="mailto:?subject={TITLE}&amp;body={URL}%0A{TEXT}" target="_blank" rel="noopener noreferrer" title="Share it via E-Mail" data-tooltip data-tooltiplocation="top-left">Mail</a></li>
+            <li class="telegram"><a href="https://telegram.me/share/url?url={URL}&amp;text={TEXT}" target="_blank" rel="noopener noreferrer" title="Share it via Telegram" data-tooltip data-tooltiplocation="top-left">Telegram</a></li>
+        </ul>
+    </nav>
 </footer>
+
+
 
 <script src="./js/tinydate.js" charset="utf-8"></script>
 <script src="./js/tinytime.js" charset="utf-8"></script>

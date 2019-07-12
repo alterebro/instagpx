@@ -16,7 +16,7 @@ const Data = {
         units : 'metric', // metric || imperial
         show : 'speed', // elevation || speed
         wordSpacing : 10,
-        title : 'Lorem ipsum dolor sit amet...'
+        title : ''
     }
 }
 
@@ -56,6 +56,16 @@ const _sampleGPXdata = {
     timestamp : {
         start : new Date(),
         end : new Date()
+    },
+    coords : {
+        start: {
+            lat: 41.65770525261192,
+            lon: -0.8835305651195751
+        },
+        end: {
+            lat: 41.657082617633016,
+            lon: -0.8838709687504532
+        }
     }
 }
 
@@ -92,6 +102,9 @@ const App = new Vue({
                     console.log( this.gpx.elevation );
                 }
             );
+
+            // TODO : Process gpx file and modify options depending on data
+            // TODO : Geolocate coords and make title
         },
 
         loadIMG : function(e) {
