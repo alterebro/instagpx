@@ -52,7 +52,16 @@ const _sampleGPXdata = {
 
 const Config = {
     width : 1280,
-    height: 1280
+    height: 1280,
+    timestampTemplates : [
+        '{dddd}, {DD} {MMMM} {YYYY} · {h}:{mm}{a}',
+        '{dddd}, {MMMM} {DD}, {YYYY} · {h}:{mm}{a}',
+        '{dddd}, {DD}.{Mo}.{YYYY} @{H}:{mm}',
+        '{DD} {MM} {YYYY} · {h}:{mm}{a}',
+        '{DD}.{Mo}.{YYYY} · {H}:{mm}',
+        '{Mo}.{DD}.{YYYY} · {H}:{mm}',
+        '{Do} {MMMM} {YYYY}'
+    ]
 }
 
 const Data = {
@@ -62,20 +71,29 @@ const Data = {
     imageLoaded : false,
     image : {},
 
+    dateTemplates : Config.timestampTemplates,
     options : { // Image default options
         padding: 80,
         activity : 'ride', // ride || run
         units : 'metric', // metric || imperial
         show : 'speed', // elevation || speed
         wordSpacing : 10,
-        title : ''
+        title : '',
+        timestampPattern : 3,
     }
 }
+
 
 const App = new Vue({
 
     el: '#app',
     data: Data,
+    filters : {
+        renderTimestamp : function(value, template) {
+            let _timestamp = tinytime(template);
+            return _timestamp.render( new Date(value) );
+        }
+    },
     watch : {
         userDataLoaded : function(current, prev) {
             instaGPX(this.gpx, this.image)

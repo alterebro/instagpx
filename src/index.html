@@ -49,9 +49,16 @@
                     <dt><label for="activity-title">Title</label></dt>
                     <dd><input type="text" name="activity-title" id="activity-title" v-model="options.title" value="..." /></dd>
 
-                    <dt><label for="activity-date">Date Format</label></dt>
-                    <dd>
-                        <select name="activity-date" id="activity-date">
+                    <dt><label for="activity-date">Date Format : {{ options.timestampPattern }}</label></dt>
+                    <dd v-if="gpx.timestamp">
+                        <select v-model="options.timestampPattern" name="activity-date" id="activity-date">
+                            <option v-for="(pattern, index) in dateTemplates" v-bind:value="index">
+                                {{ gpx.timestamp.start | renderTimestamp(pattern) }}
+                            </option>
+                            <option value="false">No Date!</option>
+                        </select>
+
+                        <!-- <select name="activity-date" id="activity-date">
                             <option value="">Friday, 12 July 2019 · 5:52PM</option>
                             <option value="">Friday, July 12, 2019 · 5:52PM</option>
                             <option value="">Friday, 12.07.2019 @17:52</option>
@@ -60,7 +67,7 @@
                             <option value="">07.12.2019 · 17:52</option>
                             <option value="">12th July 2019</option>
                             <option value="false">No date!</option>
-                        </select>
+                        </select> -->
                     </dd>
 
                     <dt>Activity Type : <em>{{ options.activity }}</em></dt>

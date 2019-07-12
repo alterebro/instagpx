@@ -126,29 +126,19 @@ function instaGPX(gpxData, imgData) {
 
         ctx.textBaseline = 'hanging';
 
-        let _tpls = [
-            tinytime('{dddd}, {DD} {MMMM} {YYYY} · {h}:{mm}{a}'),
-            tinytime('{dddd}, {MMMM} {DD}, {YYYY} · {h}:{mm}{a}'),
-            tinytime('{dddd}, {DD}.{Mo}.{YYYY} @{H}:{mm}', { padMonth : true }),
-            tinytime('{DD} {MM} {YYYY} · {h}:{mm}{a}'),
-            tinytime('{DD}.{Mo}.{YYYY} · {H}:{mm}', { padMonth : true }),
-            tinytime('{Mo}.{DD}.{YYYY} · {H}:{mm}', { padMonth : true }),
-            tinytime('{Do} {MMMM} {YYYY}', { padMonth : true }),
-        ];
-        _tpls.forEach( el => {
-            console.log( el.render( new Date(gpxData.timestamp.start) ) );
-        });
-
-
-        let _timestamp = tinytime('{DD}.{MM}.{YYYY} · {H}:{mm}');
-        console.log( _timestamp.render(new Date(gpxData.timestamp.start)) );
-
-        ctx.fillText([
+        let _tpl = Config.timestampTemplates[config.timestampPattern];
+        let _datetime = null;
+        if (!!_tpl) {
+            let _timestamp = tinytime(_tpl, { padMonth : true });
+                _datetime = _timestamp.render(new Date(gpxData.timestamp.start));
+                _datetime = _datetime.toUpperCase()
+        }
+        let _top = [
                 atob("t92YugHcnFGdz5Wa".split('').reverse().join('')).trim().toUpperCase(), // ¯\_(ツ)_/¯
-                config.activity.toUpperCase(),
-                _timestamp.render(new Date(gpxData.timestamp.start))
-            ].join(' / '),
-            config.padding, config.padding);
+                config.activity.toUpperCase()
+            ];
+        if (!!_datetime) { _top.push(_datetime) }
+        ctx.fillText(_top.join(' / '), config.padding, config.padding);
 
         // ----------------
         // Title
