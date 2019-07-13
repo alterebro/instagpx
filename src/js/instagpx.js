@@ -156,9 +156,39 @@ function instaGPX(gpxData, imgData) {
         document.querySelector('#output').innerHTML = '';
         // document.querySelector('#output').appendChild(_canvas);
 
-        // Render on an Image tag
-        let _img = document.createElement('img');
-            _img.src = _canvas.toDataURL('image/jpeg', .5);
+
+        _canvas.toBlob(function(blob) {
+
+
+            let _output = new File([blob], 'instagpx.com.jpg', { type : 'image/jpeg', lastModified: Date.now() });
+            let objectURL = URL.createObjectURL(_output);
+
+            let _img = document.createElement('img');
+                _img.src = objectURL;
+                _img.onload = function() {
+                    console.log('twice?')
+                }
+                _img.addEventListener('contextmenu', (e) => { e.preventDefault() }, true);
+
             document.querySelector('#output').appendChild(_img);
+            document.querySelector('#download-img').href = objectURL;
+            // window.URL.revokeObjectURL(objectURL);
+
+        }, 'image/jpeg', .65);
+
+
+
+        /*
+        // Render on an Image tag
+        let _dataURL = _canvas.toDataURL('image/jpeg', .5);
+        let _img = document.createElement('img');
+            _img.src = _dataURL;
+            _img.addEventListener('contextmenu', (e) => { e.preventDefault() }, true);
+
+            document.querySelector('#output').appendChild(_img);
+
+        let _lnk = document.querySelector('#download-img');
+            _lnk.href = _dataURL;
+        */
 
 }

@@ -143,7 +143,10 @@ const App = new Vue({
     },
     watch : {
         userDataLoaded : function(current, prev) {
-            instaGPX(this.gpx, this.image)
+            console.log(current, prev);
+            if (current == true) {
+                // instaGPX(this.gpx, this.image)
+            }
         }
         // ,options : {
         //     handler : function(current, prev) {
@@ -224,6 +227,7 @@ const App = new Vue({
         },
 
         regenerateImage : function() {
+            console.log('regenerating?');
             instaGPX(this.gpx, this.image)
         }
     },
