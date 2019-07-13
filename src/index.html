@@ -45,6 +45,7 @@
 
         <aside role="complementary">
             <div role="form">
+                <h3>Options</h3>
                 <dl>
                     <dt><label for="activity-title">Title</label></dt>
                     <dd><input type="text" name="activity-title" id="activity-title" v-model="options.title" value="..." /></dd>
@@ -93,11 +94,12 @@
                         </label>
                     </dd>
                 </dl>
-                <p><button type="button" name="activity-regenerate" v-on:click="regenerateImage">Regenerate Image</button></p>
+                <!-- <p><button type="button" name="activity-regenerate" v-on:click="regenerateImage">Regenerate Image</button></p> -->
             </div>
 
             <div v-if="gpxLoaded">
                 <hr />
+                <h3>Data</h3>
                 <ul>
                     <li><strong>User data loaded : {{ userDataLoaded }}</strong></li>
                     <li>Distance :  {{ gpx.distance.km }} (km)</li>

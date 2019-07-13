@@ -95,13 +95,16 @@ const Config = {
     width : 1280,
     height: 1280,
     timestampTemplates : [
+        '{Do} {MMMM} {YYYY}',
+        '{MMMM} {Do}, {YYYY}',
+        '{DD} {MMMM} {YYYY}',
+        '{MMMM} {DD}, {YYYY}',
         '{dddd}, {DD} {MMMM} {YYYY} · {h}:{mm}{a}',
         '{dddd}, {MMMM} {DD}, {YYYY} · {h}:{mm}{a}',
         '{dddd}, {DD}.{Mo}.{YYYY} @{H}:{mm}',
         '{DD} {MM} {YYYY} · {h}:{mm}{a}',
         '{DD}.{Mo}.{YYYY} · {H}:{mm}',
-        '{Mo}.{DD}.{YYYY} · {H}:{mm}',
-        '{Do} {MMMM} {YYYY}'
+        '{Mo}.{DD}.{YYYY} · {H}:{mm}'
     ]
 }
 
@@ -131,14 +134,22 @@ const App = new Vue({
     data: Data,
     filters : {
         renderTimestamp : function(value, template) {
-            let _timestamp = tinytime(template);
+            let _timestamp = tinytime(template, { padMonth: true });
             return _timestamp.render( new Date(value) );
         }
     },
     watch : {
         userDataLoaded : function(current, prev) {
             instaGPX(this.gpx, this.image)
+        },
+        options : {
+            handler : function(current, prev) {
+                console.log(current, prev);
+                this.regenerateImage();
+            },
+            deep : true
         }
+
     },
     computed : {
         userDataLoaded : function() {
@@ -158,8 +169,7 @@ const App = new Vue({
 
                 reverseGeocoding(_latEnd, _lonEnd, (end) => {
 
-                    // console.log(start, end);
-                    // let _output = '';
+                    let _output = '';
                         _output = (start.name != end.name)
                             ? start.name + ' - ' + end.name
                             : start.displayName;
