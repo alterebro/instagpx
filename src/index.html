@@ -22,7 +22,7 @@
 <body>
 
 <header role="banner">
-    <h1><img src="./img/instagpx.png" alt="InstaGPX" /></h1>
+    <h1><img src="./img/instagpx.svg" alt="InstaGPX" /></h1>
     <p>Create a picture to share with your activity stats and any of your photos</p>
     <p>Upload your GPX acitvity file and image and select your favorite style</p>
 </header>
@@ -103,10 +103,10 @@
                         </label>
                     </dd>
 
-                    <dt>Promote instagpx.com : {{ options.promote }}</dt>
+                    <dt>Promote <strong>instagpx.com</strong> : {{ options.promote }}</dt>
                     <dd>
                         <input type="checkbox" name="activity-promote" id="activity-promote" v-model="options.promote" />
-                        <label for="activity-promote">Show <em>instagpx.com</em> on the image</label>
+                        <label for="activity-promote">Show 'instagpx.com' on the image</label>
                     </dd>
                 </dl>
                 <p><button type="submit" name="activity-regenerate" v-on:click="regenerateImage">Regenerate Image</button></p>
