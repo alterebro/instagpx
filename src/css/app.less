@@ -17,6 +17,9 @@ button, input, select, textarea {
 
 /* --- */
 
+@import url('https://fonts.googleapis.com/css?family=Barlow:400,700&display=swap');
+
+
 html {
     line-height: 1;
 	text-size-adjust: 100%;
@@ -27,8 +30,8 @@ html {
     cursor: default;
 }
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Arial, sans-serif;;
-    font-size: 1.5em;
+    font-family: 'Barlow', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Arial, sans-serif;;
+    font-size: 1.6em;
     line-height: 1.6;
     background: #f8f8f8;
     color: #333;
@@ -49,13 +52,13 @@ hr {
     margin: 2rem 0;
 }
 a {
-    color: #069;
+    color: #606990;
     text-decoration: none;
     border-bottom: solid transparent 2px;
 
     &:hover {
         color: #000;
-        border-bottom: solid #069 2px;
+        border-bottom: solid #797f9f 2px;
     }
 }
 
@@ -74,21 +77,59 @@ header[role="banner"] {
 
 #app {
 
+
     section[role="form"] {
         display: flex;
         padding: 2rem;
         justify-content: center;
         text-align: center;
-        > div {
-            padding: 1rem 2rem;
 
-            input {
-                background: #797f9f;
-                width: 100%;
-                max-width: 180px;
-                height: 36px;
-                margin: 2rem 0 0 0;
-                border-radius: 5px;
+        > div {
+            padding: 1rem;
+
+            p.file-ok {
+                // color: 797f9f / 606990
+                color: #609f69;
+                padding: 1rem 0 0 0;
+
+                &:before {
+                    content: '\002714';
+                    display: inline-block;
+                    margin: 0 5px 0 0;
+                    font-size: 80%;
+                }
+            }
+
+            input[type="file"] {
+                width: 0.1px;
+                height: 0.1px;
+                opacity: 0;
+                overflow: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+
+            input[type="file"] + label {
+                color: #fff;
+                background-color: #797f9f;
+                display: inline-block;
+                cursor: pointer;
+                padding: 10px 16px;
+                border-radius: 3px;
+
+                img {
+                    vertical-align: baseline;
+                    position: relative;
+                    top: 2px;
+                    display: inline-block;
+                    margin: 0 5px 0 0;
+                }
+            }
+            .inputfile + label * { pointer-events: none }
+
+            input[type="file"]:focus + label,
+            input[type="file"] + label:hover {
+                background-color: #606990;
             }
         }
     }
@@ -124,11 +165,24 @@ header[role="banner"] {
             dd { padding: 0 0 1rem 0 }
 
             input[type="text"],
+            button[type="submit"],
             select {
                 width: 100%;
                 max-width: 100%;
                 border-radius: 3px;
                 border: solid #ccc 1px;
+                padding: 5px 10px;
+            }
+            button[type="submit"] {
+                padding: 5px 10px;
+                background: #797f9f;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+
+                &:hover {
+                    background: #606990;
+                }
             }
         }
     }

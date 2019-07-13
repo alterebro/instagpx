@@ -110,9 +110,11 @@ const Config = {
 
 const Data = {
     gpxLoaded : false,
+    gpxFile : null,
     gpx : {},
 
     imageLoaded : false,
+    imageFile : null,
     image : {},
 
     dateTemplates : Config.timestampTemplates,
@@ -142,14 +144,14 @@ const App = new Vue({
     watch : {
         userDataLoaded : function(current, prev) {
             instaGPX(this.gpx, this.image)
-        },
-        options : {
-            handler : function(current, prev) {
-                console.log(current, prev);
-                this.regenerateImage();
-            },
-            deep : true
         }
+        // ,options : {
+        //     handler : function(current, prev) {
+        //         console.log(current, prev);
+        //         this.regenerateImage();
+        //     },
+        //     deep : true
+        // }
 
     },
     computed : {
@@ -192,7 +194,10 @@ const App = new Vue({
         },
 
         loadGPX : function(e) {
+
             if ( !e.target.files.length ) { return }
+            this.gpxFile = e.target.value.split( '\\' ).pop();
+
             readGPX(
                 e.target.files[0],
                 (gpxData) => {
@@ -205,6 +210,8 @@ const App = new Vue({
 
         loadIMG : function(e) {
             if ( !e.target.files.length ) { return }
+            this.imageFile = e.target.value.split( '\\' ).pop();
+
             createIMG(
                 e.target.files[0],
                 (imgData) => {
