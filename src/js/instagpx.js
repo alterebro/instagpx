@@ -133,18 +133,23 @@ function instaGPX(gpxData, imgData) {
                 _datetime = _timestamp.render(new Date(gpxData.timestamp.start));
                 _datetime = _datetime.toUpperCase()
         }
-        let _top = [
-                atob("t92YugHcnFGdz5Wa".split('').reverse().join('')).trim().toUpperCase(), // ¯\_(ツ)_/¯
-                config.activity.toUpperCase()
-            ];
-        if (!!_datetime) { _top.push(_datetime) }
+        let _top = [];
+        // ¯\_(ツ)_/¯
+        if (config.promote) {
+            _top.push(atob("t92YugHcnFGdz5Wa".split('').reverse().join('')).trim().toUpperCase());
+        }
+        if (!!_datetime) {
+            _top.push(config.activity.toUpperCase());
+            _top.push(_datetime)
+        }
         ctx.fillText(_top.join(' / '), config.padding, config.padding);
 
         // ----------------
         // Title
         ctx.fillStyle = "#fff";
         ctx.font = '64px Montserrat';
-        wrapText(ctx, (config.title).toUpperCase(), config.padding, config.padding + 42, config.width - (config.padding*2), 72);
+        let _titleOffset = (_top.length) ? 42 : 0;
+        wrapText(ctx, (config.title).toUpperCase(), config.padding, config.padding + _titleOffset, config.width - (config.padding*2), 72);
 
         // ----------------
         // Render

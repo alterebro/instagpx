@@ -39,7 +39,7 @@
     </section>
 
     <main role="main">
-        <figure>
+        <figure role="figure">
             <div id="output"></div>
         </figure>
 
@@ -92,6 +92,12 @@
                             <span v-if="options.activity == 'ride'">Speed</span>
                             <span v-else>Pace</span>
                         </label>
+                    </dd>
+
+                    <dt>Promote instagpx.com : {{ options.promote }}</dt>
+                    <dd>
+                        <input type="checkbox" name="activity-promote" id="activity-promote" v-model="options.promote" />
+                        <label for="activity-promote">Show instagpx.com on the image</label>
                     </dd>
                 </dl>
                 <!-- <p><button type="button" name="activity-regenerate" v-on:click="regenerateImage">Regenerate Image</button></p> -->

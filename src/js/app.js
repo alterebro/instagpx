@@ -124,6 +124,7 @@ const Data = {
         wordSpacing : 10,
         title : '',
         timestampPattern : 3,
+        promote : true
     }
 }
 
@@ -184,7 +185,7 @@ const App = new Vue({
             if ( _distance <= 12 ) { if (_speed < 14 ) { _act = 'run' } }
             else if ( _distance > 12 && _distance <= 25 ) { if (_speed < 13 ) { _act = 'run' } }
             else if ( _distance > 25 && _distance <= 45 ) { if (_speed < 12 ) { _act = 'run' } }
-            else { if (_speed < 10 ) { _act = 'run' } }
+            else { if (_speed < 8 ) { _act = 'run' } }
 
             this.options.activity = _act;
             this.options.show = (_act == 'run') ? 'speed' : 'elevation';
