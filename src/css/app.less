@@ -62,10 +62,12 @@ a {
 
 
 header[role="banner"] {
+    text-align: center;
     padding: 2rem 1rem;
     font-size: 90%;
     img {
         display: block;
+        margin: 0 auto;
         width: 250px
     }
 }
@@ -75,6 +77,20 @@ header[role="banner"] {
     section[role="form"] {
         display: flex;
         padding: 2rem;
+        justify-content: center;
+        text-align: center;
+        > div {
+            padding: 1rem 2rem;
+
+            input {
+                background: #ccc;
+                width: 100%;
+                max-width: 180px;
+                height: 36px;
+                margin: 2rem 0 0 0;
+                border-radius: 5px;
+            }
+        }
     }
 
     main[role="main"] {
@@ -83,6 +99,8 @@ header[role="banner"] {
         padding: 3rem;
         width: 100%;
         display: flex;
+        max-width: 106rem;
+        margin: 0 auto;
 
         figure {
             flex: 0 0 640px;
@@ -105,6 +123,7 @@ header[role="banner"] {
 footer[role="contentinfo"] {
     padding: 2rem 1rem;
     font-size: 90%;
+    text-align: center;
 
     h4, ul, ul li {
         display: inline-block;
