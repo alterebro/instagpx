@@ -47,8 +47,48 @@ const _sampleGPXdata = {
     }
 }
 
+// Dev :
+var dev = function() {
 
-// ---------------------
+    // Preload Font
+    function preloadFont(font) {
+        let _preloadFont = document.createElement('div');
+            _preloadFont.setAttribute('style', 'font-family: '+font+'; visibility:hidden; height: 0; width: 0; overflow:hidden;');
+            _preloadFont.innerHTML = '.';
+        document.body.appendChild(_preloadFont);
+    }
+    preloadFont('Montserrat');
+
+    // Fire sample image
+    function bogusImage(callback) {
+        const img = new Image();
+            img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+            img.onload = function(e) {
+                let _canvas = document.createElement('canvas');
+                    _canvas.width = this.width;
+                    _canvas.height = this.height;
+                let _ctx = _canvas.getContext('2d');
+                    _ctx.drawImage(img, 0, 0);
+                let _ctxData = _ctx.getImageData(0, 0, this.width, this.height);
+                    callback(_ctxData);
+            }
+    }
+
+    // Fire sample gpx data
+    window.onload = function() {
+
+        bogusImage((imgData) => {
+            Data.gpx = _sampleGPXdata;
+            Data.image = imgData;
+            instaGPX(_sampleGPXdata, imgData);
+        });
+
+    }
+
+}
+
+// ---------------------------------------------------------------
+// ---------------------------------------------------------------
 
 const Config = {
     width : 1280,
@@ -106,6 +146,23 @@ const App = new Vue({
     },
     methods : {
 
+        postGPX : function() {
+
+            this.options.title = (this.gpx.coords.start.lat).toFixed(6) +', '+ (this.gpx.coords.start.lon).toFixed(6);
+            // TODO : Geolocate the coords
+
+            let _d = this.gpx.distance.km;
+            let _s = this.gpx.speed.kmh;
+            let _a = 'ride';
+            if ( _d <= 12 )                 { if (_s < 14 ) { _a = 'run' } }
+            else if ( _d > 12 && _d <= 25 ) { if (_s < 13 ) { _a = 'run' } }
+            else if ( _d > 25 && _d <= 45 ) { if (_s < 12 ) { _a = 'run' } }
+            else                            { if (_s < 10 ) { _a = 'run' } }
+
+            this.options.activity = _a;
+            this.options.show = (_a == 'run') ? 'speed' : 'elevation';
+        },
+
         loadGPX : function(e) {
             if ( !e.target.files.length ) { return }
             readGPX(
@@ -114,7 +171,7 @@ const App = new Vue({
                     Data.gpx = gpxData
                     Data.gpxLoaded = true;
 
-                    console.log(gpxData.timestamp);
+                    this.postGPX();
                     // TODO : Process gpx file and modify options depending on data
                     // TODO : Geolocate coords and make title
                 }
@@ -137,44 +194,7 @@ const App = new Vue({
         }
     },
 
-    created : function() {}
+    created : function() {
+        dev();
+    }
 })
-
-
-
-// Dev :
-
-// Preload Font
-function preloadFont(font) {
-    let _preloadFont = document.createElement('div');
-        _preloadFont.setAttribute('style', 'font-family: '+font+'; visibility:hidden; height: 0; width: 0; overflow:hidden;');
-        _preloadFont.innerHTML = '.';
-    document.body.appendChild(_preloadFont);
-}
-preloadFont('Montserrat');
-
-// Fire sample image
-function bogusImage(callback) {
-    const img = new Image();
-        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
-        img.onload = function(e) {
-            let _canvas = document.createElement('canvas');
-                _canvas.width = this.width;
-                _canvas.height = this.height;
-            let _ctx = _canvas.getContext('2d');
-                _ctx.drawImage(img, 0, 0);
-            let _ctxData = _ctx.getImageData(0, 0, this.width, this.height);
-                callback(_ctxData);
-        }
-}
-
-// Fire sample gpx data
-window.onload = function() {
-
-    bogusImage((imgData) => {
-        Data.gpx = _sampleGPXdata;
-        Data.image = imgData;
-        instaGPX(_sampleGPXdata, imgData);
-    });
-
-}
