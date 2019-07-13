@@ -204,6 +204,7 @@ const App = new Vue({
                     Data.gpx = gpxData
                     Data.gpxLoaded = true;
                     this.postGPX();
+                    if (this.userDataLoaded) { this.regenerateImage(); }
                 }
             );
         },
@@ -217,6 +218,7 @@ const App = new Vue({
                 (imgData) => {
                     Data.image = imgData;
                     Data.imageLoaded = true;
+                    if (this.userDataLoaded) { this.regenerateImage(); }
                 }
             )
         },
