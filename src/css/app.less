@@ -161,8 +161,28 @@ header[role="banner"] {
             dt {
                 font-size: 80%;
                 font-weight: 500;
+                color: #797f9f;
+                padding: 0 0 .5rem;
+                &:before {
+                    content: '\00bb';
+                    font-weight: 700;
+                    display: inline-block;
+                    margin: 0 5px 0 0;
+                }
             }
             dd { padding: 0 0 1rem 0 }
+
+            input[type="radio"],
+            input[type="checkbox"] {
+                display: inline-block;
+                margin: 0 5px 0 0;
+            }
+
+            input[type="radio"] + label {
+                display: inline-block;
+                margin: 0 10px 0 0;
+            }
+
 
             input[type="text"],
             button[type="submit"],

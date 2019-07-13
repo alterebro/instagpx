@@ -75,24 +75,20 @@
 
                     <dt>Activity Type : <em>{{ options.activity }}</em></dt>
                     <dd>
-                        <label for="activity-type-run">
                         <input type="radio" name="activity-type" id="activity-type-run" v-model="options.activity" value="run" />
-                        Run</label>
+                        <label for="activity-type-run">Run</label>
 
-                        <label for="activity-type-ride">
                         <input type="radio" name="activity-type" id="activity-type-ride" v-model="options.activity" value="ride" />
-                        Ride</label>
+                        <label for="activity-type-ride">Ride</label>
                     </dd>
 
                     <dt>Unit System : <em>{{ options.units }}</em></dt>
                     <dd>
-                        <label for="activity-unit-metric">
                         <input type="radio" name="activity-unit" id="activity-unit-metric" v-model="options.units" value="metric" />
-                        Metric (km)</label>
+                        <label for="activity-unit-metric">Metric (km)</label>
 
-                        <label for="activity-unit-imperial">
                         <input type="radio" name="activity-unit" id="activity-unit-imperial" v-model="options.units" value="imperial" />
-                        Imperial (mi)</label>
+                        <label for="activity-unit-imperial">Imperial (mi)</label>
                     </dd>
 
                     <dt>Options : <em>{{ options.show }}</em></dt>
@@ -110,7 +106,7 @@
                     <dt>Promote instagpx.com : {{ options.promote }}</dt>
                     <dd>
                         <input type="checkbox" name="activity-promote" id="activity-promote" v-model="options.promote" />
-                        <label for="activity-promote">Show instagpx.com on the image</label>
+                        <label for="activity-promote">Show <em>instagpx.com</em> on the image</label>
                     </dd>
                 </dl>
                 <p><button type="submit" name="activity-regenerate" v-on:click="regenerateImage">Regenerate Image</button></p>
