@@ -84,8 +84,9 @@ var dev = function() {
         });
 
     }
-
 }
+
+
 
 // ---------------------------------------------------------------
 // ---------------------------------------------------------------
@@ -148,19 +149,23 @@ const App = new Vue({
 
         postGPX : function() {
 
-            this.options.title = (this.gpx.coords.start.lat).toFixed(6) +', '+ (this.gpx.coords.start.lon).toFixed(6);
-            // TODO : Geolocate the coords
+            let _lat = this.gpx.coords.start.lat;
+            let _lon = this.gpx.coords.start.lon;
+            this.options.title = (_lat).toFixed(6) +', '+ (_lon).toFixed(6);
+            reverseGeocoding(_lat, _lon, (geoData) => {
+                Data.options.title = geoData;
+            });
 
-            let _d = this.gpx.distance.km;
-            let _s = this.gpx.speed.kmh;
-            let _a = 'ride';
-            if ( _d <= 12 )                 { if (_s < 14 ) { _a = 'run' } }
-            else if ( _d > 12 && _d <= 25 ) { if (_s < 13 ) { _a = 'run' } }
-            else if ( _d > 25 && _d <= 45 ) { if (_s < 12 ) { _a = 'run' } }
-            else                            { if (_s < 10 ) { _a = 'run' } }
+            let _distance = this.gpx.distance.km;
+            let _speed = this.gpx.speed.kmh;
+            let _act = 'ride';
+            if ( _distance <= 12 ) { if (_speed < 14 ) { _act = 'run' } }
+            else if ( _distance > 12 && _distance <= 25 ) { if (_speed < 13 ) { _act = 'run' } }
+            else if ( _distance > 25 && _distance <= 45 ) { if (_speed < 12 ) { _act = 'run' } }
+            else { if (_speed < 10 ) { _act = 'run' } }
 
-            this.options.activity = _a;
-            this.options.show = (_a == 'run') ? 'speed' : 'elevation';
+            this.options.activity = _act;
+            this.options.show = (_act == 'run') ? 'speed' : 'elevation';
         },
 
         loadGPX : function(e) {
