@@ -9,15 +9,15 @@ function reverseGeocoding(lat, lon, callback) {
         request.onreadystatechange = function () {
             if(request.readyState === 4 && request.status === 200) {
 
-                console.log(request.responseText);
                 let data = JSON.parse(request.responseText);
-                let _output = []
-                    if (!!data.address.suburb) { _output.push(data.address.suburb) }
-                    if (!!data.address.city_district) { _output.push(data.address.city_district) }
-                    if (!!data.address.city) { _output.push(data.address.city) }
 
-                callback(_output.join(', '))
+                // console.log(data.address)
+                let displayName = data.display_name.split(',');
+                    displayName = displayName.map(str => str.trim());
+                    displayName = displayName.slice(0, 3).join(', ');
 
+                let name = data.name;
+                callback({ displayName, name });
             }
         };
 

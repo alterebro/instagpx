@@ -149,11 +149,23 @@ const App = new Vue({
 
         postGPX : function() {
 
-            let _lat = this.gpx.coords.start.lat;
-            let _lon = this.gpx.coords.start.lon;
-            this.options.title = (_lat).toFixed(6) +', '+ (_lon).toFixed(6);
-            reverseGeocoding(_lat, _lon, (geoData) => {
-                Data.options.title = geoData;
+            let _latStart = this.gpx.coords.start.lat;
+            let _lonStart = this.gpx.coords.start.lon;
+            let _latEnd = this.gpx.coords.end.lat;
+            let _lonEnd = this.gpx.coords.end.lon;
+            this.options.title = (_latStart).toFixed(6) +', '+ (_lonStart).toFixed(6);
+            reverseGeocoding(_latStart, _lonStart, (start) => {
+
+                reverseGeocoding(_latEnd, _lonEnd, (end) => {
+
+                    // console.log(start, end);
+                    // let _output = '';
+                        _output = (start.name != end.name)
+                            ? start.name + ' - ' + end.name
+                            : start.displayName;
+
+                    Data.options.title = _output;
+                });
             });
 
             let _distance = this.gpx.distance.km;
@@ -175,10 +187,7 @@ const App = new Vue({
                 (gpxData) => {
                     Data.gpx = gpxData
                     Data.gpxLoaded = true;
-
                     this.postGPX();
-                    // TODO : Process gpx file and modify options depending on data
-                    // TODO : Geolocate coords and make title
                 }
             );
         },
