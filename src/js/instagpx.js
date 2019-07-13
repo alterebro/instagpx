@@ -149,14 +149,16 @@ function instaGPX(gpxData, imgData) {
         ctx.fillStyle = "#fff";
         ctx.font = '64px Montserrat';
         let _titleOffset = (_top.length) ? 42 : 0;
-        wrapText(ctx, (config.title).toUpperCase(), config.padding, config.padding + _titleOffset, config.width - (config.padding*2), 72);
+        wrapText(ctx, (config.title).toUpperCase().trim().replace(/\s\s+/g, ' '), config.padding, config.padding + _titleOffset, config.width - (config.padding*2), 72);
 
         // ----------------
         // Render
         document.querySelector('#output').innerHTML = '';
-        document.querySelector('#output').appendChild(_canvas);
+        // document.querySelector('#output').appendChild(_canvas);
 
-        // TODO: Render on an image
-        // let _img = document.createElement('img');
+        // Render on an Image tag
+        let _img = document.createElement('img');
+            _img.src = _canvas.toDataURL('image/jpeg', .5);
+            document.querySelector('#output').appendChild(_img);
 
 }
