@@ -67,62 +67,75 @@
             <form role="form" v-on:submit.prevent>
 
                 <h3>Options</h3>
-                <dl>
-                    <dt><label for="activity-title">Title</label></dt>
-                    <dd><input type="text" name="activity-title" id="activity-title" v-model="options.title" value="..." /></dd>
 
-                    <dt><label for="activity-date">Date Format : {{ options.timestampPattern }}</label></dt>
-                    <dd v-if="gpx.timestamp">
-                        <select v-model="options.timestampPattern" name="activity-date" id="activity-date">
-                            <option v-for="(pattern, index) in dateTemplates" v-bind:value="index">
-                                {{ gpx.timestamp.start | renderTimestamp(pattern) }}
-                            </option>
-                            <option value="false">No Date!</option>
-                        </select>
-                    </dd>
+                <p>
+                    <label for="activity-title">Title</label>
+                    <input type="text" placeholder="Write your activity title here" name="activity-title" id="activity-title" v-model="options.title" value="..." />
+                </p>
+                <p v-if="gpx.timestamp">
+                    <label for="activity-date">Date Format</label>
+                    <select v-model="options.timestampPattern" name="activity-date" id="activity-date">
+                        <option v-for="(pattern, index) in dateTemplates" v-bind:value="index">
+                            {{ gpx.timestamp.start | renderTimestamp(pattern) }}
+                        </option>
+                        <option value="false">No Date!</option>
+                    </select>
+                </p>
 
-                    <dt>Activity Type : <em>{{ options.activity }}</em></dt>
-                    <dd>
+                <h4>Activity Type</h4>
+                <p>
+                    <span class="form-selector form-radio">
                         <input type="radio" name="activity-type" id="activity-type-run" v-model="options.activity" value="run" />
                         <label for="activity-type-run">Run</label>
+                    </span>
 
+                    <span class="form-selector form-radio">
                         <input type="radio" name="activity-type" id="activity-type-ride" v-model="options.activity" value="ride" />
                         <label for="activity-type-ride">Ride</label>
-                    </dd>
+                    </span>
+                </p>
 
-                    <dt>Unit System : <em>{{ options.units }}</em></dt>
-                    <dd>
+                <h4>Units System</h4>
+                <p>
+                    <span class="form-selector form-radio">
                         <input type="radio" name="activity-unit" id="activity-unit-metric" v-model="options.units" value="metric" />
-                        <label for="activity-unit-metric">Metric (km)</label>
+                        <label for="activity-unit-metric">Kilometers</label>
+                    </span>
 
+                    <span class="form-selector form-radio">
                         <input type="radio" name="activity-unit" id="activity-unit-imperial" v-model="options.units" value="imperial" />
-                        <label for="activity-unit-imperial">Imperial (mi)</label>
-                    </dd>
+                        <label for="activity-unit-imperial">Miles</label>
+                    </span>
+                </p>
 
-                    <dt>Options : <em>{{ options.show }}</em></dt>
-                    <dd>
+                <h4>Options</h4>
+                <p>
+                    <span class="form-selector form-radio">
                         <input type="radio" name="activity-show" id="activity-show-elevation" v-model="options.show" value="elevation" />
                         <label for="activity-show-elevation">Elevation</label>
+                    </span>
 
+                    <span class="form-selector form-radio">
                         <input type="radio" name="activity-show" id="activity-show-speed" v-model="options.show" value="speed" />
                         <label for="activity-show-speed">
                             <span v-if="options.activity == 'ride'">Speed</span>
                             <span v-else>Pace</span>
                         </label>
-                    </dd>
+                    </span>
+                </p>
 
-                    <dt>Promote <strong>instagpx.com</strong> : {{ options.promote }}</dt>
-                    <dd>
-                        <input type="checkbox" name="activity-promote" id="activity-promote" v-model="options.promote" />
-                        <label for="activity-promote">Show 'instagpx.com' on the image</label>
-                    </dd>
-                </dl>
+                <p class="form-selector form-checkbox">
+                    <input type="checkbox" name="activity-promote" id="activity-promote" v-model="options.promote" />
+                    <label for="activity-promote">Show 'instagpx.com' watermark</label>
+                </p>
+
                 <p>
                     <button type="submit" name="activity-regenerate" v-on:click="regenerateImage">
                         <img src="img/icon-refresh.svg" alt="Refresh Image" />
                         <span>Regenerate Image</span>
                     </button>
                 </p>
+
             </form>
         </aside>
     </main>

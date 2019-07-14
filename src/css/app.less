@@ -113,32 +113,98 @@ button[type="submit"],
         }
     }
 }
-
-.inputfile + label * { pointer-events: none }
+input[type="file"] + label * { pointer-events: none }
 input[type="file"]:focus + label,
 input[type="file"] + label:hover {
     background-color: #606990;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
-    display: inline-block;
-    margin: 0 5px 0 0;
+
+.form-selector {
+    position: relative;
+    display: block;
+
+    input { opacity: 0 }
+    label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0 0 0 2.4rem;
+        line-height: 1.6rem;
+
+        &:before, &:after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: '';
+            display: block;
+            width: 16px;
+            height: 16px;
+        }
+        &:before {
+            background-color: #a9afcf;
+        }
+        &:after {
+            background-color: #606990;
+        }
+    }
+
+    input + label:after { content: none }
+    input:checked + label:after { content: '' }
+    input:checked + label:before { content: none }
+
+    // input:focus + label::before { outline: rgb(59, 153, 252) auto 2px }
+
+    &.form-checkbox {
+        label {
+            &:before, &:after {
+                border-radius: 3px;
+            }
+            &:after {
+                background-image: url(../img/icon-check.svg);
+                background-size: 14px auto;
+                background-position: center center;
+            }
+        }
+    }
+    &.form-radio {
+        label {
+            &:before, &:after {
+                border-radius: 16px;
+            }
+            &:after {
+                border: solid #a9afcf 4px;
+            }
+        }
+    }
 }
 
-input[type="radio"] + label {
-    display: inline-block;
-    margin: 0 10px 0 0;
-}
 
-input[type="text"],
+
 select {
-    width: 100%;
-    max-width: 100%;
-    border-radius: 3px;
-    border: solid #ccc 1px;
-    padding: 5px 10px;
+    width: 50%;
 }
+
+// input[type="radio"],
+// input[type="checkbox"] {
+//     display: inline-block;
+//     margin: 0 5px 0 0;
+// }
+
+//
+// input[type="radio"] + label {
+//     display: inline-block;
+//     margin: 0 10px 0 0;
+// }
+//
+// input[type="text"],
+// select {
+//     width: 100%;
+//     max-width: 100%;
+//     border-radius: 3px;
+//     border: solid #ccc 1px;
+//     padding: 5px 10px;
+// }
 
 // --------------------------------------
 
@@ -221,23 +287,7 @@ header[role="banner"] {
             justify-content: space-between;
 
             > p {}
-            > form {
-                overflow: scroll;
-            }
-
-            dt {
-                font-size: 80%;
-                font-weight: 500;
-                color: #797f9f;
-                padding: 0;
-                &:before {
-                    content: '\00bb';
-                    font-weight: 700;
-                    display: inline-block;
-                    margin: 0 5px 0 0;
-                }
-            }
-            dd { padding: 0 0 1.25rem 0 }
+            > form {} // Overflow?
         }
     }
 }
