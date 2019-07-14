@@ -33,7 +33,7 @@
             <p>
                 <input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
                 <label for="user-file-gpx">
-                    <img src="img/outline-location_on-24px.svg" alt=".GPX File" width="16" />
+                    <img src="img/icon-location.svg" alt=".GPX File" />
                     <span>Select your <strong>.GPX</strong> activity file</span>
                 </label>
             </p>
@@ -43,7 +43,7 @@
             <p>
                 <input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
                 <label for="user-file-image">
-                    <img src="img/outline-insert_photo-24px.svg" alt="Image File" width="16" />
+                    <img src="img/icon-photo.svg" alt="Image File" />
                     <span>Select your <strong>Image</strong> file</span>
                 </label>
             </p>
@@ -60,7 +60,7 @@
             <form role="form" v-on:submit.prevent>
                 <p>
                     <a href="#" download="instagpx.com.jpg" id="download-img" class="button">
-                        <img src="img/outline-cloud_download-24px.svg" alt="Download Image" width="16" />
+                        <img src="img/icon-download.svg" alt="Download Image" />
                         <span>Download Image</span>
                     </a>
                 </p>
@@ -119,7 +119,7 @@
                 </dl>
                 <p>
                     <button type="submit" name="activity-regenerate" v-on:click="regenerateImage">
-                        <img src="img/outline-refresh-24px.svg" alt="Refresh Image" width="16" />
+                        <img src="img/icon-refresh.svg" alt="Refresh Image" />
                         <span>Regenerate Image</span>
                     </button>
                 </p>

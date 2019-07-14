@@ -83,19 +83,29 @@ button[type="submit"],
     padding: 10px 18px;
     border-radius: 3px;
     border: none;
+    box-shadow: none;
+
 
     img {
-        vertical-align: baseline;
+        vertical-align: top;
         position: relative;
-        top: 2px;
+        top: 4px;
+        width: 16px;
+        height: auto;
         display: inline-block;
-        margin: 0 5px 0 0;
+        margin: 0 3px 0 0;
+        opacity: .5;
     }
 
     &:hover {
         color: #fff;
         background: #606990;
         border: none;
+        box-shadow: 0 5px 1px -2px rgba(0, 0, 0, .15);
+
+        img {
+            opacity: 1;
+        }
     }
 }
 
@@ -152,13 +162,23 @@ header[role="banner"] {
 
             p.file-ok {
                 color: #609f69;
-                padding: 1rem 0 0 0;
+                padding: 1.5rem 0 0 0;
+                font-size: 90%;
 
                 &:before {
-                    content: '\002714';
+                    content: '';
                     display: inline-block;
-                    margin: 0 5px 0 0;
-                    font-size: 80%;
+                    vertical-align: top;
+                    position: relative;
+                    margin: 0 10px 0 0;
+                    width: 22px;
+                    height: 22px;
+                    border-radius: 100%;
+                    background-color: #60af79;
+                    background-image: url(../img/icon-check.svg);
+                    background-position: center center;
+                    background-size: 14px auto;
+                    background-repeat: no-repeat;
                 }
             }
         }
