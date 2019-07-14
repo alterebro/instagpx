@@ -17,7 +17,7 @@ button, input, select, textarea {
 
 /* --- */
 
-@import url('https://fonts.googleapis.com/css?family=Barlow:400,700&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Barlow:400,700&display=swap');
 
 
 html {
@@ -30,7 +30,8 @@ html {
     cursor: default;
 }
 body {
-    font-family: 'Barlow', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Arial, sans-serif;;
+    // font-family: 'Barlow', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Arial, sans-serif;;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Arial, sans-serif;;
     font-size: 1.5em;
     line-height: 1.6;
     background: #f8f8f8;
@@ -62,7 +63,7 @@ a {
     }
 }
 
-// 
+// Hide template elements when loading
 [v-cloak] { display: none; }
 
 // --------------------------------------
@@ -189,16 +190,21 @@ header[role="banner"] {
     }
 
     main[role="main"] {
-        border-radius: 3px;
-        background: #fff;
-        padding: 3rem;
+        display: grid;
+        grid-template-rows: 512px;
+        grid-template-columns : 512px auto;
+        grid-gap: 3rem;
+        grid-template-areas: "image sidebar";
+
         width: 100%;
-        display: flex;
         max-width: 90rem;
         margin: 0 auto;
+        background: #fff;
+        padding: 3rem;
+        border-radius: 5px;
 
         figure {
-            flex: 0 0 512px;
+            grid-area: image;
 
             #output {
                 canvas, img {
@@ -209,8 +215,15 @@ header[role="banner"] {
             }
         }
         aside {
-            flex: 1 1 auto;
-            padding: 0 0 0 3rem;
+            grid-area: sidebar;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            > p {}
+            > form {
+                overflow: scroll;
+            }
 
             dt {
                 font-size: 80%;
