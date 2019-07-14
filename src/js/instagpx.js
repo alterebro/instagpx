@@ -165,9 +165,7 @@ function instaGPX(gpxData, imgData) {
 
             let _img = document.createElement('img');
                 _img.src = objectURL;
-                _img.onload = function() {
-                    console.log('twice?')
-                }
+                _img.onload = function() {}
                 _img.addEventListener('contextmenu', (e) => { e.preventDefault() }, true);
 
             document.querySelector('#output').appendChild(_img);

@@ -84,14 +84,6 @@ button[type="submit"],
     border-radius: 3px;
     border: none;
 
-    &:hover {
-        color: #fff;
-        background: #606990;
-        border: none;
-    }
-}
-
-input[type="file"] + label {
     img {
         vertical-align: baseline;
         position: relative;
@@ -99,7 +91,14 @@ input[type="file"] + label {
         display: inline-block;
         margin: 0 5px 0 0;
     }
+
+    &:hover {
+        color: #fff;
+        background: #606990;
+        border: none;
+    }
 }
+
 .inputfile + label * { pointer-events: none }
 input[type="file"]:focus + label,
 input[type="file"] + label:hover {

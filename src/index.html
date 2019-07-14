@@ -33,7 +33,7 @@
             <p>
                 <input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
                 <label for="user-file-gpx">
-                    <img src="img/file-code-regular.svg" alt=".GPX File" width="12" />
+                    <img src="img/outline-location_on-24px.svg" alt=".GPX File" width="16" />
                     <span>Select your <strong>.GPX</strong> activity file</span>
                 </label>
             </p>
@@ -43,7 +43,7 @@
             <p>
                 <input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
                 <label for="user-file-image">
-                    <img src="img/file-image-regular.svg" alt="Image" width="12" />
+                    <img src="img/outline-insert_photo-24px.svg" alt="Image File" width="16" />
                     <span>Select your <strong>Image</strong> file</span>
                 </label>
             </p>
@@ -59,7 +59,10 @@
         <aside role="complementary">
             <form role="form" v-on:submit.prevent>
                 <p>
-                    <a href="#" download="instagpx.com.jpg" id="download-img" class="button">Download Image</a>
+                    <a href="#" download="instagpx.com.jpg" id="download-img" class="button">
+                        <img src="img/outline-cloud_download-24px.svg" alt="Download Image" width="16" />
+                        <span>Download Image</span>
+                    </a>
                 </p>
 
                 <hr />
@@ -114,7 +117,12 @@
                         <label for="activity-promote">Show 'instagpx.com' on the image</label>
                     </dd>
                 </dl>
-                <p><button type="submit" name="activity-regenerate" v-on:click="regenerateImage">Regenerate Image</button></p>
+                <p>
+                    <button type="submit" name="activity-regenerate" v-on:click="regenerateImage">
+                        <img src="img/outline-refresh-24px.svg" alt="Refresh Image" width="16" />
+                        <span>Regenerate Image</span>
+                    </button>
+                </p>
             </form>
         </aside>
     </main>
