@@ -84,7 +84,7 @@ button[type="submit"],
     border-radius: 3px;
     border: none;
     box-shadow: none;
-
+    transition: all .25s ease-in-out;
 
     img {
         vertical-align: top;
@@ -95,6 +95,7 @@ button[type="submit"],
         display: inline-block;
         margin: 0 3px 0 0;
         opacity: .5;
+        transition: opacity .25s ease-in-out;
     }
 
     &:hover {
@@ -232,5 +233,17 @@ footer[role="contentinfo"] {
 
     h4, ul, ul li {
         display: inline-block;
+    }
+    ul {
+        padding: 0 0 0 5px;
+    }
+    li {
+        padding: 2px 5px 2px 0;
+    }
+    li img {
+        height: 12px;
+        width: auto;
+        display: inline-block;
+        margin: 0 2px 0 0;
     }
 }
