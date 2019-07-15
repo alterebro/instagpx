@@ -87,6 +87,15 @@ var dev = function() {
 }
 
 
+function filename(file) {
+
+    let _file = file.split( '\\' ).pop();
+    let _num = 20;
+    return (_file.length > _num)
+        ? _file.slice(0, _num > 3 ? _num-3 : _num) + '...'
+        : _file;
+}
+
 
 // ---------------------------------------------------------------
 // ---------------------------------------------------------------
@@ -199,7 +208,7 @@ const App = new Vue({
         loadGPX : function(e) {
 
             if ( !e.target.files.length ) { return }
-            this.gpxFile = e.target.value.split( '\\' ).pop();
+            this.gpxFile = filename(e.target.value)
 
             readGPX(
                 e.target.files[0],
@@ -214,7 +223,7 @@ const App = new Vue({
 
         loadIMG : function(e) {
             if ( !e.target.files.length ) { return }
-            this.imageFile = e.target.value.split( '\\' ).pop();
+            this.imageFile = filename(e.target.value)
 
             createIMG(
                 e.target.files[0],
