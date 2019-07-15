@@ -70,7 +70,7 @@
 
                 <p class="form-input-container">
                     <label for="activity-title">Title</label>
-                    <input type="text" placeholder="Write your activity title here" name="activity-title" id="activity-title" v-model="options.title" value="..." />
+                    <input type="text" placeholder="Write your activity title here" name="activity-title" id="activity-title" maxlength="140" v-model="options.title" />
                 </p>
                 <p class="form-input-container" v-if="gpx.timestamp">
                     <label for="activity-date">Date Format</label>
