@@ -56,6 +56,7 @@ a {
     color: #606990;
     text-decoration: none;
     border-bottom: solid transparent 2px;
+    transition: color .35s ease-in-out, border .35s ease-in-out;
 
     &:hover {
         color: #000;
@@ -339,7 +340,7 @@ header[role="banner"] {
 
         width: 100%;
         max-width: 84rem;
-        margin: 0 auto;
+        margin: 2rem auto;
         background: #fff;
         padding: 3rem;
         border-radius: 5px;
@@ -487,6 +488,7 @@ footer[role="contentinfo"] {
 
         p {
             margin: 0 0 2rem;
+            text-align: center;
         }
 
         li {
@@ -522,6 +524,7 @@ footer[role="contentinfo"] {
             bordeR: none;
             .modal-icon();
             &:before {
+                transition: background .35s ease-in-out;
                 background-image: url(../img/icon-close.svg);
             }
             &:hover:before {
