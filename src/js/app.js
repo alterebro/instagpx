@@ -136,7 +136,9 @@ const Data = {
         title : '',
         timestampPattern : 3,
         promote : true
-    }
+    },
+
+    modalVisible : false
 }
 
 
@@ -234,6 +236,16 @@ const App = new Vue({
                 }
             )
         },
+
+        showModal : function() {
+            console.log('show!')
+            this.modalVisible = true;
+        },
+        hideModal : function() {
+            console.log('hide!')
+            this.modalVisible = false;
+        },
+
 
         regenerateImage : function() {
             console.log('regenerating?');

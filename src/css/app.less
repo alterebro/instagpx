@@ -382,6 +382,7 @@ footer[role="contentinfo"] {
         align-items: center;
         justify-content: center;
         margin: 0 0 1rem;
+
         h4 { display: none }
         ul {
             display: flex;
@@ -430,6 +431,102 @@ footer[role="contentinfo"] {
             &.linkedin a:before { background-image: url(../img/icon-share-linkedin.svg); }
             &.email a:before { background-image: url(../img/icon-share-email.svg); }
             &.telegram a:before { background-image: url(../img/icon-share-telegram.svg); }
+        }
+    }
+}
+
+
+.modal-icon {
+
+    &:before {
+        content: '';
+        display: block;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        background-color: #797f9f;
+        background-size: 18px 18px;
+        background-position: center center;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.modal-thanks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f0f0f0;
+    z-index: 1;
+    padding: 3rem;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: .35s opacity ease-in-out;
+
+    &.visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+
+    > div {
+        background: #fff;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .2);
+        border-radius: 5px;
+
+        p {
+            margin: 0 0 2rem;
+        }
+
+        li {
+            font-size: 180%;
+            font-weight: 700;
+            line-height: 180%;
+            position: relative;
+            padding: 0 0 0 42px;
+
+            .modal-icon();
+
+            &.twitter:before {
+                background-color: #1da1f2;
+                background-image: url(../img/icon-share-twitter.svg);
+            }
+            &.instagram:before {
+                background-color: #c32aa3;
+                background-image: url(../img/icon-share-instagram.svg);
+            }
+        }
+    }
+
+    > footer {
+        position: absolute;
+        top: 6rem;
+        right: 6rem;
+
+        a {
+            span { display: none; }
+            display: block;
+            height: 32px;
+            width: 32px;
+            bordeR: none;
+            .modal-icon();
+            &:before {
+                background-image: url(../img/icon-close.svg);
+            }
+            &:hover:before {
+                background-color: #606990;
+            }
         }
     }
 }

@@ -58,7 +58,7 @@
 
         <aside role="complementary">
             <p>
-                <a href="#" download="instagpx.com.jpg" id="download-img" class="button">
+                <a href="#" download="instagpx.com.jpg" id="download-img" class="button" v-on:click.prevent="showModal">
                     <img src="img/icon-download.svg" alt="Download Image" />
                     <span>Download Image</span>
                 </a>
@@ -139,6 +139,22 @@
             </form>
         </aside>
     </main>
+
+    <section class="modal-thanks" v-bind:class="{ visible: modalVisible }">
+        <div>
+            <p>
+                Thanks for using <strong>InstaGPX.com</strong> :)
+                <br />Your picture should be now downloading!
+                <br />Now, why don't you:
+            </p>
+            <ul>
+                <li class="twitter"><a href="#">Follow me on Twitter</a></li>
+                <li class="instagram"><a href="#">and/or on Instagram</a></li>
+            </ul>
+        </div>
+        <footer><a href="#app" v-on:click.prevent="hideModal" class="close"><span>Close</span></a></footer>
+    </section>
+
 </div>
 
 <footer role="contentinfo">
