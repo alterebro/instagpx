@@ -25,9 +25,22 @@ function instaGPX(gpxData, imgData) {
 
     const config = {...Config, ...Data.options }
 
-    let _duration = (gpxData.duration.hours > 0)
-        ? [ {v: String(gpxData.duration.hours).padStart(2, '0'), u: 'h'}, {v: String(gpxData.duration.minutes).padStart(2, '0'), u: 'm'} ]
-        : [ {v: String(gpxData.duration.minutes).padStart(2, '0'), u: 'm'}, {v: String(gpxData.duration.seconds).padStart(2, '0'), u: 's'} ];
+    let _duration = [ // Default (<1h)
+        {v: String(gpxData.duration.minutes).padStart(2, '0'), u: 'm'},
+        {v: String(gpxData.duration.seconds).padStart(2, '0'), u: 's'}
+    ];
+    if (gpxData.duration.hours > 0) { // Overwrite if more than 1hour activity time
+        _duration = (gpxData.duration.hours > 9)
+            ? [
+                { v: String(gpxData.duration.hours), u: 'h'},
+                { v: String(gpxData.duration.minutes).padStart(2, '0'), u: 'm' }
+            ]
+            : [
+                { v: String(gpxData.duration.hours), u: 'h'},
+                { v: String(gpxData.duration.minutes).padStart(2, '0') + '\'' + String(gpxData.duration.seconds).padStart(2, '0') + '"', u: false }
+            ];
+    }
+
     let _pace = gpxData.pace[(config.units == 'metric') ? 'perKm' : 'perMile'];
 
     let output = {
@@ -46,6 +59,7 @@ function instaGPX(gpxData, imgData) {
 
     let ctx = _canvas.getContext('2d');
 
+        // ---
         // Solid Background :
         let bgGrad = ctx.createLinearGradient(0, 0, config.width/2, config.width);
             bgGrad.addColorStop(0, '#797f9f');
@@ -54,9 +68,11 @@ function instaGPX(gpxData, imgData) {
             ctx.fillStyle = bgGrad;
             ctx.fillRect(0, 0, config.width, config.height);
 
+        // ---
         // Attach Image
         if (imgData) { ctx.putImageData(imgData, 0, 0) }
 
+        // ---
         // Overlaying Shadow BG
         // ctx.globalCompositeOperation = 'overlay';
         ctx.globalCompositeOperation = 'multiply';
@@ -87,14 +103,30 @@ function instaGPX(gpxData, imgData) {
         const txtSize = {}
 
         // ----------------
-        // Values output
-        ctx.font = '800 72px Montserrat';
-        ctx.fillText(output.distance, config.padding, config.height - config.padding);
-        txtSize.distance = ctx.measureText(output.distance).width;
+        // Duration calculate size
+
         txtSize.duration = [];
         output.duration.forEach((el, i) => {
-            ctx.fillText(el.v, config.padding*2 + _third + (i*155), config.height - config.padding);
-            txtSize.duration.push(ctx.measureText(el.v).width);
+
+            ctx.font = '72px Montserrat';
+            let _vSize = ctx.measureText(el.v).width;
+            ctx.font = '36px Montserrat';
+            let _uSize = (el.u) ? ctx.measureText(el.u).width : 0;
+
+            txtSize.duration.push({v : _vSize, u : _uSize});
+        })
+
+
+        // ----------------
+        // Values output
+        ctx.font = '72px Montserrat';
+        ctx.fillText(output.distance, config.padding, config.height - config.padding);
+        txtSize.distance = ctx.measureText(output.distance).width;
+
+        let _xDurationOffset = 0;
+        output.duration.forEach((el, i) => {
+            ctx.fillText(el.v, config.padding*2 + _third + _xDurationOffset, config.height - config.padding);
+            _xDurationOffset += txtSize.duration[i].v + txtSize.duration[i].u + (config.wordSpacing*2);
         })
 
         ctx.fillText(output[output.optionLabel], (config.padding*3) + (_third*2), config.height - config.padding);
@@ -103,10 +135,14 @@ function instaGPX(gpxData, imgData) {
         // ----------------
         // Def
         ctx.fillStyle = "rgba(255, 255, 255, .5)";
-        ctx.font = '800 36px Montserrat';
+        ctx.font = '36px Montserrat';
         ctx.fillText(output.distanceUnit, config.padding + txtSize.distance + config.wordSpacing, config.height - config.padding);
+
+        _xDurationOffset = 0; // Reset
         output.duration.forEach((el, i) => {
-            ctx.fillText(el.u, config.padding*2 + _third + (i*155) + txtSize.duration[i] + config.wordSpacing, config.height - config.padding);
+            _xDurationOffset += txtSize.duration[i].v + config.wordSpacing;
+            if ( el.u ) { ctx.fillText(el.u, config.padding*2 + _third + _xDurationOffset, config.height - config.padding) }
+            _xDurationOffset += config.wordSpacing + txtSize.duration[i].u;
         })
 
         let _optionUnits = (output.optionLabel == 'elevation') ? 'm' : (output.optionLabel == 'speed')
