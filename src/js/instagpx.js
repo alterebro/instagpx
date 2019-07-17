@@ -18,6 +18,35 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
     context.fillText(line, x, y);
 }
 
+function plotElevationGraph(context, x, y, w, h, elevation, distance) {
+
+    function map(value, start1, stop1, start2, stop2) {
+        return ((value - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
+    }
+
+    console.log(elevation.max, elevation.min, distance.km);
+
+    context.shadowBlur = 0;
+
+    // Background
+    context.fillStyle = 'rgba(255, 255, 255, .25)';
+    context.fillRect(x, y, w, h);
+
+    // Profile
+    context.fillStyle = 'rgba(255, 255, 255, .8)';
+    context.beginPath();
+    context.moveTo( x, y+h);
+    elevation.dataPoints.forEach((el, i) => {
+        context.lineTo(
+            map(el.dist, 0, distance.km, 0, w) + x,
+            map(el.elevation, elevation.min, elevation.max, h, 0) + y
+        )
+    });
+    context.lineTo( x+w, y+h )
+    context.closePath();
+    context.fill();
+}
+
 function instaGPX(gpxData, imgData) {
 
     // console.log(gpxData, imgData);
@@ -116,7 +145,6 @@ function instaGPX(gpxData, imgData) {
             txtSize.duration.push({v : _vSize, u : _uSize});
         })
 
-
         // ----------------
         // Values output
         ctx.font = '72px Montserrat';
@@ -186,6 +214,18 @@ function instaGPX(gpxData, imgData) {
         ctx.font = '64px Montserrat';
         let _titleOffset = (_top.length) ? 42 : 0;
         wrapText(ctx, (config.title).toUpperCase().trim().replace(/\s\s+/g, ' '), config.padding, config.padding + _titleOffset, config.width - (config.padding*2), 72);
+
+        // ----------------
+        // Plot elevation graph
+        plotElevationGraph(
+            ctx,
+            config.padding,
+            config.height - config.padding - (_labelOffsetY + 60) - (config.height/5),
+            config.width - (config.padding*2),
+            (config.height/5),
+            gpxData.elevation,
+            gpxData.distance
+        );
 
         // ----------------
         // Render

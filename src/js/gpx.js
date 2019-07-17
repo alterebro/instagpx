@@ -78,6 +78,14 @@ function readGPX(file, callback) {
 
         const trackpoints = gpxToJSON(_trkpts);
 
+        // let _totalDistance = 0;
+        // for (let i = 0; i < trackpoints.length -1; i++) {
+        //     let _elevation = trackpoints[i].elevation;
+        //     let _distance = pointsDistance( trackpoints[i], trackpoints[i+1] );
+        //     console.log(i, Math.round(_elevation), parseFloat((_totalDistance).toFixed(3)));
+        //     _totalDistance += _distance;
+        // }
+
         // let a = new Date(trackpoints[0].time).getTime();
         // console.log('a: ', a);
         // let b = tinytime('{dddd}, {DD} {MMMM} {YYYY} · {h}:{mm}{a}')
@@ -152,31 +160,38 @@ function readGPX(file, callback) {
         const elevation = (function() {
 
             let eleForMinMax = [];
-            // let richElevation = [];
+            let richElevation = [];
             let gain = 0;
             let loss = 0;
             let startTime = new Date(trackpoints[0].time).getTime();
-            // let dist = 0;
+            let dist = 0;
 
             for( let i = 0; i < trackpoints.length - 1; i++ ){
                 let diff = trackpoints[i+1].elevation - trackpoints[i].elevation;
                 let time = new Date( trackpoints[i+1].time ).getTime();
                 let timeDiff = Math.abs( time - startTime );
 
-                    // dist += pointsDistance(trackpoints[i], trackpoints[i+1]);
-
                 if ( diff < 0 ) { loss += diff }
                 if ( diff > 0 ) { gain += diff }
 
                 eleForMinMax.push( trackpoints[i].elevation );
-                // richElevation.push( {
-                //     elevation: trackpoints[i].elevation,
-                //     time: msToTime(timeDiff).ms,
-                //     dist: dist }
-                // );
+                richElevation.push( {
+                    elevation: trackpoints[i].elevation,
+                    // time: msToTime(timeDiff).ms,
+                    dist: dist
+                });
+
+                dist += pointsDistance(trackpoints[i], trackpoints[i+1]);
             }
 
+            // Adds final point
+            richElevation.push({
+                elevation : trackpoints[trackpoints.length-1].elevation,
+                dist: dist
+            });
+
             return {
+                dataPoints: richElevation,
                 // elevation: richElevation,
                 max: Math.max.apply( null, eleForMinMax ),
                 min: Math.min.apply( null, eleForMinMax ),
