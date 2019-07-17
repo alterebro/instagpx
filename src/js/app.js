@@ -191,7 +191,8 @@ const Data = {
         wordSpacing : 10,
         title : '',
         timestampPattern : 3,
-        promote : true
+        promote : true,
+        graph : true // Elevation graph
     },
 
     modalVisible : false

@@ -49,7 +49,7 @@ function plotElevationGraph(context, x, y, w, h, elevation, distance) {
         _altitudeFactor = map(_altitudeFactor, 0, 1000, 0, h);
 
     let _altitudeFactorRest = h - _altitudeFactor;
-    let _altitudeYOffset = (80*_altitudeFactorRest)/100; // 80/20
+    let _altitudeYOffset = (80*_altitudeFactorRest)/100; // 80:20
 
     // console.log(_altitudeYOffset, 'height: ' + h , elevation.max, elevation.min, _altitudeDiff, _altitudeFactor, _altitudeFactorRest );
 
@@ -64,7 +64,7 @@ function plotElevationGraph(context, x, y, w, h, elevation, distance) {
     context.fillRect(x, y, w, h);
 
     // Profile
-    context.fillStyle = 'rgba(255, 255, 255, .5)';
+    context.fillStyle = 'rgba(255, 255, 255, .65)';
     context.beginPath();
 
     context.moveTo( x, y+h);
@@ -250,16 +250,18 @@ function instaGPX(gpxData, imgData) {
 
         // ----------------
         // Plot elevation graph
-        plotElevationGraph(
-            ctx,
-            config.padding,
-            config.height - config.padding - (_labelOffsetY + 60) - (config.height/5),
-            config.width - (config.padding*2),
-            (config.height/5),
-            gpxData.elevation,
-            gpxData.distance
-        );
-
+        if (config.graph) {
+            plotElevationGraph(
+                ctx,
+                config.padding,
+                config.height - config.padding - (_labelOffsetY + 60) - (config.height/6),
+                config.width - (config.padding*2),
+                (config.height/6),
+                gpxData.elevation,
+                gpxData.distance
+            );
+        }
+        
         // ----------------
         // Render
         document.querySelector('#output').innerHTML = '';
