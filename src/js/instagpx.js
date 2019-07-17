@@ -1,3 +1,18 @@
+CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+
+    if (w < 2 * r) r = w / 2;
+    if (h < 2 * r) r = h / 2;
+
+    this.beginPath();
+        this.moveTo(x+r, y);
+        this.arcTo(x+w, y,   x+w, y+h, r);
+        this.arcTo(x+w, y+h, x,   y+h, r);
+        this.arcTo(x,   y+h, x,   y,   r);
+        this.arcTo(x,   y,   x+w, y,   r);
+    this.closePath();
+    return this;
+}
+
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
     let words = text.split(' ');
     let line = '';
@@ -20,31 +35,49 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
 
 function plotElevationGraph(context, x, y, w, h, elevation, distance) {
 
+
     function map(value, start1, stop1, start2, stop2) {
         return ((value - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
     }
 
-    console.log(elevation.max, elevation.min, distance.km);
+    function clamp(num, min, max) {
+        return num <= min ? min : num >= max ? max : num;
+    }
+
+    let _altitudeDiff = (elevation.max - elevation.min);
+    let _altitudeFactor = clamp(_altitudeDiff, 0, 1000);
+        _altitudeFactor = map(_altitudeFactor, 0, 1000, 0, h);
+
+    let _altitudeFactorRest = h - _altitudeFactor;
+    let _altitudeYOffset = (80*_altitudeFactorRest)/100; // 80/20
+
+    // console.log(_altitudeYOffset, 'height: ' + h , elevation.max, elevation.min, _altitudeDiff, _altitudeFactor, _altitudeFactorRest );
 
     context.shadowBlur = 0;
 
+    // Clip
+    context.roundRect(x, y, w, h, 10);
+    context.clip();
+
     // Background
-    context.fillStyle = 'rgba(255, 255, 255, .25)';
+    context.fillStyle = 'rgba(255, 255, 255, .1)';
     context.fillRect(x, y, w, h);
 
     // Profile
-    context.fillStyle = 'rgba(255, 255, 255, .8)';
+    context.fillStyle = 'rgba(255, 255, 255, .5)';
     context.beginPath();
+
     context.moveTo( x, y+h);
     elevation.dataPoints.forEach((el, i) => {
         context.lineTo(
             map(el.dist, 0, distance.km, 0, w) + x,
-            map(el.elevation, elevation.min, elevation.max, h, 0) + y
+            map(el.elevation, elevation.min, elevation.max, _altitudeFactor, 0) + y + _altitudeYOffset
         )
     });
     context.lineTo( x+w, y+h )
     context.closePath();
     context.fill();
+
 }
 
 function instaGPX(gpxData, imgData) {
