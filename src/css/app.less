@@ -445,6 +445,22 @@ footer[role="contentinfo"] {
             &.linkedin a:before { background-image: url(../img/icon-share-linkedin.svg); }
             &.email a:before { background-image: url(../img/icon-share-email.svg); }
             &.telegram a:before { background-image: url(../img/icon-share-telegram.svg); }
+
+            @media @mobile {
+                a {
+                    text-indent: -1000em;
+                    padding: 0;
+                    height: 32px;
+                    width: 32px;
+                    border-radius: 100%;
+
+                    &:before {
+                        width: 14px;
+                        height: 14px;
+                        left: 9px;
+                    }
+                }
+            }
         }
     }
 }
