@@ -1,0 +1,25 @@
+{
+  "name": "instagpx",
+  "version": "1.0.0",
+  "description": "Create sharing pictures with activity stats from gpx and image files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alterebro/instagpx.git"
+  },
+  "keywords": [
+    "gpx",
+    "stats",
+    "graph",
+    "pic"
+  ],
+  "author": "Jorge Moreno, moro.es (@alterebro)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/alterebro/instagpx/issues"
+  },
+  "homepage": "https://github.com/alterebro/instagpx#readme"
+}
