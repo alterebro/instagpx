@@ -1,3 +1,8 @@
+@mobile-breakpoint : 890;
+@mobile : ~"all and (max-width: @{mobile-breakpoint}px)";
+@non-mobile : ~"all and (min-width: @{mobile-breakpoint}px)";
+
+
 /* Pseudo-Reset */
 html, body, h1, h2, h3, h4, p, ul, ol, li, dl, dd, dt, figure, form, fieldset, hr , pre {
     margin: 0;
@@ -17,8 +22,6 @@ button, input, select, textarea {
 
 /* --- */
 
-// @import url('https://fonts.googleapis.com/css?family=Barlow:400,700&display=swap');
-
 
 html {
     line-height: 1;
@@ -30,7 +33,6 @@ html {
     cursor: default;
 }
 body {
-    // font-family: 'Barlow', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Arial, sans-serif;;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Arial, sans-serif;;
     font-size: 1.4em;
     line-height: 1.6;
@@ -260,6 +262,7 @@ a {
     }
 
     h4, .form-input-container label {
+        display: block;
         font-size: 100%;
         font-weight: 500;
         color: #202950;
@@ -351,6 +354,7 @@ header[role="banner"] {
 
             #output {
                 canvas, img {
+                    display: block;
                     width: 100%;
                     max-width: 512px;
                     border-radius: 5px;
@@ -370,6 +374,15 @@ header[role="banner"] {
                 width: 100%;
             }
         }
+
+        @media @mobile {
+            display: block;
+            max-width: 572px;
+
+            figure { margin: 0 0 2rem; }
+            aside form { padding: 2rem 0 0 0 }
+        }
+
     }
 }
 
