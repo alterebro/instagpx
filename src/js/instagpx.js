@@ -35,13 +35,18 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
 
 function plotElevationGraph(context, x, y, w, h, elevation, distance) {
 
-
     function map(value, start1, stop1, start2, stop2) {
         return ((value - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
     }
 
     function clamp(num, min, max) {
         return num <= min ? min : num >= max ? max : num;
+    }
+
+    function mapIntInclusive (value, start1, stop1, start2, stop2) {
+        stop2b = stop2 + 1;
+        let v = Math.floor(map(value, start1, stop1, start2, stop2b));
+        return clamp(v, start2, stop2);
     }
 
     let _altitudeDiff = (elevation.max - elevation.min);
@@ -51,8 +56,15 @@ function plotElevationGraph(context, x, y, w, h, elevation, distance) {
     let _altitudeFactorRest = h - _altitudeFactor;
     let _altitudeYOffset = (80*_altitudeFactorRest)/100; // 80:20
 
-    // console.log(_altitudeYOffset, 'height: ' + h , elevation.max, elevation.min, _altitudeDiff, _altitudeFactor, _altitudeFactorRest );
 
+    // Vertical guidelines : xAxis
+    let _blockKms = Math.ceil(Math.ceil((distance.km)/10));
+    let _blockKmsSize = (_blockKms*w)/distance.km;
+
+    // Horizontal guidelines : yAxis
+    let _altitudeAxisNum = mapIntInclusive(_altitudeFactor, 0, h, 1, 6)
+
+    // Remove Blur
     context.shadowBlur = 0;
 
     // Clip
@@ -63,19 +75,47 @@ function plotElevationGraph(context, x, y, w, h, elevation, distance) {
     context.fillStyle = 'rgba(255, 255, 255, .1)';
     context.fillRect(x, y, w, h);
 
-    // Profile
-    context.fillStyle = 'rgba(255, 255, 255, .65)';
-    context.beginPath();
+    // xAxis
+    context.strokeStyle = 'rgba(255, 255, 255, .1)';
+    context.lineWidth = 2;
 
-    context.moveTo( x, y+h);
-    elevation.dataPoints.forEach((el, i) => {
+    let xAxisCounter = x;
+    while (xAxisCounter < x+w) {
+        xAxisCounter += _blockKmsSize;
+        context.beginPath();
+        context.moveTo(xAxisCounter, y);
+        context.lineTo(xAxisCounter, y+h);
+        context.stroke();
+    }
+
+    // yAxis
+    for (let i = 1; i < _altitudeAxisNum; i++) {
+        context.beginPath();
+            context.moveTo(x, (h/_altitudeAxisNum)*i + y);
+            context.lineTo(x+w, (h/_altitudeAxisNum)*i + y);
+        context.stroke();
+    }
+
+
+    // Profile
+    context.beginPath();
+    context.moveTo( x-10, y+h+10);
+    elevation.dataPoints.forEach((el, i, arr) => {
+        if (i == 0) { context.lineTo( x-10, map(el.elevation, elevation.min, elevation.max, _altitudeFactor, 0) + y + _altitudeYOffset ) }
         context.lineTo(
             map(el.dist, 0, distance.km, 0, w) + x,
             map(el.elevation, elevation.min, elevation.max, _altitudeFactor, 0) + y + _altitudeYOffset
         )
+        if (i == arr.length-1) { context.lineTo( x+w+10, map(el.elevation, elevation.min, elevation.max, _altitudeFactor, 0) + y + _altitudeYOffset ) }
     });
-    context.lineTo( x+w, y+h )
+    context.lineTo( x+w+10, y+h+10 )
     context.closePath();
+
+    context.strokeStyle = 'rgba(255, 255, 255, 1)';
+    context.lineWidth = 4;
+    context.stroke();
+
+    context.fillStyle = 'rgba(255, 255, 255, .25)';
     context.fill();
 
 }
@@ -261,7 +301,7 @@ function instaGPX(gpxData, imgData) {
                 gpxData.distance
             );
         }
-        
+
         // ----------------
         // Render
         document.querySelector('#output').innerHTML = '';

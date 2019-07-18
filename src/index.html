@@ -24,7 +24,7 @@
 <header role="banner">
     <h1><img src="./img/instagpx.svg" alt="InstaGPX" /></h1>
     <p>Create sharing pictures with your activity stats and any of your photos.</p>
-    <p>Upload a .GPX and Image file and select your desired option!</p>
+    <p>Upload a .GPX and Image file and select the options you like more!</p>
 </header>
 
 <div id="app" v-cloak>
@@ -58,7 +58,7 @@
 
         <aside role="complementary">
             <p>
-                <a href="#" download="instagpx.com.jpg" id="download-img" class="button" v-on:click.prevent="showModal">
+                <a href="#" download="instagpx.com.jpg" id="download-img" class="button" v-on:click="showModal">
                     <img src="img/icon-download.svg" alt="Download Image" />
                     <span>Download Image</span>
                 </a>
@@ -148,10 +148,10 @@
     <section class="modal-thanks" v-bind:class="{ visible: modalVisible }">
         <div>
             <p>
-                Thanks for using <strong>InstaGPX.com</strong> :)
-                <br />Your picture is now being downloaded!
-                <br />Now, why don't you:
+                Thanks for using InstaGPX! Your picture is now being downloaded :)
+                <br />Share it using the hashtag <mark>#instagpx</mark> in order to get it featured!
             </p>
+            <p><em>Now, you can</em>:</p>
             <ul>
                 <li class="twitter"><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow me on Twitter!">Follow me on Twitter</a></li>
                 <li class="instagram"><a href="https://www.instagram.com/alterebro/" target="_blank" rel="noopener noreferrer" title="Follow me on Instagram!">and/or on Instagram</a></li>
