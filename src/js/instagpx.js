@@ -122,9 +122,6 @@ function plotElevationGraph(context, x, y, w, h, elevation, distance) {
 
 function instaGPX(gpxData, imgData) {
 
-    // console.log(gpxData, imgData);
-    // console.log(imgData.height, gpxData.timestamp);
-
     const config = {...Config, ...Data.options }
 
     let _duration = [ // Default (<1h)
@@ -178,13 +175,20 @@ function instaGPX(gpxData, imgData) {
         // Overlaying Shadow BG
         // ctx.globalCompositeOperation = 'overlay';
         ctx.globalCompositeOperation = 'multiply';
-        let grdTopSize = config.height/4;
-        let grdTop = ctx.createLinearGradient(0, 0, 0, grdTopSize);
-            grdTop.addColorStop(0.0, "rgba(0, 0, 0, 0.50)");
-            grdTop.addColorStop(1.0, "rgba(0, 0, 0, 0.00)");
 
-            ctx.fillStyle = grdTop;
-            ctx.fillRect(0, 0, config.width, grdTopSize);
+        // ---
+        // Hide top shadow if nothing on top
+        if ( !!config.promote || config.timestampPattern !== 'false' || !!(config.title).trim().replace(/\s\s+/g, ' ') ) {
+
+            let grdTopSize = config.height/4;
+            let grdTop = ctx.createLinearGradient(0, 0, 0, grdTopSize);
+                grdTop.addColorStop(0.0, "rgba(0, 0, 0, 0.50)");
+                grdTop.addColorStop(1.0, "rgba(0, 0, 0, 0.00)");
+
+                ctx.fillStyle = grdTop;
+                ctx.fillRect(0, 0, config.width, grdTopSize);
+        }
+
 
         let grdBottomSize = config.height/4;
         let grdBottom = ctx.createLinearGradient(0, config.height - grdBottomSize, 0, config.height);
