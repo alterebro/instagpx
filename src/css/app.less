@@ -200,6 +200,10 @@ a {
                     background-size: 14px auto;
                     background-position: center center;
                 }
+                max-width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
         &.form-radio {
@@ -210,11 +214,17 @@ a {
                 &:after {
                     border: solid #a9afcf 4px;
                 }
+
+                max-width: 90%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
     }
 
     .form-radio-container {
+        max-width: 32rem;
         display: flex;
         .form-radio { flex: 1 }
     }
@@ -235,7 +245,7 @@ a {
         vertical-align: top;
         padding: .5rem 1rem;
         width: 100%;
-        max-width: 30rem;
+        max-width: 48rem;
         color: #404970;
 
         &:focus {
