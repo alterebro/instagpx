@@ -72,7 +72,7 @@ function plotElevationGraph(context, x, y, w, h, elevation, distance) {
     context.clip();
 
     // Background
-    context.fillStyle = 'rgba(255, 255, 255, .1)';
+    context.fillStyle = 'rgba(255, 255, 255, .05)';
     context.fillRect(x, y, w, h);
 
     // xAxis

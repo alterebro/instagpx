@@ -1,6 +1,11 @@
-@mobile-breakpoint : 890;
+@mobile-breakpoint : 420;
+@tablet-breakpoint : 890;
 @mobile : ~"all and (max-width: @{mobile-breakpoint}px)";
-@non-mobile : ~"all and (min-width: @{mobile-breakpoint}px)";
+@tablet : ~"all and (max-width: @{tablet-breakpoint}px)";
+@desktop : ~"all and (min-width: @{tablet-breakpoint}px)";
+
+@color-primary-light : #797f9f;
+@color-primary-dark : #606990;
 
 
 /* Pseudo-Reset */
@@ -41,6 +46,8 @@ body {
 }
 html, body {
     padding: 1rem;
+
+    @media @mobile { padding: 1rem 0 }
 }
 *, *:before, *:after {
 	box-sizing: inherit;
@@ -55,14 +62,14 @@ hr {
     margin: 2rem 0;
 }
 a {
-    color: #606990;
+    color: @color-primary-dark;
     text-decoration: none;
     border-bottom: solid transparent 2px;
     transition: color .35s ease-in-out, border .35s ease-in-out;
 
     &:hover {
         color: #000;
-        border-bottom: solid #797f9f 2px;
+        border-bottom: solid @color-primary-light 2px;
     }
 }
 
@@ -79,13 +86,13 @@ a {
     min-width: auto;
     max-width: 100%;
 
-    background-color: #797f9f;
+    background-color: @color-primary-light;
     color: #fff;
     display: inline-block;
     cursor: pointer;
     padding: 8px 18px;
     border-radius: 3px;
-    border: solid #797f9f 1px;
+    border: solid @color-primary-light 1px;
     box-shadow: none;
     transition: all .25s ease-in-out;
 
@@ -103,15 +110,15 @@ a {
 
     &:hover {
         color: #fff;
-        background: #606990;
-        border: solid #606990 1px;
+        background: @color-primary-dark;
+        border: solid @color-primary-dark 1px;
         box-shadow: 0 5px 1px -2px rgba(0, 0, 0, .15);
         img { opacity: 1 }
     }
 
     &:focus {
-        border: solid #606990 1px;
-        box-shadow: 0 0 2px 0 #606990;
+        border: solid @color-primary-dark 1px;
+        box-shadow: 0 0 2px 0 @color-primary-dark;
         outline: none;
     }
 }
@@ -149,7 +156,7 @@ a {
     input[type="file"] + label * { pointer-events: none }
     input[type="file"]:focus + label,
     input[type="file"] + label:hover {
-        background-color: #606990;
+        background-color: @color-primary-dark;
     }
 
     .form-selector {
@@ -175,10 +182,10 @@ a {
                 height: 16px;
             }
             &:before {
-                background-color: #a9afcf;
+                background-color: lighten(@color-primary-light, 15%);
             }
             &:after {
-                background-color: #606990;
+                background-color: @color-primary-dark;
             }
         }
 
@@ -187,7 +194,7 @@ a {
         input:checked + label:before { content: none }
 
         input:focus + label::after {
-            box-shadow: 0 0 2px 0 #606990;
+            box-shadow: 0 0 2px 0 @color-primary-dark;
         }
 
         &.form-checkbox {
@@ -212,7 +219,7 @@ a {
                     border-radius: 16px;
                 }
                 &:after {
-                    border: solid #a9afcf 4px;
+                    border: solid lighten(@color-primary-light, 15%) 4px;
                 }
 
                 max-width: 90%;
@@ -249,8 +256,8 @@ a {
         color: #404970;
 
         &:focus {
-            border: solid #606990 1px;
-            box-shadow: 0 0 2px 0 #606990;
+            border: solid @color-primary-dark 1px;
+            box-shadow: 0 0 2px 0 @color-primary-dark;
             outline: none;
         }
     }
@@ -307,6 +314,8 @@ header[role="banner"] {
         margin: 0 auto;
         width: 225px;
     }
+
+    @media @mobile { padding: 1rem 2rem 0 }
 }
 
 #app {
@@ -316,6 +325,8 @@ header[role="banner"] {
         padding: 2rem 0;
         justify-content: center;
         text-align: center;
+
+        @media @mobile { padding: 1rem 0 }
 
         > div {
             padding: 1rem;
@@ -343,7 +354,7 @@ header[role="banner"] {
             }
         }
 
-        @media @mobile {
+        @media @tablet {
             display: block;
             label { min-width: 22rem }
         }
@@ -363,6 +374,11 @@ header[role="banner"] {
         padding: 3rem;
         border-radius: 5px;
         box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .2);
+
+        @media @mobile {
+            padding: 1.5rem;
+            border-radius: 0;
+        }
 
         figure {
             grid-area: image;
@@ -390,14 +406,17 @@ header[role="banner"] {
             }
         }
 
-        @media @mobile {
+        @media @tablet {
             display: block;
             max-width: 572px;
 
             figure { margin: 0 0 2rem; }
             aside form { padding: 2rem 0 0 0 }
         }
-
+        @media @mobile {
+            margin: 1rem auto;
+            figure { margin: 0 0 1rem; }
+        }
     }
 }
 
@@ -420,7 +439,7 @@ footer[role="contentinfo"] {
 
             a {
                 display: block;
-                background: #797f9f;
+                background: @color-primary-light;
                 color: #fff;
                 padding: 3px 10px 3px 26px;
                 margin: 0 3px;
@@ -430,7 +449,7 @@ footer[role="contentinfo"] {
                 transition: all .25s ease-in-out;
 
                 &:hover {
-                    background: #606990;
+                    background: @color-primary-dark;
                     box-shadow: 0 5px 1px -2px rgba(0, 0, 0, .15);
                 }
 
@@ -461,7 +480,7 @@ footer[role="contentinfo"] {
             &.email a:before { background-image: url(../img/icon-share-email.svg); }
             &.telegram a:before { background-image: url(../img/icon-share-telegram.svg); }
 
-            @media @mobile {
+            @media @tablet {
                 a {
                     text-indent: -1000em;
                     padding: 0;
@@ -489,7 +508,7 @@ footer[role="contentinfo"] {
         width: 32px;
         height: 32px;
         border-radius: 100%;
-        background-color: #797f9f;
+        background-color: @color-primary-light;
         background-size: 18px 18px;
         background-position: center center;
         position: absolute;
@@ -553,7 +572,7 @@ footer[role="contentinfo"] {
                 background-image: url(../img/icon-share-instagram.svg);
             }
 
-            @media @mobile {
+            @media @tablet {
                 font-size: 120%;
                 padding: 5px 0 5px 42px;
             }
@@ -577,7 +596,7 @@ footer[role="contentinfo"] {
                 background-image: url(../img/icon-close.svg);
             }
             &:hover:before {
-                background-color: #606990;
+                background-color: @color-primary-dark;
             }
         }
     }
