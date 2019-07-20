@@ -227,11 +227,7 @@ const App = new Vue({
             let _title = encodeURIComponent(Config.title);
             let _desc = encodeURIComponent(Config.description);
             let _url = encodeURIComponent(Config.url);
-
-            let output = url.replace('{TITLE}', _title).replace('{TEXT}', _desc).replace('{URL}', _url);
-            console.log(output);
-
-            return output;
+            return url.replace('{TITLE}', _title).replace('{TEXT}', _desc).replace('{URL}', _url);
         },
         networkTitle : function(str) {
             return `Share it via ${str}!`;

@@ -23,8 +23,6 @@
 
 <header role="banner">
     <h1><img src="./img/instagpx.svg" alt="InstaGPX" /></h1>
-    <p>Create sharing pictures with your activity stats and any of your photos.</p>
-    <p>Upload a .GPX and Image file and select the options you like more!</p>
 </header>
 
 <div id="app" v-cloak>
@@ -51,7 +49,13 @@
         </div>
     </section>
 
-    <main role="main">
+    <section role="presentation" :class="{ hidden : userDataLoaded }">
+        <h2>Create beautiful sharing pictures showing your activity stats from any GPX and image file</h2>
+        <h3>Upload a .GPX and Image file and select the options you like more!</h3>
+        <p><strong>userDataLoaded</strong> : {{ userDataLoaded }}</p>
+    </section>
+
+    <main role="main" :class="{ visible : userDataLoaded }">
         <figure role="figure">
             <div id="output"></div>
         </figure>

@@ -360,8 +360,26 @@ header[role="banner"] {
         }
     }
 
+    section[role="presentation"] {
+        width: 100%;
+        max-width: 64rem;
+        margin: 2rem auto;
+        background: #fff;
+        padding: 3rem;
+        border-radius: 5px;
+        box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .2);
+        text-align: center;
+
+        h2 { line-height: 1.4; }
+        h3 { margin: 0 0 1rem; }
+
+        &.hidden { display: none }
+    }
+
     main[role="main"] {
-        display: grid;
+
+        &.visible { display: grid; }
+        display: none;
         grid-template-rows: 512px;
         grid-template-columns : 512px auto;
         grid-gap: 3rem;
@@ -407,7 +425,8 @@ header[role="banner"] {
         }
 
         @media @tablet {
-            display: block;
+            &.visible { display: block; }
+            // display: block;
             max-width: 572px;
 
             figure { margin: 0 0 2rem; }
@@ -418,6 +437,8 @@ header[role="banner"] {
             figure { margin: 0 0 1rem; }
         }
     }
+
+
 }
 
 footer[role="contentinfo"] {
