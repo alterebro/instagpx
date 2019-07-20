@@ -157,6 +157,9 @@ function filename(file) {
 // ---------------------------------------------------------------
 
 const Config = {
+    title : 'InstaGPX',
+    description : 'Create beautiful sharing pictures showing your activity stats from any GPX and image file',
+    url : 'http://localhost/www/github/instagpx/src/',
     width : 1280,
     height: 1280,
     timestampTemplates : [
@@ -172,6 +175,14 @@ const Config = {
         '{Mo}.{DD}.{YYYY} · {H}:{mm}'
     ]
 }
+
+const Share = [
+    { network : "Twitter", url : "https://twitter.com/intent/tweet?text={TEXT}&url={URL}" },
+    { network : "FaceBook", url : "https://www.facebook.com/sharer.php?u={URL}" },
+    { network : "LinkedIn", url : "https://www.linkedin.com/shareArticle?mini=true&url={URL}&title={TITLE}&summary={TEXT}&source=moro.es" },
+    { network : "E-Mail", url : "mailto:?subject={TITLE}&body={TEXT}:%0A{URL}" },
+    { network : "Telegram", url : "https://telegram.me/share/url?url={URL}&amp;text={TEXT} "}
+];
 
 const Data = {
     gpxLoaded : false,
@@ -195,7 +206,8 @@ const Data = {
         graph : true // Elevation graph
     },
 
-    modalVisible : false
+    modalVisible : false,
+    networks : Share
 }
 
 
@@ -207,6 +219,22 @@ const App = new Vue({
         renderTimestamp : function(value, template) {
             let _timestamp = tinytime(template, { padMonth: true });
             return _timestamp.render( new Date(value) );
+        },
+        networkClass : function(str) {
+            return str.toLowerCase().replace('-', '');
+        },
+        networkURL : function(url) {
+            let _title = encodeURIComponent(Config.title);
+            let _desc = encodeURIComponent(Config.description);
+            let _url = encodeURIComponent(Config.url);
+
+            let output = url.replace('{TITLE}', _title).replace('{TEXT}', _desc).replace('{URL}', _url);
+            console.log(output);
+
+            return output;
+        },
+        networkTitle : function(str) {
+            return `Share it via ${str}!`;
         }
     },
     watch : {
