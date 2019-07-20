@@ -343,9 +343,10 @@ Vue.component('intro-slide', {
         return {
             current: 0,
             images : [
-                { url : './img/intro-instagpx-r01.jpg' },
-                { url : './img/intro-instagpx-r02.jpg' },
-                { url : './img/intro-instagpx-r03.jpg' }
+                { url : './img/intro/instagpx-01.jpg' },
+                { url : './img/intro/instagpx-02.jpg' },
+                { url : './img/intro/instagpx-03.jpg' },
+                { url : './img/intro/instagpx-04.jpg' }
             ]
         }
     },
