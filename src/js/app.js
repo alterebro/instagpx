@@ -365,7 +365,7 @@ Vue.component('intro-slide', {
     template: `
         <section role="presentation" :class="{ hidden : hidden }">
             <figure>
-                <img v-for="(img, i) in images" :src="img.url" :alt="InstaGPX" :class="{ active : (i == current) }" />
+                <img v-for="(img, i) in images" :src="img.url" :class="{ active : (i == current) }" alt="InstaGPX" />
             </figure>
             <footer>
                 <nav>
