@@ -380,7 +380,7 @@ header[role="banner"] {
             display: flex;
             max-width: 48rem;
             background: #fff;
-            box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .25);
+            box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .35);
 
             img {
                 display: block;
@@ -414,7 +414,7 @@ header[role="banner"] {
                     height: 32px;
                     width: 32px;
                     border-radius: 100%;
-                    background: @color-primary-dark;
+                    background: @color-primary-light;
                     position: relative;
                     border: none;
 
@@ -431,20 +431,28 @@ header[role="banner"] {
                         background-size: cover;
                         background-repeat: no-repeat;
                         background-position: center center;
-                        opacity: .5;
-                        transition: opacity .25s ease-in-out;
                     }
 
-                    &.prev:before { background-image: url(../img/outline-arrow_back_ios-24px.svg); }
-                    &.next:before { background-image: url(../img/outline-arrow_forward_ios-24px.svg); }
+                    &.prev:before { background-image: url(../img/icon-arrow-back.svg); }
+                    &.next:before { background-image: url(../img/icon-arrow-forward.svg); }
 
-                    &:hover { box-shadow: 0 5px 1px -2px rgba(0, 0, 0, .15) }
-                    &:hover:before { opacity: 1 }
+                    &:hover {
+                        background: @color-primary-dark;
+                        box-shadow: 0 5px 1px -2px rgba(0, 0, 0, .15)
+                    }
                 }
             }
         }
 
         &.hidden { display: none }
+
+        @media @tablet {
+            max-width: 48rem;
+            footer {
+                nav { padding: 0 3rem; }
+            }
+        }
+
     }
 
     main[role="main"] {
@@ -644,6 +652,14 @@ footer[role="contentinfo"] {
             margin: 0 auto 1rem;
             padding: 0 2rem;
             text-align: center;
+        }
+
+        mark {
+            color: #fff;
+            display: inline-block;
+            padding: 1px 6px;
+            border-radius: 3px;
+            background-color: @color-primary-light;
         }
 
         li {
