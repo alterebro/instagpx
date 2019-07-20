@@ -306,14 +306,20 @@ a {
 
 header[role="banner"] {
     text-align: center;
-    padding: 2rem 1rem 0;
     font-size: 90%;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 2rem 1rem 0;
 
     img {
         display: block;
         margin: 0 auto;
         width: 225px;
     }
+    h2 {
+        line-height: 1.4;
+        color : @color-primary-dark }
+    h3 { color : @color-primary-light }
 
     @media @mobile { padding: 1rem 2rem 0 }
 }
@@ -362,18 +368,58 @@ header[role="banner"] {
 
     section[role="presentation"] {
         width: 100%;
-        max-width: 64rem;
+        max-width: 62rem;
         margin: 2rem auto;
-        background: #fff;
-        padding: 3rem;
-        border-radius: 5px;
-        box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .2);
+        padding: 0 1rem;
         text-align: center;
+        border: solid #ccc 1px;
+        position: relative;
 
-        h2 { line-height: 1.4; }
-        h3 { margin: 0 0 1rem; }
+        figure {
+            margin: 0 auto;
+            overflow: hidden;
+            display: flex;
+            max-width: 48rem;
+            background: #fff;
+            box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .25);
+
+            img {
+                display: block;
+                width: 100%;
+                max-width: 48rem;
+                border: solid #fff 1rem;
+                display: none;
+
+                &.active {
+                    display: block;
+                }
+            }
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            nav {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                align-items: center;
+                justify-content: space-between;
+                max-width: 60rem;
+                margin: 0 auto;
+
+                a {
+                    margin-top: 20%;
+                }
+            }
+        }
 
         &.hidden { display: none }
+
     }
 
     main[role="main"] {

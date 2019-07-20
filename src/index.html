@@ -23,6 +23,8 @@
 
 <header role="banner">
     <h1><img src="./img/instagpx.svg" alt="InstaGPX" /></h1>
+    <h2>Create beautiful sharing pictures showing your activity stats from any GPX and image file</h2>
+    <h3>Upload a .GPX and Image file and select the options you like more!</h3>
 </header>
 
 <div id="app" v-cloak>
@@ -49,11 +51,23 @@
         </div>
     </section>
 
+    <intro-slide :hidden="userDataLoaded"></intro-slide>
+
+    <!--
     <section role="presentation" :class="{ hidden : userDataLoaded }">
-        <h2>Create beautiful sharing pictures showing your activity stats from any GPX and image file</h2>
-        <h3>Upload a .GPX and Image file and select the options you like more!</h3>
-        <p><strong>userDataLoaded</strong> : {{ userDataLoaded }}</p>
+        <figure>
+            <img src="./img/intro-instagpx-r01.jpg" alt="InstaGPX" class="hidden" />
+            <img src="./img/intro-instagpx-r02.jpg" alt="InstaGPX" class="hidden" />
+            <img src="./img/intro-instagpx-r03.jpg" alt="InstaGPX" class="hidden" />
+        </figure>
+        <footer>
+            <nav>
+                <a href="#" class="prev" @click.prevent="introSlidePrev">&#8592; Prev</a>
+                <a href="#" class="next" @click.prevent="introSlideNext">Next &#8594;</a>
+            </nav>
+        </footer>
     </section>
+    -->
 
     <main role="main" :class="{ visible : userDataLoaded }">
         <figure role="figure">
@@ -165,8 +179,6 @@
     </section>
 
     <footer role="contentinfo">
-
-
         <nav>
             <h4>Share! :</h4>
             <ul>

@@ -327,7 +327,6 @@ const App = new Vue({
             this.modalVisible = false;
         },
 
-
         regenerateImage : function() {
             console.log('regenerating?');
             instaGPX(this.gpx, this.image)
@@ -338,3 +337,42 @@ const App = new Vue({
         dev();
     }
 })
+
+Vue.component('intro-slide', {
+    data : function() {
+        return {
+            current: 0,
+            images : [
+                { url : './img/intro-instagpx-r01.jpg' },
+                { url : './img/intro-instagpx-r02.jpg' },
+                { url : './img/intro-instagpx-r03.jpg' }
+            ]
+        }
+    },
+    methods : {
+        introSlideNext : function() {
+            let _next = ( this.current + 1 >= this.images.length )
+                ? 0 : this.current + 1;
+            this.current = _next;
+        },
+        introSlidePrev : function() {
+            let _prev = ( this.current - 1 < 0 )
+                ? this.images.length - 1 : this.current - 1
+            this.current = _prev;
+        }
+    },
+    props: ['hidden'],
+    template: `
+        <section role="presentation" :class="{ hidden : hidden }">
+            <figure>
+                <img v-for="(img, i) in images" :src="img.url" :alt="InstaGPX" :class="{ active : (i == current) }" />
+            </figure>
+            <footer>
+                <nav>
+                    <a href="#" class="prev" @click.prevent="introSlidePrev" title="Next Image">&#8592; Prev</a>
+                    <a href="#" class="next" @click.prevent="introSlideNext" title="Previous Image">Next &#8594;</a>
+                </nav>
+            </footer>
+        </section>
+    `
+});
