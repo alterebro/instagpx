@@ -4,7 +4,10 @@
   "description": "Create sharing pictures with activity stats from gpx and image files",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "parcel src/app.html -d .localserver"
+  },
+  "alias": {
+    "vue": "./node_modules/vue/dist/vue.common.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +24,14 @@
   "bugs": {
     "url": "https://github.com/alterebro/instagpx/issues"
   },
-  "homepage": "https://github.com/alterebro/instagpx#readme"
+  "homepage": "https://github.com/alterebro/instagpx#readme",
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.0.0",
+    "parcel-bundler": "^1.12.3",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "dependencies": {
+    "vue-hot-reload-api": "^2.3.3"
+  }
 }

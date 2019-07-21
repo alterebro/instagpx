@@ -1,4 +1,6 @@
 node_modules/
+.cache
+.localserver
 .npm
 .env
 .DS_Store
