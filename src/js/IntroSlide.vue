@@ -13,18 +13,15 @@
 </template>
 
 <script>
-const _imgs = require('./../img/intro/*.jpg');
-const images = [];
-for (let i in _imgs) { images.push( { url : _imgs[i] }) }
-
+import images from './../img/intro/*.jpg';
 export default {
-    name: 'IntroSlide',
     data() {
         return {
             current: 0,
-            images : images
+            images : Object.keys(images).map(key => ({ url : images[key] }))
         };
     },
+    name: 'IntroSlide',
     props: ['hidden'],
     methods : {
         introSlideNext : function() {
@@ -41,6 +38,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

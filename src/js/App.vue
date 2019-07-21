@@ -142,9 +142,7 @@
         </section>
 
         <footer role="contentinfo">
-            <nav>
-                <h4>Share! :</h4>
-            </nav>
+            <ShareList></ShareList>
             <p>A project by: <a href="https://moro.es" target="_blank" rel="noopener noreferrer" title="Author website: www.moro.es">Jorge Moreno</a>. <strong><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!">@alterebro</a></strong></p>
         </footer>
 
@@ -153,12 +151,13 @@
 </template>
 
 <script>
+import tinytime from 'tinytime';
 import readGPX from './gpx.js';
 import createIMG from './img.js';
 import reverseGeocoding from './geocode.js';
-import tinytime from 'tinytime';
 import instaGPX from './instagpx.js';
 import IntroSlide from './IntroSlide.vue';
+import ShareList from './ShareList.vue';
 
 function filename(file) {
 
@@ -172,38 +171,25 @@ function filename(file) {
 import { Config, Data } from './data.js';
 
 export default {
-    name: "App",
     data() {
         return Data;
     },
+    name: "App",
     components : {
-        IntroSlide
+        IntroSlide,
+        ShareList
     },
     filters : {
         renderTimestamp(value, template) {
             let _timestamp = tinytime(template, { padMonth: true });
             return _timestamp.render( new Date(value) );
-        },
-        networkClass(str) {
-            return str.toLowerCase().replace('-', '');
-        },
-        networkURL(url) {
-            let _title = encodeURIComponent(Config.title);
-            let _desc = encodeURIComponent(Config.description);
-            let _url = encodeURIComponent(Config.url);
-            return url.replace('{TITLE}', _title).replace('{TEXT}', _desc).replace('{URL}', _url);
-        },
-        networkTitle(str) {
-            return `Share it via ${str}!`;
         }
     },
-
     computed : {
         userDataLoaded : function() {
             return this.gpxLoaded && this.imageLoaded
         }
     },
-
     methods : {
 
         postGPX() {
