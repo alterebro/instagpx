@@ -19,8 +19,6 @@ const Config = {
 }
 
 const Data = {
-    message : 'hello world',
-
     gpxLoaded : false,
     gpxFile : null,
     gpx : {},

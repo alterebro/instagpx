@@ -1,8 +1,6 @@
 <template>
     <div class="container">
 
-        {{ message }} - {{ userDataLoaded }}
-
         <header role="banner">
             <h1><img src="./../img/instagpx.svg" alt="InstaGPX" /></h1>
             <h2>Create beautiful sharing pictures showing your activity stats from any GPX and image file</h2>
@@ -175,7 +173,9 @@ export default {
     data() {
         return Data;
     },
-
+    components : {
+        IntroSlide
+    },
     filters : {
         renderTimestamp(value, template) {
             let _timestamp = tinytime(template, { padMonth: true });
