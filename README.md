@@ -1,7 +1,6 @@
 
 # InstaGPX
 
----
 
 #### This project is under the terms of the GNU General Public License v3.0
 

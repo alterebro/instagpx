@@ -1,3 +1,13 @@
+/*
+    InstaGPX (instagpx.com) · Add GPX activity stats to your photos.
+    Copyright (c) 2019 by Jorge Moreno, moro.es (@alterebro)
+
+    This program is under the terms of the GNU General Public License v3.0
+    You should have received a copy of the license along with this program;
+    if not, see: https://github.com/alterebro/instagpx/blob/master/LICENSE
+*/
+
+
 // fake gpx data
 const _sampleGPXdata = {
 
@@ -142,7 +152,12 @@ var dev = function() {
     }
 }
 
+// END od Dev stuff
+// TODO : Get rid of it.
+// ---------------------------------------------------------------
 
+
+// Utils
 function filename(file) {
 
     let _file = file.split( '\\' ).pop();
@@ -233,22 +248,7 @@ const App = new Vue({
             return `Share it via ${str}!`;
         }
     },
-    watch : {
-        userDataLoaded : function(current, prev) {
-            console.log(current, prev);
-            if (current == true) {
-                // instaGPX(this.gpx, this.image)
-            }
-        }
-        // ,options : {
-        //     handler : function(current, prev) {
-        //         console.log(current, prev);
-        //         this.regenerateImage();
-        //     },
-        //     deep : true
-        // }
-
-    },
+    watch : {},
     computed : {
         userDataLoaded : function() {
             return this.gpxLoaded && this.imageLoaded
@@ -318,24 +318,24 @@ const App = new Vue({
             )
         },
 
-        showModal : function() {
-            console.log('show!')
-            this.modalVisible = true;
-        },
-        hideModal : function() {
-            console.log('hide!')
-            this.modalVisible = false;
-        },
+        showModal : function() { this.modalVisible = true },
+        hideModal : function() { this.modalVisible = false },
 
         regenerateImage : function() {
-            console.log('regenerating?');
             instaGPX(this.gpx, this.image)
         }
     },
 
     created : function() {
+        // TODO : Get rid of this
+        console.log('created', (new Date()).getTime() )
         dev();
+    },
+
+    mounted : function() {
+        console.log('mounted', (new Date()).getTime() )
     }
+
 })
 
 Vue.component('intro-slide', {
@@ -362,6 +362,10 @@ Vue.component('intro-slide', {
             this.current = _prev;
         }
     },
+
+    created : function() { console.log('component created', (new Date()).getTime() ) },
+    mounted : function() { console.log('component mounted', (new Date()).getTime() ) },
+
     props: ['hidden'],
     template: `
         <section role="presentation" :class="{ hidden : hidden }">
