@@ -94,3 +94,5 @@ function createIMG(file, callback) {
                 }
         }
 }
+
+export default createIMG;

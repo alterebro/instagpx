@@ -212,3 +212,5 @@ function readGPX(file, callback) {
             callback( GPX(this.result) );
         }
 }
+
+export default readGPX;

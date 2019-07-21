@@ -56,3 +56,5 @@ function reverseGeocoding(lat, lon, callback) {
         };
         request.send();
 }
+
+export default reverseGeocoding;

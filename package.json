@@ -29,6 +29,7 @@
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.0.0",
     "parcel-bundler": "^1.12.3",
+    "tinytime": "^0.2.6",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
   },

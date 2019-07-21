@@ -1,3 +1,6 @@
+import tinytime from 'tinytime';
+import { Config, Data } from './data.js';
+
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
 
     if (w < 2 * r) r = w / 2;
@@ -44,7 +47,7 @@ function plotElevationGraph(context, x, y, w, h, elevation, distance) {
     }
 
     function mapIntInclusive (value, start1, stop1, start2, stop2) {
-        stop2b = stop2 + 1;
+        let stop2b = stop2 + 1;
         let v = Math.floor(map(value, start1, stop1, start2, stop2b));
         return clamp(v, start2, stop2);
     }
@@ -345,3 +348,5 @@ function instaGPX(gpxData, imgData) {
         */
 
 }
+
+export default instaGPX;
