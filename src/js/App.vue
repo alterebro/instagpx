@@ -30,6 +30,8 @@
             </div>
         </section>
 
+        <IntroSlide :hidden="userDataLoaded"></IntroSlide>
+
         <main role="main" :class="{ visible : userDataLoaded }">
             <figure role="figure">
                 <div id="output"></div>
@@ -156,6 +158,7 @@ import createIMG from './img.js';
 import reverseGeocoding from './geocode.js';
 import tinytime from 'tinytime';
 import instaGPX from './instagpx.js';
+import IntroSlide from './IntroSlide.vue';
 
 function filename(file) {
 

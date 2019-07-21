@@ -1,5 +1,5 @@
 <template>
-    <section role="presentation">
+    <section role="presentation" :class="{ hidden : hidden }">
         <figure>
             <img v-for="(img, i) in images" :src="img.url" :class="{ active : (i == current) }" alt="InstaGPX" />
         </figure>
@@ -13,19 +13,19 @@
 </template>
 
 <script>
+const _imgs = require('./../img/intro/*.jpg');
+const images = [];
+for (let i in _imgs) { images.push( { url : _imgs[i] }) }
+
 export default {
     name: 'IntroSlide',
     data() {
         return {
             current: 0,
-            images : [
-                { url : './img/intro/instagpx-01.jpg' },
-                { url : './img/intro/instagpx-02.jpg' },
-                { url : './img/intro/instagpx-03.jpg' },
-                { url : './img/intro/instagpx-04.jpg' }
-            ]
+            images : images
         };
     },
+    props: ['hidden'],
     methods : {
         introSlideNext : function() {
             let _next = ( this.current + 1 >= this.images.length )
