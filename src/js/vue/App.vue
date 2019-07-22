@@ -159,7 +159,7 @@ import instaGPX from '../lib/InstaGPX.js';
 import IntroSlide from './IntroSlide.vue';
 import ShareList from './ShareList.vue';
 import { Config, Data } from './../Config.js';
-import { filename } from '../lib/Utils.js';
+import { filename, preloadFont } from '../lib/Utils.js';
 
 const App =  {
     data() {
@@ -250,6 +250,10 @@ const App =  {
         hideModal() { this.modalVisible = false },
 
         regenerateImage() { instaGPX(this.gpx, this.image) }
+    },
+
+    created() {
+        preloadFont('Montserrat')
     }
 };
 
