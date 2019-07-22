@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { Config } from './data.js';
+import { Config } from './../Config.js';
 export default {
     data() {
         return {

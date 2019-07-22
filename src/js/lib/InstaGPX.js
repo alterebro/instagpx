@@ -1,5 +1,5 @@
 import tinytime from 'tinytime';
-import { Config, Data } from './data.js';
+import { Config, Data } from '../Config.js';
 
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
 

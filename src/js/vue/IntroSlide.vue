@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import images from './../img/intro/*.jpg';
+import images from './../../img/intro/*.jpg';
 export default {
     data() {
         return {

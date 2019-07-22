@@ -2,7 +2,7 @@
   "name": "instagpx",
   "version": "1.0.0",
   "description": "Create sharing pictures with activity stats from gpx and image files",
-  "main": "index.js",
+  "main": "src/Main.js",
   "scripts": {
     "dev": "parcel src/app.html -d .localserver",
     "build": "rm -rf dist && parcel build src/app.html --no-cache --no-source-maps --public-url ./"
@@ -34,6 +34,7 @@
     "vue-template-compiler": "^2.6.10"
   },
   "dependencies": {
+    "lib": "^4.0.2",
     "vue-hot-reload-api": "^2.3.3"
   }
 }

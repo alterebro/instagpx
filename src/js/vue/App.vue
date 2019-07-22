@@ -2,7 +2,7 @@
     <div class="container">
 
         <header role="banner">
-            <h1><img src="./../img/instagpx.svg" alt="InstaGPX" /></h1>
+            <h1><img src="./../../img/instagpx.svg" alt="InstaGPX" /></h1>
             <h2>Create beautiful sharing pictures showing your activity stats from any GPX and image file</h2>
             <h3>Upload a .GPX and Image file and select the options you like more!</h3>
         </header>
@@ -12,7 +12,7 @@
                 <p>
                     <input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
                     <label for="user-file-gpx">
-                        <img src="./../img/icon-location.svg" alt=".GPX File" />
+                        <img src="./../../img/icon-location.svg" alt=".GPX File" />
                         <span>Select your <strong>.GPX</strong> file</span>
                     </label>
                 </p>
@@ -22,7 +22,7 @@
                 <p>
                     <input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
                     <label for="user-file-image">
-                        <img src="./../img/icon-photo.svg" alt="Image File" />
+                        <img src="./../../img/icon-photo.svg" alt="Image File" />
                         <span>Select your <strong>Image</strong> file</span>
                     </label>
                 </p>
@@ -40,7 +40,7 @@
             <aside role="complementary">
                 <p>
                     <a href="#" download="instagpx.com.jpg" id="download-img" class="button" v-on:click="showModal">
-                        <img src="./../img/icon-download.svg" alt="Download Image" />
+                        <img src="./../../img/icon-download.svg" alt="Download Image" />
                         <span>Download Image</span>
                     </a>
                 </p>
@@ -117,7 +117,7 @@
 
                     <p class="form-submit-container">
                         <button type="submit" name="activity-regenerate" v-on:click="regenerateImage">
-                            <img src="./../img/icon-refresh.svg" alt="Refresh Image" />
+                            <img src="./../../img/icon-refresh.svg" alt="Refresh Image" />
                             <span>Regenerate Image</span>
                         </button>
                     </p>
@@ -152,25 +152,16 @@
 
 <script>
 import tinytime from 'tinytime';
-import readGPX from './gpx.js';
-import createIMG from './img.js';
-import reverseGeocoding from './geocode.js';
-import instaGPX from './instagpx.js';
+import readGPX from '../lib/GPX.js';
+import createIMG from '../lib/IMG.js';
+import reverseGeocoding from '../lib/GeoCode.js';
+import instaGPX from '../lib/InstaGPX.js';
 import IntroSlide from './IntroSlide.vue';
 import ShareList from './ShareList.vue';
+import { Config, Data } from './../Config.js';
+import { filename } from '../lib/Utils.js';
 
-function filename(file) {
-
-    let _file = file.split( '\\' ).pop();
-    let _num = 20;
-    return (_file.length > _num)
-        ? _file.slice(0, _num > 3 ? _num-3 : _num) + '...'
-        : _file;
-}
-
-import { Config, Data } from './data.js';
-
-export default {
+const App =  {
     data() {
         return Data;
     },
@@ -261,6 +252,8 @@ export default {
         regenerateImage() { instaGPX(this.gpx, this.image) }
     }
 };
+
+export default App;
 </script>
 
 <style scoped>
