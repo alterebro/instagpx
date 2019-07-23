@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "parcel src/app.html -d .localserver",
-    "build": "rm -rf dist && parcel build src/app.html --out-file index.html --no-cache --no-source-maps --public-url ./"
+    "build": "rm -rf dist && parcel build src/app.html --out-file index.html --no-cache --no-source-maps --public-url ./ && gulp build"
   },
   "alias": {
     "vue": "./node_modules/vue/dist/vue.common.js"
@@ -29,6 +29,8 @@
   "homepage": "https://github.com/alterebro/instagpx#readme",
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.0.0",
+    "gulp": "^4.0.2",
+    "gulp-base64": "^0.1.3",
     "parcel-bundler": "^1.12.3",
     "sass": "^1.22.7",
     "tinytime": "^0.2.6",
