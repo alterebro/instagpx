@@ -126,40 +126,27 @@
             </aside>
         </main>
 
-        <section class="modal-thanks" v-bind:class="{ visible: modalVisible }">
-            <div>
-                <p>
-                    Thanks for using InstaGPX! Your picture is now being downloaded :)
-                    <br />Share it using the hashtag <mark>#instagpx</mark> in order to get it featured!
-                </p>
-                <p><em>Now, you can</em>:</p>
-                <ul>
-                    <li class="twitter"><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow me on Twitter!">Follow me on Twitter</a></li>
-                    <li class="instagram"><a href="https://www.instagram.com/alterebro/" target="_blank" rel="noopener noreferrer" title="Follow me on Instagram!">and/or on Instagram</a></li>
-                </ul>
-            </div>
-            <footer><a href="#app" v-on:click.prevent="hideModal" class="close"><span>Close</span></a></footer>
-        </section>
+        <ModalThanks ref="modal"></ModalThanks>
 
         <footer role="contentinfo">
             <ShareList></ShareList>
             <p>A project by: <a href="https://moro.es" target="_blank" rel="noopener noreferrer" title="Author website: www.moro.es">Jorge Moreno</a>. <strong><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!">@alterebro</a></strong></p>
         </footer>
 
-
     </div>
 </template>
 
 <script>
 import tinytime from 'tinytime';
+import { Config, Data } from './../config.js';
+import { filename, preloadFont } from '../lib/Utils.js';
 import readGPX from '../lib/GPX.js';
 import createIMG from '../lib/IMG.js';
-import reverseGeocoding from '../lib/GeoCode.js';
 import instaGPX from '../lib/InstaGPX.js';
+import reverseGeocoding from '../lib/GeoCode.js';
 import IntroSlide from './IntroSlide.vue';
 import ShareList from './ShareList.vue';
-import { Config, Data } from './../Config.js';
-import { filename, preloadFont } from '../lib/Utils.js';
+import ModalThanks from './ModalThanks.vue';
 
 const App =  {
     data() {
@@ -168,7 +155,8 @@ const App =  {
     name: "App",
     components : {
         IntroSlide,
-        ShareList
+        ShareList,
+        ModalThanks
     },
     filters : {
         renderTimestamp(value, template) {
@@ -245,10 +233,10 @@ const App =  {
                 }
             );
         },
-
-        showModal() { this.modalVisible = true },
-        hideModal() { this.modalVisible = false },
-
+        showModal() {
+            let _modalWindow = this.$refs.modal;
+                _modalWindow.showModal();
+        },
         regenerateImage() { instaGPX(this.gpx, this.image) }
     },
 

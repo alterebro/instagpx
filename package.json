@@ -2,7 +2,7 @@
   "name": "instagpx",
   "version": "1.0.0",
   "description": "Create sharing pictures with activity stats from gpx and image files",
-  "main": "src/Main.js",
+  "main": "src/main.js",
   "scripts": {
     "dev": "parcel src/app.html -d .localserver",
     "build": "rm -rf dist && parcel build src/app.html --no-cache --no-source-maps --public-url ./"
@@ -29,6 +29,7 @@
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.0.0",
     "parcel-bundler": "^1.12.3",
+    "sass": "^1.22.7",
     "tinytime": "^0.2.6",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"

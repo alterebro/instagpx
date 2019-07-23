@@ -1,0 +1,8 @@
+$mobile-breakpoint : 420;
+$tablet-breakpoint : 890;
+$mobile : "only screen and (max-width: #{$mobile-breakpoint}px)";
+$tablet : "only screen and (max-width: #{$tablet-breakpoint}px)";
+$desktop : "only screen and (min-width: #{$tablet-breakpoint}px)";
+
+$color-primary-light : #797f9f;
+$color-primary-dark : #606990;
