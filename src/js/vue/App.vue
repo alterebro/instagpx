@@ -1,12 +1,7 @@
 <template>
-    <div class="container">
+    <div class="app">
 
-        <header role="banner">
-            <h1><img src="./../../img/instagpx.svg" alt="InstaGPX" /></h1>
-            <h2>Create beautiful sharing pictures showing your activity stats from any GPX and image file</h2>
-            <h3>Upload a .GPX and Image file and select the options you like more!</h3>
-        </header>
-
+        <Header></Header>
         <section role="form">
             <div>
                 <p>
@@ -144,6 +139,7 @@ import readGPX from '../lib/GPX.js';
 import createIMG from '../lib/IMG.js';
 import instaGPX from '../lib/InstaGPX.js';
 import reverseGeocoding from '../lib/GeoCode.js';
+import Header from './Header.vue';
 import IntroSlide from './IntroSlide.vue';
 import ShareList from './ShareList.vue';
 import ModalThanks from './ModalThanks.vue';
@@ -154,6 +150,7 @@ const App =  {
     },
     name: "App",
     components : {
+        Header,
         IntroSlide,
         ShareList,
         ModalThanks
@@ -249,5 +246,7 @@ export default App;
 </script>
 
 <style scoped>
+@import "./../../css/_fonts.scss";
+
 .container {}
 </style>
