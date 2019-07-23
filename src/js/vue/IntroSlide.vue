@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./../../css/_variables.scss";
+@import "./../../scss/_variables.scss";
 
 section[role="presentation"] {
     width: 100%;

@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./../../css/_variables.scss";
+@import "./../../scss/_variables.scss";
 
 nav {
     display: flex;

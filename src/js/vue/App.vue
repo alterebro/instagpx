@@ -245,8 +245,112 @@ const App =  {
 export default App;
 </script>
 
-<style scoped>
-@import "./../../css/_fonts.scss";
+<style lang="scss" scoped>
+@import "./../../scss/_fonts.scss";
+@import "./../../scss/_variables.scss";
 
-.container {}
+.app {
+
+    section[role="form"] {
+        display: flex;
+        padding: 2rem 0;
+        justify-content: center;
+        text-align: center;
+
+        @media #{$mobile} { padding: 1rem 0 }
+
+        > div {
+            padding: 1rem;
+
+            p.file-ok {
+                color: $color-primary-dark;
+                padding: 1.5rem 0 0 0;
+                font-size: 90%;
+
+                &:before {
+                    content: '';
+                    display: inline-block;
+                    vertical-align: top;
+                    position: relative;
+                    margin: 0 10px 0 0;
+                    width: 22px;
+                    height: 22px;
+                    border-radius: 100%;
+                    background-color: $color-primary-light;
+                    background-image: url(../../img/icon-check.svg);
+                    background-position: center center;
+                    background-size: 14px auto;
+                    background-repeat: no-repeat;
+                }
+            }
+        }
+
+        @media #{$tablet} {
+            display: block;
+            label { min-width: 22rem }
+        }
+    }
+
+    main[role="main"] {
+
+        &.visible { display: grid; }
+        display: none;
+        grid-template-rows: 512px;
+        grid-template-columns : 512px auto;
+        grid-gap: 3rem;
+        grid-template-areas: "image sidebar";
+
+        width: 100%;
+        max-width: 84rem;
+        margin: 2rem auto;
+        background: #fff;
+        padding: 3rem;
+        border-radius: 5px;
+        box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .2);
+
+        @media #{$mobile} {
+            padding: 1.5rem;
+            border-radius: 0;
+        }
+
+        figure {
+            grid-area: image;
+        }
+        aside {
+            grid-area: sidebar;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            > p {}
+            > form {} // Overflow?
+
+            .button, button {
+                width: 100%;
+            }
+        }
+
+        @media #{$tablet} {
+            &.visible { display: block; }
+            max-width: 572px;
+
+            figure { margin: 0 0 2rem; }
+            aside form { padding: 2rem 0 0 0 }
+        }
+        @media #{$mobile} {
+            margin: 1rem auto;
+            figure { margin: 0 0 1rem; }
+        }
+    }
+}
+
+footer[role="contentinfo"] {
+    padding: 3rem 1rem 2rem;
+    font-size: 90%;
+    text-align: center;
+}
+</style>
+
+<style lang="scss">
+@import "./../../scss/_global.scss";
 </style>

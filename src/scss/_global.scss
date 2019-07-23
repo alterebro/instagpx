@@ -1,12 +1,4 @@
-@mobile-breakpoint : 420;
-@tablet-breakpoint : 890;
-@mobile : ~"all and (max-width: @{mobile-breakpoint}px)";
-@tablet : ~"all and (max-width: @{tablet-breakpoint}px)";
-@desktop : ~"all and (min-width: @{tablet-breakpoint}px)";
-
-@color-primary-light : #797f9f;
-@color-primary-dark : #606990;
-
+@import "./_variables.scss";
 
 /* Pseudo-Reset */
 html, body, h1, h2, h3, h4, p, ul, ol, li, dl, dd, dt, figure, form, fieldset, hr , pre {
@@ -47,7 +39,7 @@ body {
 html, body {
     padding: 1rem;
 
-    @media @mobile { padding: 1rem 0 }
+    @media #{$mobile} { padding: 1rem 0 }
 }
 *, *:before, *:after {
 	box-sizing: inherit;
@@ -62,14 +54,14 @@ hr {
     margin: 2rem 0;
 }
 a {
-    color: @color-primary-dark;
+    color: $color-primary-dark;
     text-decoration: none;
     border-bottom: solid transparent 2px;
     transition: color .35s ease-in-out, border .35s ease-in-out;
 
     &:hover {
         color: #000;
-        border-bottom: solid @color-primary-light 2px;
+        border-bottom: solid $color-primary-light 2px;
     }
 }
 
@@ -78,7 +70,7 @@ a {
 
 // --------------------------------------
 // Form Elements
-.button {
+%button {
 
     text-align: center;
     white-space: nowrap;
@@ -86,13 +78,13 @@ a {
     min-width: auto;
     max-width: 100%;
 
-    background-color: @color-primary-light;
+    background-color: $color-primary-light;
     color: #fff;
     display: inline-block;
     cursor: pointer;
     padding: 8px 18px;
     border-radius: 3px;
-    border: solid @color-primary-light 1px;
+    border: solid $color-primary-light 1px;
     box-shadow: none;
     transition: all .25s ease-in-out;
 
@@ -110,18 +102,19 @@ a {
 
     &:hover {
         color: #fff;
-        background: @color-primary-dark;
-        border: solid @color-primary-dark 1px;
+        background: $color-primary-dark;
+        border: solid $color-primary-dark 1px;
         box-shadow: 0 5px 1px -2px rgba(0, 0, 0, .15);
         img { opacity: 1 }
     }
 
     &:focus {
-        border: solid @color-primary-dark 1px;
-        box-shadow: 0 0 2px 0 @color-primary-dark;
+        border: solid $color-primary-dark 1px;
+        box-shadow: 0 0 2px 0 $color-primary-dark;
         outline: none;
     }
 }
+.button { @extend %button; }
 
 [role="form"] {
 
@@ -150,13 +143,13 @@ a {
     }
     input[type="file"] + label,
     button[type="submit"] {
-        .button();
+        @extend %button;
     }
 
     input[type="file"] + label * { pointer-events: none }
     input[type="file"]:focus + label,
     input[type="file"] + label:hover {
-        background-color: @color-primary-dark;
+        background-color: $color-primary-dark;
     }
 
     .form-selector {
@@ -182,10 +175,10 @@ a {
                 height: 16px;
             }
             &:before {
-                background-color: lighten(@color-primary-light, 15%);
+                background-color: lighten($color-primary-light, 15%);
             }
             &:after {
-                background-color: @color-primary-dark;
+                background-color: $color-primary-dark;
             }
         }
 
@@ -194,7 +187,7 @@ a {
         input:checked + label:before { content: none }
 
         input:focus + label::after {
-            box-shadow: 0 0 2px 0 @color-primary-dark;
+            box-shadow: 0 0 2px 0 $color-primary-dark;
         }
 
         &.form-checkbox {
@@ -203,7 +196,7 @@ a {
                     border-radius: 3px;
                 }
                 &:after {
-                    background-image: url(../img/icon-check.svg);
+                    background-image: url(./../../img/icon-check.svg);
                     background-size: 14px auto;
                     background-position: center center;
                 }
@@ -219,7 +212,7 @@ a {
                     border-radius: 16px;
                 }
                 &:after {
-                    border: solid lighten(@color-primary-light, 15%) 4px;
+                    border: solid lighten($color-primary-light, 15%) 4px;
                 }
 
                 max-width: 90%;
@@ -256,8 +249,8 @@ a {
         color: #404970;
 
         &:focus {
-            border: solid @color-primary-dark 1px;
-            box-shadow: 0 0 2px 0 @color-primary-dark;
+            border: solid $color-primary-dark 1px;
+            box-shadow: 0 0 2px 0 $color-primary-dark;
             outline: none;
         }
     }
@@ -300,114 +293,14 @@ a {
 
 }
 
-// --------------------------------------
+// ------
+// InstaGPX Output:
 
-.app {
-
-    section[role="form"] {
-        display: flex;
-        padding: 2rem 0;
-        justify-content: center;
-        text-align: center;
-
-        @media @mobile { padding: 1rem 0 }
-
-        > div {
-            padding: 1rem;
-
-            p.file-ok {
-                color: #609f69;
-                padding: 1.5rem 0 0 0;
-                font-size: 90%;
-
-                &:before {
-                    content: '';
-                    display: inline-block;
-                    vertical-align: top;
-                    position: relative;
-                    margin: 0 10px 0 0;
-                    width: 22px;
-                    height: 22px;
-                    border-radius: 100%;
-                    background-color: #60af79;
-                    background-image: url(../img/icon-check.svg);
-                    background-position: center center;
-                    background-size: 14px auto;
-                    background-repeat: no-repeat;
-                }
-            }
-        }
-
-        @media @tablet {
-            display: block;
-            label { min-width: 22rem }
-        }
-    }
-
-    main[role="main"] {
-
-        &.visible { display: grid; }
-        display: none;
-        grid-template-rows: 512px;
-        grid-template-columns : 512px auto;
-        grid-gap: 3rem;
-        grid-template-areas: "image sidebar";
-
+#output {
+    canvas, img {
+        display: block;
         width: 100%;
-        max-width: 84rem;
-        margin: 2rem auto;
-        background: #fff;
-        padding: 3rem;
+        max-width: 512px;
         border-radius: 5px;
-        box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .2);
-
-        @media @mobile {
-            padding: 1.5rem;
-            border-radius: 0;
-        }
-
-        figure {
-            grid-area: image;
-
-            #output {
-                canvas, img {
-                    display: block;
-                    width: 100%;
-                    max-width: 512px;
-                    border-radius: 5px;
-                }
-            }
-        }
-        aside {
-            grid-area: sidebar;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            > p {}
-            > form {} // Overflow?
-
-            .button, button {
-                width: 100%;
-            }
-        }
-
-        @media @tablet {
-            &.visible { display: block; }
-            max-width: 572px;
-
-            figure { margin: 0 0 2rem; }
-            aside form { padding: 2rem 0 0 0 }
-        }
-        @media @mobile {
-            margin: 1rem auto;
-            figure { margin: 0 0 1rem; }
-        }
     }
-}
-
-footer[role="contentinfo"] {
-    padding: 3rem 1rem 2rem;
-    font-size: 90%;
-    text-align: center;
 }
