@@ -13,12 +13,16 @@
 </template>
 
 <script>
-import images from './../../img/intro/*.jpg';
 export default {
     data() {
         return {
             current: 0,
-            images : Object.keys(images).map(key => ({ url : images[key] }))
+            images : [
+                { url : './intro/instagpx-01.jpg' },
+                { url : './intro/instagpx-02.jpg' },
+                { url : './intro/instagpx-03.jpg' },
+                { url : './intro/instagpx-04.jpg' }
+            ]
         };
     },
     name: 'IntroSlide',

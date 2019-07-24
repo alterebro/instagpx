@@ -6,20 +6,14 @@
             <div>
                 <p>
                     <input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
-                    <label for="user-file-gpx">
-                        <img src="./../../img/icon-location.svg" alt=".GPX File" />
-                        <span>Select your <strong>.GPX</strong> file</span>
-                    </label>
+                    <label for="user-file-gpx">Select your <strong>.GPX</strong> file</label>
                 </p>
                 <p v-if="gpxFile" class="file-ok">{{ gpxFile }}</p>
             </div>
             <div>
                 <p>
                     <input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
-                    <label for="user-file-image">
-                        <img src="./../../img/icon-photo.svg" alt="Image File" />
-                        <span>Select your <strong>Image</strong> file</span>
-                    </label>
+                    <label for="user-file-image"><span>Select your <strong>Image</strong> file</label>
                 </p>
                 <p v-if="imageFile" class="file-ok">{{ imageFile }}</p>
             </div>
@@ -33,12 +27,7 @@
             </figure>
 
             <aside role="complementary">
-                <p>
-                    <a href="#" download="instagpx.com.jpg" id="download-img" class="button" v-on:click="showModal">
-                        <img src="./../../img/icon-download.svg" alt="Download Image" />
-                        <span>Download Image</span>
-                    </a>
-                </p>
+                <p><a href="#" download="instagpx.com.jpg" id="download-img" class="button" v-on:click="showModal">Download Image</a></p>
 
                 <form role="form" v-on:submit.prevent>
 
@@ -111,12 +100,8 @@
                     </p>
 
                     <p class="form-submit-container">
-                        <button type="submit" name="activity-regenerate" v-on:click="regenerateImage">
-                            <img src="./../../img/icon-refresh.svg" alt="Refresh Image" />
-                            <span>Regenerate Image</span>
-                        </button>
+                        <button type="submit" name="activity-regenerate" v-on:click="regenerateImage">Regenerate Image</button>
                     </p>
-
                 </form>
             </aside>
         </main>

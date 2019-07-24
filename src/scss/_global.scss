@@ -88,14 +88,18 @@ a {
     box-shadow: none;
     transition: all .25s ease-in-out;
 
-    img {
-        vertical-align: top;
+    &:before {
+        content: '';
+        display: inline-block;
         position: relative;
         top: 3px;
         width: 16px;
-        height: auto;
-        display: inline-block;
-        margin: 0 3px 0 0;
+        height: 16px;
+        margin: 0 5px 0 0;
+        vertical-align: baseline;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
         opacity: .5;
         transition: opacity .25s ease-in-out;
     }
@@ -105,7 +109,8 @@ a {
         background: $color-primary-dark;
         border: solid $color-primary-dark 1px;
         box-shadow: 0 5px 1px -2px rgba(0, 0, 0, .15);
-        img { opacity: 1 }
+
+        &:before { opacity: 1 }
     }
 
     &:focus {
@@ -114,7 +119,10 @@ a {
         outline: none;
     }
 }
-.button { @extend %button; }
+.button {
+    @extend %button;
+    &:before { background-image: url(../../img/icon-download.svg) }
+}
 
 [role="form"] {
 
@@ -141,9 +149,15 @@ a {
         position: absolute;
         z-index: -1;
     }
-    input[type="file"] + label,
+    input[type="file"] + label {
+        @extend %button;
+
+        &[for="user-file-gpx"]:before { background-image: url(../../img/icon-location.svg) }
+        &[for="user-file-image"]:before { background-image: url(../../img/icon-photo.svg) }
+    }
     button[type="submit"] {
         @extend %button;
+        &:before { background-image: url(../../img/icon-refresh.svg) }
     }
 
     input[type="file"] + label * { pointer-events: none }
