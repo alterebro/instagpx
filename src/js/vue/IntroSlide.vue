@@ -18,10 +18,10 @@ export default {
         return {
             current: 0,
             images : [
-                { url : './intro/instagpx-01.jpg' },
-                { url : './intro/instagpx-02.jpg' },
-                { url : './intro/instagpx-03.jpg' },
-                { url : './intro/instagpx-04.jpg' }
+                { url : './images/intro/instagpx-01.jpg' },
+                { url : './images/intro/instagpx-02.jpg' },
+                { url : './images/intro/instagpx-03.jpg' },
+                { url : './images/intro/instagpx-04.jpg' }
             ]
         };
     },
@@ -112,8 +112,8 @@ section[role="presentation"] {
                     background-position: center center;
                 }
 
-                &.prev:before { background-image: url(../../img/icon-arrow-back.svg); }
-                &.next:before { background-image: url(../../img/icon-arrow-forward.svg); }
+                &.prev:before { background-image: url(../../img/ui/icon-arrow-back.svg); }
+                &.next:before { background-image: url(../../img/ui/icon-arrow-forward.svg); }
 
                 &:hover {
                     background: $color-primary-dark;

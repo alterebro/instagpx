@@ -262,7 +262,7 @@ export default App;
                     height: 22px;
                     border-radius: 100%;
                     background-color: $color-primary-light;
-                    background-image: url(../../img/icon-check.svg);
+                    background-image: url(../../img/ui/icon-check.svg);
                     background-position: center center;
                     background-size: 14px auto;
                     background-repeat: no-repeat;

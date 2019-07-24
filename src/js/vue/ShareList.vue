@@ -93,11 +93,11 @@ nav {
             }
         }
 
-        &.twitter a:before { background-image: url(../../img/icon-share-twitter.svg); }
-        &.facebook a:before { background-image: url(../../img/icon-share-facebook.svg); }
-        &.linkedin a:before { background-image: url(../../img/icon-share-linkedin.svg); }
-        &.email a:before { background-image: url(../../img/icon-share-email.svg); }
-        &.telegram a:before { background-image: url(../../img/icon-share-telegram.svg); }
+        &.twitter a:before { background-image: url(../../img/social-share/icon-share-twitter.svg); }
+        &.facebook a:before { background-image: url(../../img/social-share/icon-share-facebook.svg); }
+        &.linkedin a:before { background-image: url(../../img/social-share/icon-share-linkedin.svg); }
+        &.email a:before { background-image: url(../../img/social-share/icon-share-email.svg); }
+        &.telegram a:before { background-image: url(../../img/social-share/icon-share-telegram.svg); }
 
         @media #{$tablet} {
             a {

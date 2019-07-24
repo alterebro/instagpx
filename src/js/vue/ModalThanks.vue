@@ -105,11 +105,11 @@ export default {
 
             &.twitter:before {
                 background-color: #1da1f2;
-                background-image: url(../../img/icon-share-twitter.svg);
+                background-image: url(../../img/social-share/icon-share-twitter.svg);
             }
             &.instagram:before {
                 background-color: #c32aa3;
-                background-image: url(../../img/icon-share-instagram.svg);
+                background-image: url(../../img/social-share/icon-share-instagram.svg);
             }
 
             @media #{$tablet} {
@@ -135,7 +135,7 @@ export default {
 
             &:before {
                 transition: background .35s ease-in-out;
-                background-image: url(../../img/icon-close.svg);
+                background-image: url(../../img/ui/icon-close.svg);
             }
             &:hover:before {
                 background-color: $color-primary-dark;

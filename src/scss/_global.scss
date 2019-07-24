@@ -121,7 +121,7 @@ a {
 }
 .button {
     @extend %button;
-    &:before { background-image: url(../../img/icon-download.svg) }
+    &:before { background-image: url(../../img/ui/icon-download.svg) }
 }
 
 [role="form"] {
@@ -152,12 +152,12 @@ a {
     input[type="file"] + label {
         @extend %button;
 
-        &[for="user-file-gpx"]:before { background-image: url(../../img/icon-location.svg) }
-        &[for="user-file-image"]:before { background-image: url(../../img/icon-photo.svg) }
+        &[for="user-file-gpx"]:before { background-image: url(../../img/ui/icon-location.svg) }
+        &[for="user-file-image"]:before { background-image: url(../../img/ui/icon-photo.svg) }
     }
     button[type="submit"] {
         @extend %button;
-        &:before { background-image: url(../../img/icon-refresh.svg) }
+        &:before { background-image: url(../../img/ui/icon-refresh.svg) }
     }
 
     input[type="file"] + label * { pointer-events: none }
@@ -210,7 +210,7 @@ a {
                     border-radius: 3px;
                 }
                 &:after {
-                    background-image: url(./../../img/icon-check.svg);
+                    background-image: url(./../../img/ui/icon-check.svg);
                     background-size: 14px auto;
                     background-position: center center;
                 }
@@ -269,7 +269,7 @@ a {
         }
     }
     select {
-        background-image: url(./../../img/arrow-select.svg);
+        background-image: url(./../../img/ui/arrow-select.svg);
         background-repeat: no-repeat;
     	background-size: 10px 8px;
     	background-position: right 1rem center;
