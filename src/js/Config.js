@@ -1,7 +1,7 @@
 const Config = {
     title : 'InstaGPX',
     description : 'Create beautiful sharing pictures showing your activity stats from any GPX and image file',
-    url : 'http://localhost/www/github/instagpx/src/',
+    url : 'https://instagpx.netlify.com',
     width : 1280,
     height: 1280,
     timestampTemplates : [
