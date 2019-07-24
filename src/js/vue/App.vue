@@ -118,7 +118,7 @@
 
 <script>
 import tinytime from 'tinytime';
-import { Config, Data } from './../config.js';
+import { Config, Data } from '../config.js';
 import { filename, preloadFont } from '../lib/Utils.js';
 import readGPX from '../lib/GPX.js';
 import createIMG from '../lib/IMG.js';
