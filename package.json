@@ -6,7 +6,9 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "parcel src/app.html -d .localserver",
-    "build": "rm -rf dist && parcel build src/app.html --out-file index.html --no-cache --no-source-maps --public-url ./"
+    "prebuild": "rm -rf dist",
+    "build": "parcel build src/app.html --out-file index.html --no-cache --no-source-maps --public-url ./",
+    "deploy": "npm run build && netlify deploy --dir dist --prod"
   },
   "alias": {
     "vue": "./node_modules/vue/dist/vue.common.js"
