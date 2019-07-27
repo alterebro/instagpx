@@ -2,7 +2,7 @@
     <header role="banner">
         <h1><a href="./" title="InstaGPX. Add GPX activity stats to your photos">InstaGPX</a></h1>
         <h2>Add GPX activity stats to your photos</h2>
-        <h3>Create beautiful sharing pictures adding activity stats from a GPX file to your photos with InstaGPX</h3>
+        <h3>Create beautiful sharing pictures adding activity stats from any GPX file to your photos with InstaGPX</h3>
     </header>
 </template>
 
@@ -18,7 +18,7 @@ export default {
 header[role="banner"] {
     text-align: center;
     font-size: 90%;
-    max-width: 42rem;
+    max-width: 38rem;
     margin: 0 auto;
     padding: 2rem 1rem 0;
 
@@ -45,10 +45,12 @@ header[role="banner"] {
         line-height: 1.4;
         font-size: 1.6rem;
         font-weight: 700;
+        color: darken($color-primary-dark, 10%);
     }
     h3 {
         font-size: 1.4rem;
         font-weight: 500;
+        color: $color-primary-light;
     }
 
     @media #{$mobile} { padding: 1rem 2rem 0 }
