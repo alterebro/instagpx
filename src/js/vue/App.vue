@@ -248,7 +248,6 @@ export default App;
             padding: 1rem;
 
             p.file-ok {
-                color: $color-primary-dark;
                 padding: 1.5rem 0 0 0;
                 font-size: 90%;
 
@@ -307,11 +306,13 @@ export default App;
             flex-direction: column;
             justify-content: space-between;
 
-            > p {}
-            > form {} // Overflow?
-
             .button, button {
                 width: 100%;
+            }
+
+            a.button {
+                padding: 12px 16px;
+                font-weight: bold;
             }
         }
 

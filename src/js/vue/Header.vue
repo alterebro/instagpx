@@ -1,8 +1,8 @@
 <template>
     <header role="banner">
-        <h1>InstaGPX</h1>
-        <h2>Create beautiful sharing pictures showing your activity stats from any GPX and image file</h2>
-        <h3>Upload a .GPX and Image file and select the options you like more!</h3>
+        <h1><a href="./" title="InstaGPX. Add GPX activity stats to your photos">InstaGPX</a></h1>
+        <h2>Add GPX activity stats to your photos</h2>
+        <h3>Create beautiful sharing pictures adding activity stats from a GPX file to your photos with InstaGPX</h3>
     </header>
 </template>
 
@@ -18,20 +18,17 @@ export default {
 header[role="banner"] {
     text-align: center;
     font-size: 90%;
-    max-width: 56rem;
+    max-width: 42rem;
     margin: 0 auto;
     padding: 2rem 1rem 0;
 
     h1 {
-        margin: 0 auto;
+        margin: 0 auto 2rem;
         width: 100%;
         max-width: 200px;
         height: 100px;
-        text-indent: -1000rem;
-        overflow: hidden;
 
-        &:before {
-            content: '';
+        a {
             display: block;
             width: 100%;
             height: 100%;
@@ -39,13 +36,20 @@ header[role="banner"] {
             background-repeat: no-repeat;
             background-size: contain;
             background-position: bottom;
+            text-indent: -1000rem;
+            overflow: hidden;
+            border: none;
         }
     }
     h2 {
         line-height: 1.4;
-        color : $color-primary-dark
+        font-size: 1.6rem;
+        font-weight: 700;
     }
-    h3 { color : $color-primary-light }
+    h3 {
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
 
     @media #{$mobile} { padding: 1rem 2rem 0 }
 }
