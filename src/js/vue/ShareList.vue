@@ -3,7 +3,7 @@
         <h4>Share! :</h4>
         <ul>
             <li v-for="network in networks" :class="network.network | networkClass">
-                <a :href="network.url | networkURL" :title="network.network | networkTitle" target="_blank" rel="noopener noreferrer">{{ network.network }}</a>
+                <a :href="network.url | networkURL" :title="network.network | networkTitle" @click="networkOpen($event)" :target="network.modal ? '_blank' : false" :rel="network.modal ? 'noopener noreferrer' : false">{{ network.network }}</a>
             </li>
         </ul>
     </nav>
@@ -15,15 +15,25 @@ export default {
     data() {
         return {
             networks : [
-                { network : "Twitter", url : "https://twitter.com/intent/tweet?text={TEXT}&url={URL}" },
-                { network : "FaceBook", url : "https://www.facebook.com/sharer.php?u={URL}" },
-                { network : "LinkedIn", url : "https://www.linkedin.com/shareArticle?mini=true&url={URL}&title={TITLE}&summary={TEXT}&source=moro.es" },
-                { network : "E-Mail", url : "mailto:?subject={TITLE}&body={TEXT}:%0A{URL}" },
-                { network : "Telegram", url : "https://telegram.me/share/url?url={URL}&amp;text={TEXT} "}
+                { modal : true, network : "Twitter", url : "https://twitter.com/intent/tweet?text={TEXT}&url={URL}" },
+                { modal : true, network : "FaceBook", url : "https://www.facebook.com/sharer.php?u={URL}" },
+                { modal : true, network : "LinkedIn", url : "https://www.linkedin.com/shareArticle?mini=true&url={URL}&title={TITLE}&summary={TEXT}&source=moro.es" },
+                { modal : false, network : "E-Mail", url : "mailto:?subject={TITLE}&body={TEXT}:%0A{URL}" },
+                { modal : true, network : "Telegram", url : "https://telegram.me/share/url?url={URL}&amp;text={TEXT} "}
             ]
         };
     },
     name: 'ShareList',
+    methods : {
+        networkOpen(e) {
+            let _el = e.currentTarget;
+            if (_el.getAttribute('target') == '_blank') {
+                let w = window.open(_el.href, 'share', 'width=550,height=440');
+                    w.focus()
+                e.preventDefault();
+            }
+        }
+    },
     filters : {
         networkClass(str) {
             return str.toLowerCase().replace('-', '');
