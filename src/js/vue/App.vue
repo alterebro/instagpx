@@ -19,6 +19,7 @@
             </div>
         </section>
 
+        <!-- <InstagramFeed></InstagramFeed> -->
         <IntroSlide :hidden="userDataLoaded"></IntroSlide>
 
         <main role="main" :class="{ visible : userDataLoaded }">
@@ -125,6 +126,7 @@ import createIMG from '../lib/IMG.js';
 import instaGPX from '../lib/InstaGPX.js';
 import reverseGeocoding from '../lib/GeoCode.js';
 import Header from './Header.vue';
+// import InstagramFeed from './InstagramFeed.vue';
 import IntroSlide from './IntroSlide.vue';
 import ShareList from './ShareList.vue';
 import ModalThanks from './ModalThanks.vue';
@@ -136,6 +138,7 @@ const App =  {
     name: "App",
     components : {
         Header,
+        // InstagramFeed,
         IntroSlide,
         ShareList,
         ModalThanks
