@@ -111,7 +111,7 @@
 
         <footer role="contentinfo">
             <ShareList></ShareList>
-            <p>A project by: <a href="https://moro.es" target="_blank" rel="noopener noreferrer" title="Author website: www.moro.es">Jorge Moreno</a>. <strong><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!">@alterebro</a></strong></p>
+            <p>A project created by <strong><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!">@alterebro</a></strong>.</p>
         </footer>
 
     </div>
