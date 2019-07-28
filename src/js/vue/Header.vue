@@ -26,13 +26,13 @@ header[role="banner"] {
         margin: 0 auto 2rem;
         width: 100%;
         max-width: 300px;
-        height: 115px;
+        height: 100px;
 
         a {
             display: block;
             width: 100%;
             height: 100%;
-            background-image: url(../../img/instagpx.com.svg);
+            background-image: url(../../img/instagpx-full-logo-opt.svg);
             background-repeat: no-repeat;
             background-size: contain;
             background-position: bottom;
