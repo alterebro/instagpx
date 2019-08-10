@@ -256,8 +256,6 @@ export default App;
         justify-content: center;
         text-align: center;
 
-        @media #{$mobile} { padding: 1rem 0 }
-
         > div {
             padding: 1rem;
 
@@ -291,8 +289,25 @@ export default App;
         }
 
         @media #{$tablet} {
-            display: block;
-            label { min-width: 22rem }
+            > div input[type="file"] + label { min-width: auto !important }
+        }
+
+        @media #{$mobile} {
+            padding: 1rem 1.5rem;
+            max-width: 100%;
+            justify-content: space-between;
+
+            > div {
+                width: calc(50% - .5rem);
+                padding: 1rem 0;
+
+                input[type="file"] + label {
+                    width: 100%;
+                    padding: 8px 8px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
         }
     }
 
@@ -311,11 +326,6 @@ export default App;
         background: #fff;
         padding: 3rem;
         box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .2);
-
-        @media #{$mobile} {
-            padding: 1.5rem;
-            border-radius: 0;
-        }
 
         figure {
             grid-area: image;
@@ -344,7 +354,9 @@ export default App;
             aside form { padding: 2rem 0 0 0 }
         }
         @media #{$mobile} {
-            margin: 1rem auto;
+            padding: 1.5rem 1.5rem 2rem 1.5rem;
+            border-radius: 0;
+            margin: 1rem auto 0rem;
             figure { margin: 0 0 1rem; }
         }
     }

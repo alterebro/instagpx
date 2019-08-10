@@ -21,7 +21,7 @@ header[role="banner"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3rem 2rem 2rem 2rem;
+    padding: 4rem 2rem 2rem 2rem;
 
     h1 {
         width: 100%;
@@ -64,7 +64,7 @@ header[role="banner"] {
         text-align: center;
         max-width: 42rem;
         margin: 0 auto;
-        padding: 1rem;
+        padding: 2rem 1rem 1rem 1rem;
 
         h1 {
             margin: 0 auto;
@@ -76,9 +76,6 @@ header[role="banner"] {
             margin: 0;
             border-left: none;
         }
-
     }
-
-    // @media #{$mobile} { padding: 1rem 2rem 0 }
 }
 </style>
