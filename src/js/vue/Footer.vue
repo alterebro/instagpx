@@ -1,7 +1,7 @@
 <template>
     <footer role="contentinfo">
         <div class="footer-content">
-            <p>A project created by <strong><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!">@alterebro</a></strong>.</p>
+            <p>Design &amp; Development by: <strong><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!">@alterebro</a></strong>.</p>
             <nav>
                 <h4>Share! :</h4>
                 <ul>

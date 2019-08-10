@@ -310,7 +310,6 @@ export default App;
         margin: 2rem auto 5rem;
         background: #fff;
         padding: 3rem;
-        border-radius: 5px;
         box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .2);
 
         @media #{$mobile} {
