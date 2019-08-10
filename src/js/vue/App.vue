@@ -4,18 +4,20 @@
         <Header></Header>
         <section role="form">
             <div>
+                <h4><span v-if="gpxFile" class="file-ok"></span>GPX</h4>
                 <p>
                     <input type="file" accept=".gpx" @change="loadGPX" id="user-file-gpx" />
-                    <label for="user-file-gpx">Select your <strong>.GPX</strong> file</label>
+                    <label v-if="gpxFile" for="user-file-gpx">{{ gpxFile }}</label>
+                    <label v-else for="user-file-gpx">Select your <strong>.GPX</strong> file</label>
                 </p>
-                <p v-if="gpxFile" class="file-ok">{{ gpxFile }}</p>
             </div>
             <div>
+                <h4><span v-if="imageFile" class="file-ok"></span>Image</h4>
                 <p>
                     <input type="file" accept="image/*" @change="loadIMG" id="user-file-image" />
-                    <label for="user-file-image"><span>Select your <strong>Image</strong> file</label>
+                    <label v-if="imageFile" for="user-file-image">{{ imageFile }}</label>
+                    <label v-else for="user-file-image">Select your <strong>Image</strong> file</label>
                 </p>
-                <p v-if="imageFile" class="file-ok">{{ imageFile }}</p>
             </div>
         </section>
 
@@ -259,26 +261,33 @@ export default App;
         > div {
             padding: 1rem;
 
-            p.file-ok {
-                padding: 1.5rem 0 0 0;
-                font-size: 90%;
+            h4 {
+                font-size: 80%;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                color: $color-fg-medium;
+                margin: 0 0 1rem;
 
-                &:before {
-                    content: '';
-                    display: inline-block;
-                    vertical-align: top;
-                    position: relative;
-                    margin: 0 10px 0 0;
-                    width: 22px;
-                    height: 22px;
-                    border-radius: 100%;
-                    background-color: $color-primary-light;
-                    background-image: url(../../img/ui/icon-check.svg);
-                    background-position: center center;
-                    background-size: 14px auto;
-                    background-repeat: no-repeat;
+                .file-ok {
+
+                        &:before {
+                            content: '';
+                            display: inline-block;
+                            vertical-align: top;
+                            position: relative;
+                            margin: 0 5px 0 0;
+                            width: 16px;
+                            height: 16px;
+                            background-image: url(../../img/ui/icon-check.svg);
+                            background-position: center center;
+                            background-size: 16px auto;
+                            background-repeat: no-repeat;
+                        }
                 }
             }
+
+            input[type="file"] + label { min-width: 22rem }
         }
 
         @media #{$tablet} {

@@ -44,16 +44,14 @@ header[role="banner"] {
 
     .subheader {
         max-width: 40rem;
-        padding: 0 0 0 2rem;
+        padding: 1rem 0 1rem 2rem;
         margin: 0 0 0 2rem;
         border-left: dotted $color-fg-medium 1px;
     }
 
     h2 {
-        line-height: 1.4;
         font-size: 1.6rem;
         font-weight: 700;
-        color: $color-fg-dark;
     }
     h3 {
         font-size: 1.4rem;
