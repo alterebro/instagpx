@@ -4,5 +4,8 @@ $mobile : "only screen and (max-width: #{$mobile-breakpoint}px)";
 $tablet : "only screen and (max-width: #{$tablet-breakpoint}px)";
 $desktop : "only screen and (min-width: #{$tablet-breakpoint}px)";
 
-$color-primary-light : #797f9f;
-$color-primary-dark : #606990;
+$color-primary-light : #387edf;
+$color-primary-dark : #0d71d2;
+
+$color-fg-dark : #262626;
+$color-fg-medium : #818181;
