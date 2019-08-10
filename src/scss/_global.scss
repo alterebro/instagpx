@@ -36,6 +36,10 @@ body {
     background: #f9f9f9;
     color: #262626;
 }
+html, body {
+    height: 100%;
+    min-height: 100%;
+}
 *, *:before, *:after {
 	box-sizing: inherit;
 	background-repeat: no-repeat;

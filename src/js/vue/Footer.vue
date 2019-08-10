@@ -1,5 +1,6 @@
 <template>
     <footer role="contentinfo">
+        <p>A project created by <strong><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!">@alterebro</a></strong>.</p>
         <nav>
             <h4>Share! :</h4>
             <ul>
@@ -8,7 +9,6 @@
                 </li>
             </ul>
         </nav>
-        <p>A project created by <strong><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!">@alterebro</a></strong>.</p>
     </footer>
 </template>
 
@@ -58,31 +58,37 @@ export default {
 @import "./../../scss/_variables.scss";
 
 footer[role="contentinfo"] {
+    
     background: #fff;
     border-top: solid #e6e6e6 1px;
     padding: 2rem;
-    text-align: center;
+
+    display: flex;
+    align-items: center;
+
+    >p {
+        flex: 0 0 auto;
+    }
+    > nav {
+        flex: 1 1 auto;
+    }
 }
 
 nav {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 0 0 1rem;
+    justify-content: flex-end;
 
     h4 { display: none }
-    ul {
-        display: flex;
-    }
+    ul { display: flex }
     li {
-
         a {
             display: block;
             background: $color-primary-light;
             color: #fff;
             padding: 3px 10px 3px 26px;
             margin: 0 3px;
-            border-radius: 3px;
+            border-radius: 0;
             border: none;
             position: relative;
             transition: all .25s ease-in-out;

@@ -239,6 +239,15 @@ export default App;
 
 .app {
 
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    height: 100%;
+
+    > section[role="presentation"],
+    > main[role="main"] { flex: 1 0 auto }
+    > footer { flex: 0 0 auto }
+
     section[role="form"] {
         display: flex;
         padding: 1rem 0;
