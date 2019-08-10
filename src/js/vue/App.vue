@@ -108,11 +108,7 @@
         </main>
 
         <ModalThanks ref="modal"></ModalThanks>
-
-        <footer role="contentinfo">
-            <ShareList></ShareList>
-            <p>A project created by <strong><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!">@alterebro</a></strong>.</p>
-        </footer>
+        <Footer></Footer>
 
     </div>
 </template>
@@ -128,7 +124,7 @@ import reverseGeocoding from '../lib/GeoCode.js';
 import Header from './Header.vue';
 // import InstagramFeed from './InstagramFeed.vue';
 import IntroSlide from './IntroSlide.vue';
-import ShareList from './ShareList.vue';
+import Footer from './Footer.vue';
 import ModalThanks from './ModalThanks.vue';
 
 const App =  {
@@ -140,7 +136,7 @@ const App =  {
         Header,
         // InstagramFeed,
         IntroSlide,
-        ShareList,
+        Footer,
         ModalThanks
     },
     filters : {
@@ -233,6 +229,10 @@ const App =  {
 export default App;
 </script>
 
+<style lang="scss">
+@import "./../../scss/_global.scss";
+</style>
+
 <style lang="scss" scoped>
 @import "./../../scss/_fonts.scss";
 @import "./../../scss/_variables.scss";
@@ -241,7 +241,7 @@ export default App;
 
     section[role="form"] {
         display: flex;
-        padding: 2rem 0;
+        padding: 1rem 0;
         justify-content: center;
         text-align: center;
 
@@ -289,7 +289,7 @@ export default App;
 
         width: 100%;
         max-width: 84rem;
-        margin: 2rem auto;
+        margin: 2rem auto 5rem;
         background: #fff;
         padding: 3rem;
         border-radius: 5px;
@@ -332,14 +332,4 @@ export default App;
         }
     }
 }
-
-footer[role="contentinfo"] {
-    padding: 3rem 1rem 2rem;
-    font-size: 90%;
-    text-align: center;
-}
-</style>
-
-<style lang="scss">
-@import "./../../scss/_global.scss";
 </style>

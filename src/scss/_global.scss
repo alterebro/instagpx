@@ -36,11 +36,6 @@ body {
     background: #f9f9f9;
     color: #262626;
 }
-html, body {
-    padding: 1rem;
-
-    @media #{$mobile} { padding: 1rem 0 }
-}
 *, *:before, *:after {
 	box-sizing: inherit;
 	background-repeat: no-repeat;

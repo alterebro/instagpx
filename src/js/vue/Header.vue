@@ -21,7 +21,7 @@ header[role="banner"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 3rem 2rem 2rem 2rem;
 
     h1 {
         width: 100%;

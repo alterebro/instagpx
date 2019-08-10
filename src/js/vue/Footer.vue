@@ -1,12 +1,15 @@
 <template>
-    <nav>
-        <h4>Share! :</h4>
-        <ul>
-            <li v-for="network in networks" :class="network.network | networkClass">
-                <a :href="network.url | networkURL" :title="network.network | networkTitle" @click="networkOpen($event)" :target="network.modal ? '_blank' : false" :rel="network.modal ? 'noopener noreferrer' : false">{{ network.network }}</a>
-            </li>
-        </ul>
-    </nav>
+    <footer role="contentinfo">
+        <nav>
+            <h4>Share! :</h4>
+            <ul>
+                <li v-for="network in networks" :class="network.network | networkClass">
+                    <a :href="network.url | networkURL" :title="network.network | networkTitle" @click="networkOpen($event)" :target="network.modal ? '_blank' : false" :rel="network.modal ? 'noopener noreferrer' : false">{{ network.network }}</a>
+                </li>
+            </ul>
+        </nav>
+        <p>A project created by <strong><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow @alterebro on Twitter!">@alterebro</a></strong>.</p>
+    </footer>
 </template>
 
 <script>
@@ -23,7 +26,7 @@ export default {
             ]
         };
     },
-    name: 'ShareList',
+    name: 'Footer',
     methods : {
         networkOpen(e) {
             let _el = e.currentTarget;
@@ -53,6 +56,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "./../../scss/_variables.scss";
+
+footer[role="contentinfo"] {
+    background: #fff;
+    border-top: solid #e6e6e6 1px;
+    padding: 2rem;
+    text-align: center;
+}
 
 nav {
     display: flex;

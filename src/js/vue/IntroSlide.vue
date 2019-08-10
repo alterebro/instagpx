@@ -49,7 +49,7 @@ section[role="presentation"] {
     width: 100%;
     max-width: 62rem;
     margin: 2rem auto;
-    padding: 0 1rem;
+    padding: 0 1rem 2rem;
     text-align: center;
     position: relative;
 
