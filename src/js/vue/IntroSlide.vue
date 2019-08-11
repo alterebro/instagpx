@@ -5,8 +5,8 @@
         </figure>
         <footer>
             <nav>
-                <a href="#" class="prev" @click.prevent="introSlidePrev" title="Next Image">&#8592; Prev</a>
-                <a href="#" class="next" @click.prevent="introSlideNext" title="Previous Image">Next &#8594;</a>
+                <a href="#" class="prev" @click.prevent="introSlidePrev" title="Next Image"><span>&#8592; Prev</span></a>
+                <a href="#" class="next" @click.prevent="introSlideNext" title="Previous Image"><span>Next &#8594;</span></a>
             </nav>
         </footer>
     </section>
@@ -90,23 +90,22 @@ section[role="presentation"] {
 
             a {
                 text-indent: -1000em;
-                height: 32px;
-                width: 32px;
-                border-radius: 100%;
-                background: $color-primary-light;
-                position: relative;
+                height: 48px;
+                width: 48px;
                 border: none;
+                padding: 1rem;
+                display: block;
+                overflow: hidden;
+                opacity: .5;
+                transition: opacity .35s;
+
+                span { display: block }
 
                 &:before {
                     content: '';
                     display: block;
-                    width: 14px;
-                    height: 14px;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    margin-top: 1px;
+                    width: 100%;
+                    height: 100%;
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center center;
@@ -115,10 +114,7 @@ section[role="presentation"] {
                 &.prev:before { background-image: url(../../img/ui/icon-arrow-back.svg); }
                 &.next:before { background-image: url(../../img/ui/icon-arrow-forward.svg); }
 
-                &:hover {
-                    background: $color-primary-dark;
-                    box-shadow: 0 5px 1px -2px rgba(0, 0, 0, .15)
-                }
+                &:hover { opacity: 1 }
             }
         }
     }
@@ -128,7 +124,18 @@ section[role="presentation"] {
     @media #{$tablet} {
         max-width: 48rem;
         footer {
-            nav { padding: 0 3rem; }
+            nav {
+                padding: 0 2rem;
+                a {
+                    opacity: 1;
+                    background-color: rgba(255, 255, 255, 1);
+                }
+                a:before {
+                    transition: filter .35s;
+                    filter: none;
+                }
+                a:hover:before { filter: brightness(0) }
+            }
         }
     }
 }

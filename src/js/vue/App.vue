@@ -336,14 +336,8 @@ export default App;
             flex-direction: column;
             justify-content: space-between;
 
-            .button, button {
-                width: 100%;
-            }
-
-            a.button {
-                padding: 12px 16px;
-                font-weight: bold;
-            }
+            .button, button { width: 100% }
+            a.button { font-weight: bold }
         }
 
         @media #{$tablet} {
