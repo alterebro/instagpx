@@ -96,8 +96,6 @@ section[role="presentation"] {
                 padding: 1rem;
                 display: block;
                 overflow: hidden;
-                opacity: .5;
-                transition: opacity .35s;
 
                 span { display: block }
 
@@ -109,12 +107,14 @@ section[role="presentation"] {
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center center;
+                    transition: filter .35s;
+                    filter: none;
                 }
 
                 &.prev:before { background-image: url(../../img/ui/icon-arrow-back.svg); }
                 &.next:before { background-image: url(../../img/ui/icon-arrow-forward.svg); }
 
-                &:hover { opacity: 1 }
+                &:hover:before { filter: brightness(0) }
             }
         }
     }
@@ -126,15 +126,7 @@ section[role="presentation"] {
         footer {
             nav {
                 padding: 0 2rem;
-                a {
-                    opacity: 1;
-                    background-color: rgba(255, 255, 255, 1);
-                }
-                a:before {
-                    transition: filter .35s;
-                    filter: none;
-                }
-                a:hover:before { filter: brightness(0) }
+                a { background: #fff }
             }
         }
     }
