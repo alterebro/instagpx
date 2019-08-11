@@ -118,7 +118,7 @@
 <script>
 import tinytime from 'tinytime';
 import { Config, Data } from '../config.js';
-import { filename, preloadFont } from '../lib/Utils.js';
+import { filename, preloadFont, destroyPreloadedFonts } from '../lib/Utils.js';
 import readGPX from '../lib/GPX.js';
 import createIMG from '../lib/IMG.js';
 import instaGPX from '../lib/InstaGPX.js';
@@ -220,7 +220,10 @@ const App =  {
             let _modalWindow = this.$refs.modal;
                 _modalWindow.showModal();
         },
-        regenerateImage() { instaGPX(this.gpx, this.image) }
+        regenerateImage() {
+            instaGPX(this.gpx, this.image);
+            destroyPreloadedFonts();
+        }
     },
 
     created() {
