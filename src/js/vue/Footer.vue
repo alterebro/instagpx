@@ -94,8 +94,21 @@ nav {
     justify-content: flex-end;
 
     h4 { display: none }
-    ul { display: flex }
+    ul {
+        display: flex;
+
+        &:hover > li {
+            opacity: .75;
+            transform: scale(.9);
+        }
+        &:hover > li:hover {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
     li {
+        transition: all .35s;
         margin: 0 5px 0 0;
 
         &:last-child { margin: 0 }
