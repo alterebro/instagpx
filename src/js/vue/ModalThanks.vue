@@ -28,7 +28,14 @@ export default {
     name: 'ModalThanks',
     methods : {
         showModal() { this.modalVisible = true },
-        hideModal() { this.modalVisible = false },
+        hideModal() {
+            document.querySelector('.app').scrollTo(0, 0)
+            this.gpxLoaded = false;
+            this.gpxFile = null;
+            this.imageLoaded = false;
+            this.imageFile = null;
+            this.modalVisible = false
+        },
     }
 };
 </script>
