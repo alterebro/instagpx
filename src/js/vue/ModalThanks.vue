@@ -19,11 +19,11 @@
 </template>
 
 <script>
+import { Data } from '../config.js';
+
 export default {
     data() {
-        return {
-            modalVisible : false
-        };
+        return Data;
     },
     name: 'ModalThanks',
     methods : {

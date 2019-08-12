@@ -1,5 +1,5 @@
 <template>
-    <div class="app">
+    <div class="app" :class="{ 'with-modal' : modalVisible }">
 
         <Header></Header>
         <section role="form">
@@ -248,6 +248,9 @@ export default App;
     flex-direction: column;
     min-height: 100%;
     height: 100%;
+    overflow: scroll;
+
+    .with-modal { overflow: hidden }
 
     > section[role="presentation"],
     > main[role="main"] { flex: 1 0 auto }
