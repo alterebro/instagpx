@@ -306,7 +306,7 @@ export default App;
 
                 input[type="file"] + label {
                     width: 100%;
-                    padding: 8px 8px;
+                    padding: 12px 8px;
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }

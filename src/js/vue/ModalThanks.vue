@@ -2,10 +2,13 @@
     <section class="modal-thanks" v-bind:class="{ visible: modalVisible }">
         <div>
             <p>
-                Thanks for using InstaGPX! Your picture is now being downloaded :)
-                <br />Share it using the hashtag <mark>#instagpx</mark> in order to get it featured!
+                <span>Thanks for using InstaGPX.</span>
+                <span>Your picture is now being downloaded :)</span>
+                <br />
+                <span><strong>Share it using the hashtag <mark>#instagpx</mark></strong></span>
+                <span><strong>in order to get it featured!</strong></span>
             </p>
-            <p><em>Now, you can</em>:</p>
+            <p>Now, you can:</p>
             <ul>
                 <li class="twitter"><a href="https://twitter.com/alterebro" target="_blank" rel="noopener noreferrer" title="Follow me on Twitter!">Follow me on Twitter</a></li>
                 <li class="instagram"><a href="https://www.instagram.com/alterebro/" target="_blank" rel="noopener noreferrer" title="Follow me on Instagram!">and/or on Instagram</a></li>
@@ -41,7 +44,7 @@ export default {
         height: 32px;
         border-radius: 100%;
         background-color: $color-primary-light;
-        background-size: 18px 18px;
+        background-size: 20px;
         background-position: center center;
         position: absolute;
         left: 0;
@@ -69,6 +72,10 @@ export default {
         pointer-events: auto;
     }
 
+    @media #{$mobile} {
+        padding: 1.5rem;
+    }
+
     > div {
         background: #fff;
         width: 100%;
@@ -87,36 +94,43 @@ export default {
         }
 
         mark {
-            color: #fff;
             display: inline-block;
-            padding: 1px 6px;
+            padding: 1px 6px 2px;
             border-radius: 3px;
-            background-color: $color-primary-light;
+            color: $color-primary-light;
+            background-color: lighten($color-fg-medium, 40%);
         }
 
         li {
-            font-size: 180%;
+            font-size: 140%;
             font-weight: 700;
-            line-height: 180%;
+            line-height: 200%;
             position: relative;
-            padding: 0 0 0 42px;
+            padding: 2px 0 2px 40px;
 
             @include modal-icon;
 
             &.twitter:before {
+                background-size: 14px auto;
                 background-color: #1da1f2;
                 background-image: url(../../img/social-share/icon-share-twitter.svg);
             }
             &.instagram:before {
+                background-size: 14px auto;
                 background-color: #c32aa3;
                 background-image: url(../../img/social-share/icon-share-instagram.svg);
             }
+        }
 
-            @media #{$tablet} {
+        @media #{$mobile} {
+            p span { display: block }
+            p br { display: none }
+            li {
                 font-size: 120%;
-                padding: 5px 0 5px 42px;
+                padding: 5px 0 5px 40px;
             }
         }
+
     }
 
     > footer {
@@ -140,6 +154,11 @@ export default {
             &:hover:before {
                 background-color: $color-primary-dark;
             }
+        }
+
+        @media #{$mobile} {
+            top: 4rem;
+            right: 4rem;
         }
     }
 }
