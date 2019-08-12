@@ -18,10 +18,11 @@ export default {
         return {
             current: 0,
             images : [
-                { url : './images/intro/instagpx-01.jpg' },
-                { url : './images/intro/instagpx-02.jpg' },
-                { url : './images/intro/instagpx-03.jpg' },
-                { url : './images/intro/instagpx-04.jpg' }
+                { url : './images/intro/instagpx-allemont-grenoble.jpg' },
+                { url : './images/intro/instagpx-beziers-montpellier.jpg' },
+                { url : './images/intro/instagpx-irun-pamplona.jpg' },
+                { url : './images/intro/instagpx-sarria-santiago.jpg' },
+                { url : './images/intro/instagpx-viana-oporto.jpg' }
             ]
         };
     },
