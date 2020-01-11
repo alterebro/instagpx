@@ -1,5 +1,7 @@
 import tinytime from 'tinytime';
 import { Config, Data } from '../config.js';
+import Styles from './InstaGPX.styles.js';
+
 
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
 
@@ -58,7 +60,6 @@ function plotElevationGraph(context, x, y, w, h, elevation, distance) {
 
     let _altitudeFactorRest = h - _altitudeFactor;
     let _altitudeYOffset = (80*_altitudeFactorRest)/100; // 80:20
-
 
     // Vertical guidelines : xAxis
     let _blockKms = Math.ceil(Math.ceil((distance.km)/10));
@@ -162,17 +163,13 @@ function instaGPX(gpxData, imgData) {
     let ctx = _canvas.getContext('2d');
 
         // ---
-        // Solid Background :
-        let bgGrad = ctx.createLinearGradient(0, 0, config.width/2, config.width);
-            bgGrad.addColorStop(0, '#797f9f');
-            bgGrad.addColorStop(1, '#606990');
-
-            ctx.fillStyle = bgGrad;
-            ctx.fillRect(0, 0, config.width, config.height);
-
-        // ---
         // Attach Image
         if (imgData) { ctx.putImageData(imgData, 0, 0) }
+
+
+        Styles['montserrat'](ctx, config);
+        // console.log(output);
+        // console.log(config);
 
         // ---
         // Overlaying Shadow BG
@@ -192,7 +189,6 @@ function instaGPX(gpxData, imgData) {
                 ctx.fillRect(0, 0, config.width, grdTopSize);
         }
 
-
         let grdBottomSize = config.height/4;
         let grdBottom = ctx.createLinearGradient(0, config.height - grdBottomSize, 0, config.height);
             grdBottom.addColorStop(0.0, "rgba(0, 0, 0, 0.00)");
@@ -208,6 +204,8 @@ function instaGPX(gpxData, imgData) {
         let _third = Math.round((config.width - (config.padding*4))/3)
         ctx.fillStyle = "rgba(255, 255, 255, 1)";
         ctx.textBaseline = 'alphabetic';
+
+
 
         const txtSize = {}
 

@@ -10,12 +10,12 @@
     "build": "parcel build src/app.html --out-file index.html --public-url './' --no-cache --no-source-maps",
     "deploy": "npm run build && netlify deploy --dir dist --prod"
   },
-  "postcss" : {
+  "postcss": {
     "modules": false,
     "map": false,
     "plugins": {
-        "cssnano": {},
-        "autoprefixer": {}
+      "cssnano": {},
+      "autoprefixer": {}
     }
   },
   "browserslist": [
@@ -45,19 +45,19 @@
   },
   "homepage": "https://github.com/alterebro/instagpx#readme",
   "devDependencies": {
-    "@vue/component-compiler-utils": "^3.0.0",
-    "autoprefixer": "^9.6.1",
-    "parcel-bundler": "^1.12.3",
+    "@vue/component-compiler-utils": "^3.1.1",
+    "autoprefixer": "^9.7.3",
+    "parcel-bundler": "^1.12.4",
     "parcel-plugin-css-url-loader": "^1.0.5",
-    "parcel-plugin-static-files-copy": "^2.1.2",
+    "parcel-plugin-static-files-copy": "^2.2.1",
     "parcel-plugin-wrapper": "^0.2.2",
-    "sass": "^1.22.7",
+    "sass": "^1.24.4",
     "tinytime": "^0.2.6",
-    "vue": "^2.6.10",
-    "vue-template-compiler": "^2.6.10"
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
-    "lib": "^4.0.2",
-    "vue-hot-reload-api": "^2.3.3"
+    "lib": "^4.0.5",
+    "vue-hot-reload-api": "^2.3.4"
   }
 }
