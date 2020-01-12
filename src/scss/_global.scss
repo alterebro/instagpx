@@ -121,7 +121,16 @@ a {
 }
 .button {
     @extend %button;
+
+    background-color: $color-primary-dark;
+    border: solid $color-primary-dark 1px;
+    padding: 16px 18px;
+
     &:before { background-image: url(../../img/ui/icon-download.svg) }
+    &:hover {
+        background-color: $color-fg-dark !important;
+        border: solid $color-fg-dark 1px;
+    }
 }
 
 [role="form"] {
