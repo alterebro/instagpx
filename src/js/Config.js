@@ -5,16 +5,16 @@ const Config = {
     width : 1280,
     height: 1280,
     timestampTemplates : [
-        '{Do} {MMMM} {YYYY}',
-        '{MMMM} {Do}, {YYYY}',
-        '{DD} {MMMM} {YYYY}',
-        '{MMMM} {DD}, {YYYY}',
+        '{dddd}, {DD}.{Mo}.{YYYY} @{H}:{mm}',
         '{dddd}, {DD} {MMMM} {YYYY} · {h}:{mm}{a}',
         '{dddd}, {MMMM} {DD}, {YYYY} · {h}:{mm}{a}',
-        '{dddd}, {DD}.{Mo}.{YYYY} @{H}:{mm}',
-        '{DD} {MM} {YYYY} · {h}:{mm}{a}',
         '{DD}.{Mo}.{YYYY} · {H}:{mm}',
-        '{Mo}.{DD}.{YYYY} · {H}:{mm}'
+        '{Mo}.{DD}.{YYYY} · {H}:{mm}',
+        '{Do} {MMMM} {YYYY}',
+        '{DD} {MMMM} {YYYY}',
+        '{DD} {MM} {YYYY} · {h}:{mm}{a}',
+        '{MMMM} {Do}, {YYYY}',
+        '{MMMM} {DD}, {YYYY}'
     ]
 }
 
@@ -35,7 +35,7 @@ const Data = {
         show : 'speed', // elevation || speed
         wordSpacing : 10,
         title : '',
-        timestampPattern : 3,
+        timestampPattern : 0,
         promote : true,
         graph : true // Elevation graph
     },

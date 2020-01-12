@@ -175,14 +175,14 @@ a {
             position: absolute;
             top: 0;
             left: 0;
-            padding: 0 0 0 2.4rem;
+            padding: .2rem .2rem .2rem 2.4rem;
             line-height: 1.6rem;
             cursor: pointer;
 
             &:before, &:after {
                 position: absolute;
-                top: 0;
-                left: 0;
+                top: .2rem;
+                left: .2rem;
                 content: '';
                 display: block;
                 width: 16px;

@@ -46,7 +46,7 @@
                             <option v-for="(pattern, index) in dateTemplates" v-bind:value="index">
                                 {{ gpx.timestamp.start | renderTimestamp(pattern) }}
                             </option>
-                            <option value="false">No Date!</option>
+                            <option value="false">&times; No date</option>
                         </select>
                     </p>
 
