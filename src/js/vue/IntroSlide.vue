@@ -65,7 +65,9 @@ section[role="presentation"] {
         img {
             display: block;
             width: 100%;
+            height: 100%;
             max-width: 48rem;
+            max-height: 48rem;
             border: solid #fff 1rem;
             display: none;
 

@@ -257,6 +257,7 @@ export default App;
     > footer { flex: 0 0 auto }
 
     section[role="form"] {
+        flex: 0 0 auto;
         display: flex;
         padding: 1rem 0;
         justify-content: center;

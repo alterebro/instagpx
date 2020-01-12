@@ -1,6 +1,6 @@
 /*
   InstaGPX (instagpx.com) · Add GPX activity stats to your photos.
-  Copyright (c) 2019 by Jorge Moreno, moro.es (@alterebro)
+  Copyright (c) 2019-2020 by Jorge Moreno, moro.es (@alterebro)
 
   This program is under the terms of the GNU General Public License v3.0
   https://www.gnu.org/licenses/gpl-3.0.en.html
