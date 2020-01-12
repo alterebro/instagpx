@@ -2,11 +2,8 @@
     <section class="modal-thanks" v-bind:class="{ visible: modalVisible }">
         <div>
             <p>
-                <span>Thanks for using InstaGPX.</span>
-                <span>Your picture is now being downloaded :)</span>
-                <br />
-                <span><strong>Share it using the hashtag <mark>#instagpx</mark></strong></span>
-                <span><strong>in order to get it featured!</strong></span>
+                <strong>Thanks for using InstaGPX!</strong>
+                <br />Your picture is now being downloaded :)
             </p>
             <p>Now, you can:</p>
             <ul>
@@ -100,13 +97,13 @@ export default {
             text-align: center;
         }
 
-        mark {
-            display: inline-block;
-            padding: 1px 6px 2px;
-            border-radius: 3px;
-            color: $color-primary-light;
-            background-color: lighten($color-fg-medium, 40%);
-        }
+        // mark {
+        //     display: inline-block;
+        //     padding: 1px 6px 2px;
+        //     border-radius: 3px;
+        //     color: $color-primary-light;
+        //     background-color: lighten($color-fg-medium, 40%);
+        // }
 
         li {
             font-size: 140%;
@@ -130,8 +127,8 @@ export default {
         }
 
         @media #{$mobile} {
-            p span { display: block }
-            p br { display: none }
+            // p span { display: block }
+            // p br { display: none }
             li {
                 font-size: 120%;
                 padding: 5px 0 5px 40px;
