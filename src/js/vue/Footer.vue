@@ -20,7 +20,7 @@ export default {
     data() {
         return {
             networks : [
-                { modal : true, network : "Twitter", url : "https://twitter.com/intent/tweet?text={TEXT}&url={URL}" },
+                { modal : true, network : "Twitter", url : "https://twitter.com/intent/tweet?text={TEXT}&url={URL}&via=alterebro" },
                 { modal : true, network : "FaceBook", url : "https://www.facebook.com/sharer.php?u={URL}" },
                 { modal : true, network : "LinkedIn", url : "https://www.linkedin.com/shareArticle?mini=true&url={URL}&title={TITLE}&summary={TEXT}&source=moro.es" },
                 { modal : false, network : "E-Mail", url : "mailto:?subject={TITLE}&body={TEXT}:%0A{URL}" },
