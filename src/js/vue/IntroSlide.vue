@@ -1,7 +1,7 @@
 <template>
     <section role="presentation" :class="{ hidden : hidden }">
         <figure>
-            <img v-for="(img, i) in images" :src="img.url" :class="{ active : (i == current) }" alt="InstaGPX" />
+            <img v-for="(img, i) in images" :src="imagesPath + img.url" :class="{ active : (i == current) }" alt="InstaGPX" />
         </figure>
         <footer>
             <nav>
@@ -17,12 +17,13 @@ export default {
     data() {
         return {
             current: 0,
+            imagesPath : './images/intro/',
             images : [
-                { url : './images/intro/instagpx-allemont-grenoble.jpg' },
-                { url : './images/intro/instagpx-beziers-montpellier.jpg' },
-                { url : './images/intro/instagpx-irun-pamplona.jpg' },
-                { url : './images/intro/instagpx-sarria-santiago.jpg' },
-                { url : './images/intro/instagpx-viana-oporto.jpg' }
+                { url : 'jpg/instagpx-allemont-grenoble.jpg' },
+                { url : 'jpg/instagpx-beziers-montpellier.jpg' },
+                { url : 'jpg/instagpx-irun-pamplona.jpg' },
+                { url : 'jpg/instagpx-sarria-santiago.jpg' },
+                { url : 'jpg/instagpx-viana-oporto.jpg' }
             ]
         };
     },
