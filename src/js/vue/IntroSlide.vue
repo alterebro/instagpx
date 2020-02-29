@@ -19,11 +19,11 @@ export default {
             current: 0,
             imagesPath : './images/intro/',
             images : [
-                { url : 'jpg/instagpx-allemont-grenoble.jpg' },
-                { url : 'jpg/instagpx-beziers-montpellier.jpg' },
-                { url : 'jpg/instagpx-irun-pamplona.jpg' },
-                { url : 'jpg/instagpx-sarria-santiago.jpg' },
-                { url : 'jpg/instagpx-viana-oporto.jpg' }
+                { url : 'jpg/instagpx-viana-oporto.jpg' },
+                { url : 'jpg/instagpx-viarhona.jpg' },
+                { url : 'jpg/instagpx-culoz-geneva.jpg' },
+                { url : 'jpg/instagpx-allemond-grenoble.jpg' },
+                { url : 'jpg/instagpx-beziers-montpellier.jpg' }
             ]
         };
     },
