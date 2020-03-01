@@ -62,6 +62,8 @@ section[role="presentation"] {
         max-width: 48rem;
         background: #fff;
         box-shadow: 0 5px 30px -15px rgba(0, 0, 0, .35);
+        flex-wrap: nowrap;
+        flex-direction: row;
 
         img {
             display: block;
@@ -70,9 +72,15 @@ section[role="presentation"] {
             max-width: 48rem;
             max-height: 48rem;
             border: solid #fff 1rem;
-            display: none;
 
-            &.active { display: block }
+            transition: all .5s ease-in-out;
+            order: 1;
+            opacity: 0;
+
+            &.active {
+                order: 0;
+                opacity: 1;
+            }
         }
     }
 
