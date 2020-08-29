@@ -50,6 +50,15 @@
                         </select>
                     </p>
 
+                    <p class="form-input-container">
+                        <label for="activity-mode">Mode</label>
+                        <select v-model="options.mode" name="activity-mode" id="activity-mode">
+                            <option v-for="(mode, index) in outputRatioModes" v-bind:value="index">
+                                {{ mode.name }}
+                            </option>
+                        </select>
+                    </p>
+
                     <h4>Activity Type</h4>
                     <p class="form-radio-container">
                         <span class="form-selector form-radio">
@@ -150,7 +159,10 @@ const App =  {
     computed : {
         userDataLoaded : function() {
             return this.gpxLoaded && this.imageLoaded
-        }
+        },
+
+        outputWidth : function() { return this.outputRatioModes[this.options.mode].width },
+        outputHeight : function() { return this.outputRatioModes[this.options.mode].height }
     },
     methods : {
 
@@ -209,6 +221,7 @@ const App =  {
 
             createIMG(
                 e.target.files[0],
+                Data.outputRatioModes[Data.options.mode],
                 (imgData) => {
                     Data.image = imgData;
                     Data.imageLoaded = true;
@@ -322,7 +335,7 @@ export default App;
 
         &.visible { display: grid; }
         display: none;
-        grid-template-rows: 512px;
+        grid-template-rows: auto; // 512px
         grid-template-columns : 512px auto;
         grid-gap: 3rem;
         grid-template-areas: "image sidebar";
