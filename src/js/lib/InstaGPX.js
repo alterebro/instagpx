@@ -124,8 +124,9 @@ function plotElevationGraph(context, x, y, w, h, elevation, distance) {
 
 }
 
-function instaGPX(gpxData, imgData) {
+function instaGPX(gpxData, imgData, outputSize) {
 
+    console.log(outputSize);
     const config = {...Config, ...Data.options }
 
     let _duration = [ // Default (<1h)

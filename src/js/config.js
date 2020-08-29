@@ -2,8 +2,8 @@ const Config = {
     title : 'InstaGPX · Add GPX activity stats to your photos',
     description : 'Create beautiful sharing pictures adding activity stats from a GPX file to your photos with InstaGPX',
     url : 'https://instagpx.com',
-    width : 1280, // TODO : Deprecate in favour of Data.outputWidth
-    height: 1280, // TODO : Deprecate in favour of Data.outputHeight
+    width : 1280, // TODO : Deprecate in favour of Data.outputSize.width
+    height: 1280, // TODO : Deprecate in favour of Data.outputSize.height
     timestampTemplates : [
         '{dddd}, {DD}.{Mo}.{YYYY} @{H}:{mm}',
         '{dddd}, {DD} {MMMM} {YYYY} · {h}:{mm}{a}',
@@ -18,11 +18,11 @@ const Config = {
     ],
     imageModes : {
         '1:1' : { width : 1280, height : 1280, name : 'Square 1:1' },
-        '2:3' : { width : 1280, height : 1920, name : 'Portrait (2:3)' },
-        '3:4' : { width : 1080, height : 1440, name : 'Portrait (3:4)' },
-        '4:5' : { width : 1280, height : 1600, name : 'Portrait (4:5)' },
-        '5:7' : { width : 1080, height : 1512, name : 'Portrait (5:7)' },
-        '9:16' : { width : 1080, height : 1920, name : 'Portrait Very Narrow 9:16' }
+        '9:16' : { width : 1080, height : 1920, name : 'Portrait Narrow 9:16' },
+        '5:7' : { width : 1080, height : 1512, name : '5:7 Portrait' },
+        '4:5' : { width : 1280, height : 1600, name : '4:5 Portrait' },
+        '3:4' : { width : 1080, height : 1440, name : '3:4 Portrait' },
+        '2:3' : { width : 1280, height : 1920, name : '2:3 Portrait' }
     }
 }
 
@@ -54,8 +54,7 @@ const Data = {
 
     // Computed :
     // - userDataLoaded
-    // - outputWidth
-    // - outputHeight
+    // - outputSize { width , height }
 }
 
 export { Config, Data };

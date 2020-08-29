@@ -51,10 +51,10 @@
                     </p>
 
                     <p class="form-input-container">
-                        <label for="activity-mode">Mode</label>
+                        <label for="activity-mode">Output Image Mode</label>
                         <select v-model="options.mode" name="activity-mode" id="activity-mode">
                             <option v-for="(mode, index) in outputRatioModes" v-bind:value="index">
-                                {{ mode.name }}
+                                {{ mode.name }} ({{ mode.width }}x{{ mode.height }})
                             </option>
                         </select>
                     </p>
@@ -161,8 +161,12 @@ const App =  {
             return this.gpxLoaded && this.imageLoaded
         },
 
-        outputWidth : function() { return this.outputRatioModes[this.options.mode].width },
-        outputHeight : function() { return this.outputRatioModes[this.options.mode].height }
+        outputSize : function() {
+            return {
+                'width' : this.outputRatioModes[this.options.mode].width,
+                'height' : this.outputRatioModes[this.options.mode].height
+            }
+        }
     },
     methods : {
 
@@ -234,7 +238,7 @@ const App =  {
                 _modalWindow.showModal();
         },
         regenerateImage() {
-            instaGPX(this.gpx, this.image);
+            instaGPX(this.gpx, this.image, this.outputSize);
             destroyPreloadedFonts();
         }
     },
