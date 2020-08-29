@@ -2,8 +2,6 @@ const Config = {
     title : 'InstaGPX · Add GPX activity stats to your photos',
     description : 'Create beautiful sharing pictures adding activity stats from a GPX file to your photos with InstaGPX',
     url : 'https://instagpx.com',
-    width : 1280, // TODO : Deprecate in favour of Data.outputSize.width
-    height: 1280, // TODO : Deprecate in favour of Data.outputSize.height
     timestampTemplates : [
         '{dddd}, {DD}.{Mo}.{YYYY} @{H}:{mm}',
         '{dddd}, {DD} {MMMM} {YYYY} · {h}:{mm}{a}',

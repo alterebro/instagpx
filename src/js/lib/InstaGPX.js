@@ -158,8 +158,8 @@ function instaGPX(gpxData, imgData, outputSize) {
     }
 
     let _canvas = document.createElement('canvas')
-        _canvas.width = config.width;
-        _canvas.height = config.height;
+        _canvas.width = outputSize.width;
+        _canvas.height = outputSize.height;
 
     let ctx = _canvas.getContext('2d');
 
@@ -181,28 +181,28 @@ function instaGPX(gpxData, imgData, outputSize) {
         // Hide top shadow if nothing on top
         if ( !!config.promote || config.timestampPattern !== 'false' || !!(config.title).trim().replace(/\s\s+/g, ' ') ) {
 
-            let grdTopSize = config.height/4;
+            let grdTopSize = outputSize.height/4;
             let grdTop = ctx.createLinearGradient(0, 0, 0, grdTopSize);
                 grdTop.addColorStop(0.0, "rgba(0, 0, 0, 0.50)");
                 grdTop.addColorStop(1.0, "rgba(0, 0, 0, 0.00)");
 
                 ctx.fillStyle = grdTop;
-                ctx.fillRect(0, 0, config.width, grdTopSize);
+                ctx.fillRect(0, 0, outputSize.width, grdTopSize);
         }
 
-        let grdBottomSize = config.height/4;
-        let grdBottom = ctx.createLinearGradient(0, config.height - grdBottomSize, 0, config.height);
+        let grdBottomSize = outputSize.height/4;
+        let grdBottom = ctx.createLinearGradient(0, outputSize.height - grdBottomSize, 0, outputSize.height);
             grdBottom.addColorStop(0.0, "rgba(0, 0, 0, 0.00)");
             grdBottom.addColorStop(1.0, "rgba(0, 0, 0, 0.50)");
 
             ctx.fillStyle = grdBottom;
-            ctx.fillRect(0, config.height - grdBottomSize, config.width, grdBottomSize);
+            ctx.fillRect(0, outputSize.height - grdBottomSize, outputSize.width, grdBottomSize);
 
         ctx.globalCompositeOperation = 'source-over';
         ctx.shadowColor = "rgba(0,0,0,0.4)";
         ctx.shadowBlur = 4;
 
-        let _third = Math.round((config.width - (config.padding*4))/3)
+        let _third = Math.round((outputSize.width - (config.padding*4))/3)
         ctx.fillStyle = "rgba(255, 255, 255, 1)";
         ctx.textBaseline = 'alphabetic';
 
@@ -227,35 +227,35 @@ function instaGPX(gpxData, imgData, outputSize) {
         // ----------------
         // Values output
         ctx.font = '72px Montserrat';
-        ctx.fillText(output.distance, config.padding, config.height - config.padding);
+        ctx.fillText(output.distance, config.padding, outputSize.height - config.padding);
         txtSize.distance = ctx.measureText(output.distance).width;
 
         let _xDurationOffset = 0;
         output.duration.forEach((el, i) => {
-            ctx.fillText(el.v, config.padding*2 + _third + _xDurationOffset, config.height - config.padding);
+            ctx.fillText(el.v, config.padding*2 + _third + _xDurationOffset, outputSize.height - config.padding);
             _xDurationOffset += txtSize.duration[i].v + txtSize.duration[i].u + (config.wordSpacing*2);
         })
 
-        ctx.fillText(output[output.optionLabel], (config.padding*3) + (_third*2), config.height - config.padding);
+        ctx.fillText(output[output.optionLabel], (config.padding*3) + (_third*2), outputSize.height - config.padding);
         txtSize.option = ctx.measureText(output[output.optionLabel]).width;
 
         // ----------------
         // Def
         ctx.fillStyle = "rgba(255, 255, 255, .5)";
         ctx.font = '36px Montserrat';
-        ctx.fillText(output.distanceUnit, config.padding + txtSize.distance + config.wordSpacing, config.height - config.padding);
+        ctx.fillText(output.distanceUnit, config.padding + txtSize.distance + config.wordSpacing, outputSize.height - config.padding);
 
         _xDurationOffset = 0; // Reset
         output.duration.forEach((el, i) => {
             _xDurationOffset += txtSize.duration[i].v + config.wordSpacing;
-            if ( el.u ) { ctx.fillText(el.u, config.padding*2 + _third + _xDurationOffset, config.height - config.padding) }
+            if ( el.u ) { ctx.fillText(el.u, config.padding*2 + _third + _xDurationOffset, outputSize.height - config.padding) }
             _xDurationOffset += config.wordSpacing + txtSize.duration[i].u;
         })
 
         let _optionUnits = (output.optionLabel == 'elevation') ? 'm' : (output.optionLabel == 'speed')
             ? (config.units == 'metric') ? 'km/h' : 'mi/h'
             : (config.units == 'metric') ? '/km' : '/mile';
-        ctx.fillText(_optionUnits, (config.padding*3) + (_third*2) + txtSize.option + config.wordSpacing, config.height - config.padding);
+        ctx.fillText(_optionUnits, (config.padding*3) + (_third*2) + txtSize.option + config.wordSpacing, outputSize.height - config.padding);
 
         // ----------------
         // Labels
@@ -263,9 +263,9 @@ function instaGPX(gpxData, imgData, outputSize) {
 
         ctx.font = '24px Montserrat';
         let _labelOffsetY = 80;
-        ctx.fillText('DISTANCE', config.padding, config.height - config.padding - _labelOffsetY);
-        ctx.fillText('ACTIVITY TIME', config.padding*2 + _third, config.height - config.padding - _labelOffsetY);
-        ctx.fillText(output.optionLabel.toUpperCase(), (config.padding*3) + (_third*2), config.height - config.padding - _labelOffsetY);
+        ctx.fillText('DISTANCE', config.padding, outputSize.height - config.padding - _labelOffsetY);
+        ctx.fillText('ACTIVITY TIME', config.padding*2 + _third, outputSize.height - config.padding - _labelOffsetY);
+        ctx.fillText(output.optionLabel.toUpperCase(), (config.padding*3) + (_third*2), outputSize.height - config.padding - _labelOffsetY);
 
         ctx.textBaseline = 'hanging';
 
@@ -292,7 +292,7 @@ function instaGPX(gpxData, imgData, outputSize) {
         ctx.fillStyle = "#fff";
         ctx.font = '64px Montserrat';
         let _titleOffset = (_top.length) ? 42 : 0;
-        wrapText(ctx, (config.title).toUpperCase().trim().replace(/\s\s+/g, ' '), config.padding, config.padding + _titleOffset, config.width - (config.padding*2), 72);
+        wrapText(ctx, (config.title).toUpperCase().trim().replace(/\s\s+/g, ' '), config.padding, config.padding + _titleOffset, outputSize.width - (config.padding*2), 72);
 
         // ----------------
         // Plot elevation graph
@@ -300,9 +300,9 @@ function instaGPX(gpxData, imgData, outputSize) {
             plotElevationGraph(
                 ctx,
                 config.padding,
-                config.height - config.padding - (_labelOffsetY + 60) - (config.height/6),
-                config.width - (config.padding*2),
-                (config.height/6),
+                outputSize.height - config.padding - (_labelOffsetY + 60) - (outputSize.height/6),
+                outputSize.width - (config.padding*2),
+                (outputSize.height/6),
                 gpxData.elevation,
                 gpxData.distance
             );
