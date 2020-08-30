@@ -163,7 +163,6 @@ function instaGPX(gpxData, imgData, outputSize) {
     let ctx = _canvas.getContext('2d');
 
 
-
         // ---
         // Attach Image
         // if (imgData) { ctx.putImageData(imgData, 0, 0) }
@@ -174,12 +173,8 @@ function instaGPX(gpxData, imgData, outputSize) {
             let _srcctx = _srcCanvas.getContext('2d');
                 _srcctx.putImageData(imgData, 0, 0);
 
-
                 let _outputRatio = (outputSize.width / outputSize.height);
                 let _imgRatio = (imgData.width / imgData.height);
-
-                console.log('input', 'w:', imgData.width, 'h:', imgData.height )
-                console.log('output', 'w:', outputSize.width, 'h:', outputSize.height )
 
                 let _w = imgData.width;
                 let _h = imgData.height;
@@ -188,23 +183,16 @@ function instaGPX(gpxData, imgData, outputSize) {
 
                 if ( _outputRatio > _imgRatio ) { // Input is narrower than output target
 
-                    console.log('narrower');
                     _w = imgData.width;
                     _h = imgData.width / _outputRatio;
                     _y = (imgData.height - _h) / 2;
 
                 } else { // Input is wider that output target
 
-                    console.log('wider')
-
                     _w = imgData.height * _outputRatio;
                     _h = imgData.height;
                     _x = (imgData.width - _w) / 2;
                 }
-
-                console.log('input: ', _imgRatio, 'output: ', _outputRatio);
-                console.log(_x, _y, _w, _h);
-                console.log('-------');
 
             ctx.drawImage(_srcCanvas,
                 _x, _y, _w, _h,
@@ -212,12 +200,8 @@ function instaGPX(gpxData, imgData, outputSize) {
             );
 
 
-
-
-
         // ---
         // Styles['montserrat'](ctx, config);
-
 
         // ---
         // Overlaying Shadow BG
@@ -319,7 +303,7 @@ function instaGPX(gpxData, imgData, outputSize) {
         let _tpl = Config.timestampTemplates[config.timestampPattern];
         let _datetime = null;
         if (!!_tpl) {
-            let _timestamp = tinytime(_tpl, { padMonth : true });
+            let _timestamp = tinytime(_tpl, { padMonth : true, padDays : true, padHours: true });
                 _datetime = _timestamp.render(new Date(gpxData.timestamp.start));
                 _datetime = _datetime.toUpperCase()
         }

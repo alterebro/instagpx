@@ -152,7 +152,7 @@ const App =  {
     },
     filters : {
         renderTimestamp(value, template) {
-            let _timestamp = tinytime(template, { padMonth: true });
+            let _timestamp = tinytime(template, { padMonth: true, padDays : true, padHours: true });
             return _timestamp.render( new Date(value) );
         }
     },

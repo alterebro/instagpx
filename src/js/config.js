@@ -37,11 +37,11 @@ const Data = {
     dateTemplates : Config.timestampTemplates,
     options : { // Image default options
         mode : '1:1',
-        padding: 80,
+        padding: 60, // 80?
         activity : 'ride', // ride || run
         units : 'metric', // metric || imperial
         show : 'speed', // elevation || speed
-        wordSpacing : 10,
+        wordSpacing : 5, // 10?
         title : '',
         timestampPattern : 0,
         promote : true,
