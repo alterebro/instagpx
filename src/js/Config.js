@@ -41,7 +41,7 @@ const Data = {
         activity : 'ride', // ride || run
         units : 'metric', // metric || imperial
         show : 'speed', // elevation || speed
-        wordSpacing : 5, // 10?
+        wordSpacing : 10, // 10?
         title : '',
         timestampPattern : 0,
         promote : true,

@@ -247,7 +247,8 @@ function instaGPX(gpxData, imgData, outputSize) {
         txtSize.duration = [];
         output.duration.forEach((el, i) => {
 
-            ctx.font = '72px Montserrat';
+            // ctx.font = '72px Montserrat';
+            ctx.font = '64px Montserrat';
             let _vSize = ctx.measureText(el.v).width;
             ctx.font = '36px Montserrat';
             let _uSize = (el.u) ? ctx.measureText(el.u).width : 0;
@@ -257,7 +258,8 @@ function instaGPX(gpxData, imgData, outputSize) {
 
         // ----------------
         // Values output
-        ctx.font = '72px Montserrat';
+        // ctx.font = '72px Montserrat';
+        ctx.font = '64px Montserrat';
         ctx.fillText(output.distance, config.padding, outputSize.height - config.padding);
         txtSize.distance = ctx.measureText(output.distance).width;
 
@@ -293,7 +295,8 @@ function instaGPX(gpxData, imgData, outputSize) {
         // ctx.globalCompositeOperation = 'overlay';
 
         ctx.font = '24px Montserrat';
-        let _labelOffsetY = 80;
+        // let _labelOffsetY = 80;
+        let _labelOffsetY = 70;
         ctx.fillText('DISTANCE', config.padding, outputSize.height - config.padding - _labelOffsetY);
         ctx.fillText('ACTIVITY TIME', config.padding*2 + _third, outputSize.height - config.padding - _labelOffsetY);
         ctx.fillText(output.optionLabel.toUpperCase(), (config.padding*3) + (_third*2), outputSize.height - config.padding - _labelOffsetY);
@@ -321,8 +324,10 @@ function instaGPX(gpxData, imgData, outputSize) {
         // ----------------
         // Title
         ctx.fillStyle = "#fff";
-        ctx.font = '64px Montserrat';
-        let _titleOffset = (_top.length) ? 42 : 0;
+        // ctx.font = '64px Montserrat';
+        // let _titleOffset = (_top.length) ? 42 : 0;
+        ctx.font = '52px Montserrat';
+        let _titleOffset = (_top.length) ? 36 : 0;
         wrapText(ctx, (config.title).toUpperCase().trim().replace(/\s\s+/g, ' '), config.padding, config.padding + _titleOffset, outputSize.width - (config.padding*2), 72);
 
         // ----------------

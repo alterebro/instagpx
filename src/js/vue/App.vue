@@ -118,6 +118,8 @@
             </aside>
         </main>
 
+        <!-- <img :src="gpx.imageMap" width="250" /> -->
+
         <ModalThanks ref="modal"></ModalThanks>
         <Footer></Footer>
 
