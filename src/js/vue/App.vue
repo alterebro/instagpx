@@ -3,7 +3,7 @@
 
         <Header></Header>
 
-        <!-- <img v-if="gpx.points" :src="gpx.points | imageMap" width="450" /> -->
+        <!-- <img v-if="gpx.points" :src="gpx.points | imageMap('yandex')" width="450" /> -->
 
         <section role="form">
             <div>
@@ -158,23 +158,59 @@ const App =  {
             let _timestamp = tinytime(template, { padMonth: true, padDays : true, padHours: true });
             return _timestamp.render( new Date(value) );
         },
-        imageMap(points) {
+        imageMap(points, provider) {
 
-            let _interval = Math.ceil(points.length / 96);
-            let _points = [points[0]];
-            for (let i = 1; i < points.length; i += _interval) {
-                _points.push(points[i]);
+            let _output = '';
+            switch (provider) {
+
+                case 'mapquest' :
+                    // https://developer.mapquest.com/documentation/static-map-api/v4/
+                    _output = false;
+                    break;
+
+                case 'mapquest-open' :
+                    // https://developer.mapquest.com/documentation/open/static-map-api/v4/
+                    _output = false;
+                    break;
+
+                case 'here' :
+                    // https://developer.here.com/documentation/map-image/dev_guide/topics/examples.html
+                    _output = false;
+                    break;
+
+                case 'mapbox' :
+                    // https://docs.mapbox.com/api/maps/#static-images
+                    // https://blog.mapbox.com/generate-gradient-lines-with-the-static-image-api-368eb28068a3
+                    // https://blog.mapbox.com/static-api-with-overlays-932ffc5fcf3d
+                    // https://github.com/pirxpilot/google-polyline
+                    _output = false;
+                    break;
+
+                case 'yandex':
+
+                    // Yandex Static Maps API : https://tech.yandex.com/maps/staticapi/
+                    let _interval = Math.ceil(points.length / 96);
+                    let _points = [points[0]];
+                    for (let i = 1; i < points.length; i += _interval) {
+                        _points.push(points[i]);
+                    }
+                    _points.push(points[points.length-1]);
+
+                    let _url = `https://static-maps.yandex.ru/1.x/?lang=en_US&l=map`;
+                        _url += `&size=450,450&scale=1`;
+                        _url += `&pt=` + _points[0] + ',vkgrm'
+                        _url += `~` + _points[_points.length-1] + ',vkgrm'
+                        _url += `&pl=c:286ecfff,w:5,` + _points.join(',');
+
+                    _output = _url;
+                    break;
+
+                default:
+                    _output = false;
+                    break;
             }
-            _points.push(points[points.length-1]);
 
-            // Yandex Static Maps API : https://tech.yandex.com/maps/staticapi/
-            let _url = `https://static-maps.yandex.ru/1.x/?lang=en_US&l=map`;
-                _url += `&size=450,450&scale=1`;
-                _url += `&pt=` + _points[0] + ',vkgrm'
-                _url += `~` + _points[_points.length-1] + ',vkgrm'
-                _url += `&pl=c:286ecfff,w:5,` + _points.join(',');
-
-            return _url;
+            return _output || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
         }
     },
     computed : {
