@@ -203,25 +203,28 @@ function readGPX(file, callback) {
 
         }());
 
-        const imageMap = (function() {
+        const points = (function() {
 
-            let _interval = Math.floor(trackpoints.length/98);
             let _trackPoints = [];
-            for (let i = 0; i < trackpoints.length - 1; i+=_interval ) {
+            for (let i = 0; i < trackpoints.length - 1; i++ ) {
                 let _lat = parseFloat((trackpoints[i].lat).toFixed(4));
                 let _lng = parseFloat((trackpoints[i].lon).toFixed(4));
                 _trackPoints.push([ _lng, _lat ]);
             }
+            return _trackPoints;
 
-            // Yandex Static Maps API : https://tech.yandex.com/maps/staticapi/
-            let _output = 'https://static-maps.yandex.ru/1.x/?lang=en_US&l=map&size=250,450&scale=1&pl=c:aa2200ff,w:4,';
-                _output += _trackPoints.slice(0,100).join(',');
+        })();
 
-            return _output;
-
-        }());
-
-        return { duration, distance, pace, speed, elevation, timestamp, coords, imageMap };
+        return {
+            duration,
+            distance,
+            pace,
+            speed,
+            elevation,
+            timestamp,
+            coords,
+            points
+        };
     }
 
     let reader = new FileReader();

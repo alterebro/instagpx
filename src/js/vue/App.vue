@@ -118,7 +118,7 @@
             </aside>
         </main>
 
-        <!-- <img :src="gpx.imageMap" width="250" /> -->
+        <!-- <img v-if="gpx.points" :src="gpx.points | imageMap" width="250" /> -->
 
         <ModalThanks ref="modal"></ModalThanks>
         <Footer></Footer>
@@ -156,6 +156,21 @@ const App =  {
         renderTimestamp(value, template) {
             let _timestamp = tinytime(template, { padMonth: true, padDays : true, padHours: true });
             return _timestamp.render( new Date(value) );
+        },
+        imageMap(points) {
+            let _interval = Math.ceil(points.length / 98);
+            let _points = [points[0]];
+            for (let i = 1; i < points.length; i += _interval) {
+                _points.push(points[i]);
+            }
+            _points.push(points[points.length-1]);
+
+            // Yandex Static Maps API : https://tech.yandex.com/maps/staticapi/
+            let _url = 'https://static-maps.yandex.ru/1.x/?lang=en_US&l=map&size=250,450&scale=1&pl=c:aa2200ff,w:4,';
+                _url += _points.join(',')
+
+            console.log(points.length, _interval, _points.length);
+            return _url;
         }
     },
     computed : {
