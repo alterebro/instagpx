@@ -225,7 +225,6 @@ const App =  {
 
             createIMG(
                 e.target.files[0],
-                Data.outputRatioModes[Data.options.mode],
                 (imgData) => {
                     Data.image = imgData;
                     Data.imageLoaded = true;

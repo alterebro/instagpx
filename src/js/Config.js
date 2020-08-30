@@ -16,11 +16,11 @@ const Config = {
     ],
     imageModes : {
         '1:1' : { width : 1280, height : 1280, name : 'Square 1:1' },
-        '9:16' : { width : 1080, height : 1920, name : 'Portrait Narrow 9:16' },
+       '9:16' : { width : 1080, height : 1920, name : 'Portrait Narrow 9:16' },
+        '2:3' : { width : 1080, height : 1620, name : '2:3 Portrait' },
         '5:7' : { width : 1080, height : 1512, name : '5:7 Portrait' },
-        '4:5' : { width : 1280, height : 1600, name : '4:5 Portrait' },
         '3:4' : { width : 1080, height : 1440, name : '3:4 Portrait' },
-        '2:3' : { width : 1280, height : 1920, name : '2:3 Portrait' }
+        '4:5' : { width : 1080, height : 1350, name : '4:5 Portrait' }
     }
 }
 

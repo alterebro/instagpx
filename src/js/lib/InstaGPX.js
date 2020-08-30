@@ -126,7 +126,6 @@ function plotElevationGraph(context, x, y, w, h, elevation, distance) {
 
 function instaGPX(gpxData, imgData, outputSize) {
 
-    console.log(outputSize);
     const config = {...Config, ...Data.options }
 
     let _duration = [ // Default (<1h)
@@ -163,14 +162,62 @@ function instaGPX(gpxData, imgData, outputSize) {
 
     let ctx = _canvas.getContext('2d');
 
+
+
         // ---
         // Attach Image
-        if (imgData) { ctx.putImageData(imgData, 0, 0) }
+        // if (imgData) { ctx.putImageData(imgData, 0, 0) }
+
+            let _srcCanvas = document.createElement('canvas');
+                _srcCanvas.width = imgData.width;
+                _srcCanvas.height = imgData.height;
+            let _srcctx = _srcCanvas.getContext('2d');
+                _srcctx.putImageData(imgData, 0, 0);
 
 
-        Styles['montserrat'](ctx, config);
-        // console.log(output);
-        // console.log(config);
+                let _outputRatio = (outputSize.width / outputSize.height);
+                let _imgRatio = (imgData.width / imgData.height);
+
+                console.log('input', 'w:', imgData.width, 'h:', imgData.height )
+                console.log('output', 'w:', outputSize.width, 'h:', outputSize.height )
+
+                let _w = imgData.width;
+                let _h = imgData.height;
+                let _x = 0;
+                let _y = 0;
+
+                if ( _outputRatio > _imgRatio ) { // Input is narrower than output target
+
+                    console.log('narrower');
+                    _w = imgData.width;
+                    _h = imgData.width / _outputRatio;
+                    _y = (imgData.height - _h) / 2;
+
+                } else { // Input is wider that output target
+
+                    console.log('wider')
+
+                    _w = imgData.height * _outputRatio;
+                    _h = imgData.height;
+                    _x = (imgData.width - _w) / 2;
+                }
+
+                console.log('input: ', _imgRatio, 'output: ', _outputRatio);
+                console.log(_x, _y, _w, _h);
+                console.log('-------');
+
+            ctx.drawImage(_srcCanvas,
+                _x, _y, _w, _h,
+                0, 0, outputSize.width, outputSize.height
+            );
+
+
+
+
+
+        // ---
+        // Styles['montserrat'](ctx, config);
+
 
         // ---
         // Overlaying Shadow BG
