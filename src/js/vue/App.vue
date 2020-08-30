@@ -3,7 +3,10 @@
 
         <Header></Header>
 
-        <!-- <img v-if="gpx.points" :src="gpx.points | imageMap('yandex')" width="450" /> -->
+        <div class="image-maps">
+            <img v-if="gpx.points" :src="gpx.points | imageMap('yandex')" />
+            <img v-if="gpx.points" :src="gpx.points | imageMap('mapbox')" />
+        </div>
 
         <section role="form">
             <div>
@@ -128,6 +131,9 @@
 </template>
 
 <script>
+import polyline from '@mapbox/polyline';
+import urlencode from 'urlencode';
+
 import tinytime from 'tinytime';
 import { Config, Data } from '../config.js';
 import { filename, preloadFont, destroyPreloadedFonts } from '../lib/Utils.js';
@@ -179,11 +185,41 @@ const App =  {
                     break;
 
                 case 'mapbox' :
+
                     // https://docs.mapbox.com/api/maps/#static-images
                     // https://blog.mapbox.com/generate-gradient-lines-with-the-static-image-api-368eb28068a3
                     // https://blog.mapbox.com/static-api-with-overlays-932ffc5fcf3d
                     // https://github.com/pirxpilot/google-polyline
-                    _output = false;
+
+                    let _i = Math.ceil(points.length / 80);
+                    let _p = [];
+                    let _c = [0, 0];
+                    for (let i = 1; i < points.length; i += _i) {
+                        _p.push([points[i][1], points[i][0]]);
+
+                        _c[0] += points[i][1];
+                        _c[1] += points[i][0];
+                    }
+
+                    _c[0] = _c[0]/_p.length;
+                    _c[1] = _c[1]/_p.length;
+
+                    console.log(_c);
+
+                    const encodedPolyline = polyline.encode(_p);
+                    const _mapbox = {
+                        username : 'mapbox', // username : 'alterebro',
+                        style_id : 'light-v9',
+                        width : 450,
+                        height : 450,
+                        overlay : `path-5+286ecf-1(${urlencode(encodedPolyline)})`, // overlay : '-122.4241,37.78,14.25,0,60',
+                        location : `${_c[1]},${_c[0]},9,0,45`,
+                        token : 'pk.eyJ1IjoiYWx0ZXJlYnJvIiwiYSI6ImNrZWhrMTR0aTFuZmUyeWx0c2dkemFlencifQ._7m9LHScKO_nv4HCXtsgaQ' // token : 'pk.eyJ1IjoiYWx0ZXJlYnJvIiwiYSI6ImNrZWhsdHdkejBjbHcycnBkcXdzbHRpaTcifQ.2gA-T9BMeSjKMLO0rrNhvw',
+                    }
+                    // let _urlMapbox = `https://api.mapbox.com/styles/v1/${_mapbox.username}/${_mapbox.style_id}/static/${_mapbox.overlay}/auto/${_mapbox.width}x${_mapbox.height}@2x?logo=false&attribution=false&maxBounds=140&access_token=${_mapbox.token}`;
+                    let _urlMapbox = `https://api.mapbox.com/styles/v1/${_mapbox.username}/${_mapbox.style_id}/static/${_mapbox.overlay}/${_mapbox.location}/${_mapbox.width}x${_mapbox.height}@2x?logo=false&attribution=false&maxBounds=140&access_token=${_mapbox.token}`;
+
+                    _output = _urlMapbox;
                     break;
 
                 case 'yandex':
@@ -196,13 +232,13 @@ const App =  {
                     }
                     _points.push(points[points.length-1]);
 
-                    let _url = `https://static-maps.yandex.ru/1.x/?lang=en_US&l=map`;
-                        _url += `&size=450,450&scale=1`;
-                        _url += `&pt=` + _points[0] + ',vkgrm'
-                        _url += `~` + _points[_points.length-1] + ',vkgrm'
-                        _url += `&pl=c:286ecfff,w:5,` + _points.join(',');
+                    let _urlYandex = `https://static-maps.yandex.ru/1.x/?lang=en_US&l=map`;
+                        _urlYandex += `&size=450,450&scale=1`;
+                        _urlYandex += `&pt=` + _points[0] + ',vkgrm'
+                        _urlYandex += `~` + _points[_points.length-1] + ',vkgrm'
+                        _urlYandex += `&pl=c:286ecfff,w:5,` + _points.join(',');
 
-                    _output = _url;
+                    _output = _urlYandex;
                     break;
 
                 default:
@@ -314,6 +350,16 @@ export default App;
 <style lang="scss" scoped>
 @import "./../../scss/_fonts.scss";
 @import "./../../scss/_variables.scss";
+
+// temp
+.image-maps {
+    display: flex;
+    display: none;
+    > img {
+        flex: 0 0 450px;
+        width: 450px;
+    }
+}
 
 .app {
 

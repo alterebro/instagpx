@@ -326,9 +326,10 @@ function instaGPX(gpxData, imgData, outputSize) {
         ctx.fillStyle = "#fff";
         // ctx.font = '64px Montserrat';
         // let _titleOffset = (_top.length) ? 42 : 0;
+        // wrapText(ctx, (config.title).toUpperCase().trim().replace(/\s\s+/g, ' '), config.padding, config.padding + _titleOffset, outputSize.width - (config.padding*2), 72);
         ctx.font = '52px Montserrat';
-        let _titleOffset = (_top.length) ? 36 : 0;
-        wrapText(ctx, (config.title).toUpperCase().trim().replace(/\s\s+/g, ' '), config.padding, config.padding + _titleOffset, outputSize.width - (config.padding*2), 72);
+        let _titleOffset = (_top.length) ? 42 : 0;
+        wrapText(ctx, (config.title).toUpperCase().trim().replace(/\s\s+/g, ' '), config.padding, config.padding + _titleOffset, outputSize.width - (config.padding*2), 58);
 
         // ----------------
         // Plot elevation graph
@@ -336,7 +337,7 @@ function instaGPX(gpxData, imgData, outputSize) {
             plotElevationGraph(
                 ctx,
                 config.padding,
-                outputSize.height - config.padding - (_labelOffsetY + 60) - (outputSize.height/6),
+                outputSize.height - config.padding - (_labelOffsetY + 50) - (outputSize.height/6),
                 outputSize.width - (config.padding*2),
                 (outputSize.height/6),
                 gpxData.elevation,
@@ -351,7 +352,6 @@ function instaGPX(gpxData, imgData, outputSize) {
 
 
         _canvas.toBlob(function(blob) {
-
 
             let _output = new File([blob], 'instagpx.com.jpg', { type : 'image/jpeg', lastModified: Date.now() });
             let objectURL = URL.createObjectURL(_output);
