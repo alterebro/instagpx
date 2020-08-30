@@ -2,6 +2,9 @@
     <div class="app" :class="{ 'with-modal' : modalVisible }">
 
         <Header></Header>
+
+        <!-- <img v-if="gpx.points" :src="gpx.points | imageMap" width="450" /> -->
+
         <section role="form">
             <div>
                 <h4><span v-if="gpxFile" class="file-ok"></span>GPX</h4>
@@ -118,8 +121,6 @@
             </aside>
         </main>
 
-        <!-- <img v-if="gpx.points" :src="gpx.points | imageMap" width="250" /> -->
-
         <ModalThanks ref="modal"></ModalThanks>
         <Footer></Footer>
 
@@ -158,7 +159,8 @@ const App =  {
             return _timestamp.render( new Date(value) );
         },
         imageMap(points) {
-            let _interval = Math.ceil(points.length / 98);
+
+            let _interval = Math.ceil(points.length / 96);
             let _points = [points[0]];
             for (let i = 1; i < points.length; i += _interval) {
                 _points.push(points[i]);
@@ -166,10 +168,12 @@ const App =  {
             _points.push(points[points.length-1]);
 
             // Yandex Static Maps API : https://tech.yandex.com/maps/staticapi/
-            let _url = 'https://static-maps.yandex.ru/1.x/?lang=en_US&l=map&size=250,450&scale=1&pl=c:aa2200ff,w:4,';
-                _url += _points.join(',')
+            let _url = `https://static-maps.yandex.ru/1.x/?lang=en_US&l=map`;
+                _url += `&size=450,450&scale=1`;
+                _url += `&pt=` + _points[0] + ',vkgrm'
+                _url += `~` + _points[_points.length-1] + ',vkgrm'
+                _url += `&pl=c:286ecfff,w:5,` + _points.join(',');
 
-            console.log(points.length, _interval, _points.length);
             return _url;
         }
     },
