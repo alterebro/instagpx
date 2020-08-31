@@ -4,8 +4,8 @@
         <Header></Header>
 
         <div class="image-maps">
-            <img v-if="gpx.points" :src="gpx.points | imageMap('yandex')" />
-            <img v-if="gpx.points" :src="gpx.points | imageMap('mapbox')" />
+            <div><img v-if="gpx.points" :src="gpx.points | imageMap('yandex')" /></div>
+            <div><img v-if="gpx.points" :src="gpx.points | imageMap('mapbox')" /></div>
         </div>
 
         <section role="form">
@@ -191,9 +191,10 @@ const App =  {
                     // https://blog.mapbox.com/static-api-with-overlays-932ffc5fcf3d
                     // https://github.com/pirxpilot/google-polyline
 
-                    let _i = Math.ceil(points.length / 80);
+                    let _i = Math.ceil(points.length / 100);
                     let _p = [];
-                    let _c = [0, 0];
+                    let _c = [0, 0]; // Center
+                    // TODO : Get max and min x,y for zoom
                     for (let i = 1; i < points.length; i += _i) {
                         _p.push([points[i][1], points[i][0]]);
 
@@ -204,20 +205,26 @@ const App =  {
                     _c[0] = _c[0]/_p.length;
                     _c[1] = _c[1]/_p.length;
 
-                    console.log(_c);
+                    // console.log(_c);
+
+                    const firstCoord = _p[0];
+                    const lastCoord = _p[_p.length - 1];
+                    const startMarker = `pin-l-marker+387edf(${firstCoord[1]},${firstCoord[0]})`;
+                    const endMarker = `pin-l-marker+387edf(${lastCoord[1]},${lastCoord[0]})`;
 
                     const encodedPolyline = polyline.encode(_p);
                     const _mapbox = {
-                        username : 'mapbox', // username : 'alterebro',
+                        username : 'mapbox',
                         style_id : 'light-v9',
-                        width : 450,
-                        height : 450,
-                        overlay : `path-5+286ecf-1(${urlencode(encodedPolyline)})`, // overlay : '-122.4241,37.78,14.25,0,60',
-                        location : `${_c[1]},${_c[0]},9,0,45`,
-                        token : 'pk.eyJ1IjoiYWx0ZXJlYnJvIiwiYSI6ImNrZWhrMTR0aTFuZmUyeWx0c2dkemFlencifQ._7m9LHScKO_nv4HCXtsgaQ' // token : 'pk.eyJ1IjoiYWx0ZXJlYnJvIiwiYSI6ImNrZWhsdHdkejBjbHcycnBkcXdzbHRpaTcifQ.2gA-T9BMeSjKMLO0rrNhvw',
+                        width : 540,
+                        height : 960,
+                        overlay : `path-5+286ecf-1(${urlencode(encodedPolyline)}),${startMarker},${endMarker}`,
+                        // location : `${_c[1]},${_c[0]},8.5,0,0`,
+                        location : 'auto',
+                        token : 'pk.eyJ1IjoiYWx0ZXJlYnJvIiwiYSI6ImNrZWhrMTR0aTFuZmUyeWx0c2dkemFlencifQ._7m9LHScKO_nv4HCXtsgaQ'
                     }
                     // let _urlMapbox = `https://api.mapbox.com/styles/v1/${_mapbox.username}/${_mapbox.style_id}/static/${_mapbox.overlay}/auto/${_mapbox.width}x${_mapbox.height}@2x?logo=false&attribution=false&maxBounds=140&access_token=${_mapbox.token}`;
-                    let _urlMapbox = `https://api.mapbox.com/styles/v1/${_mapbox.username}/${_mapbox.style_id}/static/${_mapbox.overlay}/${_mapbox.location}/${_mapbox.width}x${_mapbox.height}@2x?logo=false&attribution=false&maxBounds=140&access_token=${_mapbox.token}`;
+                    let _urlMapbox = `https://api.mapbox.com/styles/v1/${_mapbox.username}/${_mapbox.style_id}/static/${_mapbox.overlay}/${_mapbox.location}/${_mapbox.width}x${_mapbox.height}@2x?logo=false&attribution=false&access_token=${_mapbox.token}`;
 
                     _output = _urlMapbox;
                     break;
@@ -353,11 +360,16 @@ export default App;
 
 // temp
 .image-maps {
+
     display: flex;
     display: none;
-    > img {
-        flex: 0 0 450px;
+
+    > div {
+        flex: 0 0 460px;
+    }
+    img {
         width: 450px;
+        height: auto;
     }
 }
 

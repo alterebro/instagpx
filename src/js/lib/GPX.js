@@ -207,8 +207,8 @@ function readGPX(file, callback) {
 
             let _trackPoints = [];
             for (let i = 0; i < trackpoints.length - 1; i++ ) {
-                let _lat = parseFloat((trackpoints[i].lat).toFixed(4));
-                let _lng = parseFloat((trackpoints[i].lon).toFixed(4));
+                let _lat = parseFloat((trackpoints[i].lat).toFixed(5));
+                let _lng = parseFloat((trackpoints[i].lon).toFixed(5));
                 _trackPoints.push([ _lng, _lat ]);
             }
             return _trackPoints;
