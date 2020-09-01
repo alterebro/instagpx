@@ -33,6 +33,8 @@ const Data = {
     imageFile : null,
     image : {},
 
+    imageMap : null,
+
     outputRatioModes : Config.imageModes,
     dateTemplates : Config.timestampTemplates,
     options : { // Image default options

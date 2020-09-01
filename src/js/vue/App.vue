@@ -3,6 +3,10 @@
 
         <Header></Header>
 
+        <!-- <div class="image-maps">
+            <div><img v-if="gpx.points" :src="imageMap" /></div>
+        </div> -->
+
         <section role="form">
             <div>
                 <h4><span v-if="gpxFile" class="file-ok"></span>GPX</h4>
@@ -248,13 +252,13 @@ const App =  {
                     mapbox.start = mapbox.points[0];
                     mapbox.finish = mapbox.points[(mapbox.points.length - 1)];
 
-                    // TODO : rise vertical bound
-                    let _offset = Math.max(mapbox.size[0], mapbox.size[1]) / 10;
+                    let _offsetH = Math.max(mapbox.size[0], mapbox.size[1]) / 10;
+                    let _offsetV = Math.max(mapbox.size[0], mapbox.size[1]) / 3;
                     let _bounds = [
-                        [mapbox.bounds[0] + _offset, mapbox.bounds[1] + _offset],
+                        [mapbox.bounds[0] + _offsetV, mapbox.bounds[1] + _offsetH],
                         [mapbox.bounds[0], mapbox.bounds[1]],
                         [mapbox.bounds[2], mapbox.bounds[3]],
-                        [mapbox.bounds[2] - _offset, mapbox.bounds[3] - _offset],
+                        [mapbox.bounds[2] - _offsetV, mapbox.bounds[3] - _offsetH],
                     ];
 
                     mapbox.options.overlay += `path-1+343432-0(${urlencode(polyline.encode(_bounds))})`;
@@ -339,6 +343,8 @@ const App =  {
                     Data.gpxLoaded = true;
                     this.postGPX();
                     if (this.userDataLoaded) { this.regenerateImage(); }
+
+                    Data.imageMap = this.createImageMap(gpxData.points, 'mapbox');
                 }
             );
         },
@@ -386,7 +392,7 @@ export default App;
 // temp
 .image-maps {
     display: flex;
-    display: none;
+    // display: none;
     > div { flex: 0 0 460px; }
     img {
         width: 450px;
