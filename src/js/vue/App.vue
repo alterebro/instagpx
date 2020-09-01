@@ -4,7 +4,7 @@
         <Header></Header>
 
         <div class="image-maps">
-            <div><img v-if="gpx.points" :src="gpx.points | imageMap('yandex')" /></div>
+            <!-- <div><img v-if="gpx.points" :src="gpx.points | imageMap('yandex')" /></div> -->
             <div><img v-if="gpx.points" :src="gpx.points | imageMap('mapbox')" /></div>
         </div>
 
@@ -160,29 +160,25 @@ const App =  {
         ModalThanks
     },
     filters : {
+
         renderTimestamp(value, template) {
             let _timestamp = tinytime(template, { padMonth: true, padDays : true, padHours: true });
             return _timestamp.render( new Date(value) );
         },
+
         imageMap(points, provider) {
 
             let _output = '';
             switch (provider) {
 
-                case 'mapquest' :
-                    // https://developer.mapquest.com/documentation/static-map-api/v4/
-                    _output = false;
-                    break;
-
-                case 'mapquest-open' :
-                    // https://developer.mapquest.com/documentation/open/static-map-api/v4/
-                    _output = false;
-                    break;
-
-                case 'here' :
-                    // https://developer.here.com/documentation/map-image/dev_guide/topics/examples.html
-                    _output = false;
-                    break;
+                /*
+                case 'mapquest' : // https://developer.mapquest.com/documentation/static-map-api/v4/
+                    _output = false; break;
+                case 'mapquest-open' : // https://developer.mapquest.com/documentation/open/static-map-api/v4/
+                    _output = false; break;
+                case 'here' : // https://developer.here.com/documentation/map-image/dev_guide/topics/examples.html
+                    _output = false; break;
+                */
 
                 case 'mapbox' :
 
@@ -191,59 +187,90 @@ const App =  {
                     // https://blog.mapbox.com/static-api-with-overlays-932ffc5fcf3d
                     // https://github.com/pirxpilot/google-polyline
 
-                    let _i = Math.ceil(points.length / 100);
-                    let _p = [];
-                    let _c = [0, 0]; // Center
-                    // TODO : Get max and min x,y for zoom
-                    for (let i = 1; i < points.length; i += _i) {
-                        _p.push([points[i][1], points[i][0]]);
+                    const mapbox = {
 
-                        _c[0] += points[i][1];
-                        _c[1] += points[i][0];
+                        interval : 0,
+                        points : [],
+                        center : [0, 0],
+                        bounds : [0, 0, 0, 0], // maxlat, maxlng, minlat, minlng
+                        size : [0, 0], // width (lng), height (lat)
+                        start : null,
+                        finish : null,
+
+                        options : {
+                            steps : 100, // ~ 100
+                            endpoint : 'https://api.mapbox.com/styles/v1/',
+                            username : 'mapbox',
+                            style_id : 'dark-v10',
+                            width : 540,
+                            height : 960,
+                            overlay : '',
+                            location : 'auto',
+                            token : 'pk.eyJ1IjoiYWx0ZXJlYnJvIiwiYSI6ImNrZWhrMTR0aTFuZmUyeWx0c2dkemFlencifQ._7m9LHScKO_nv4HCXtsgaQ'
+                        }
+                    };
+
+                    mapbox.bounds = [ points[0][1], points[0][0], points[0][1], points[0][0] ];
+                    mapbox.interval = (points.length <= mapbox.options.steps) ? points.length : Math.ceil(points.length / mapbox.options.steps);
+
+                    for ( let i = 0; i < points.length; i += mapbox.interval ) {
+
+                        mapbox.points.push([points[i][1], points[i][0]]);
+
+                        mapbox.center[0] += points[i][1]; // latitude
+                        mapbox.center[1] += points[i][0]; // longitude
+
+                        mapbox.bounds[0] = Math.max(mapbox.bounds[0], points[i][1]);
+                        mapbox.bounds[1] = Math.max(mapbox.bounds[1], points[i][0]);
+                        mapbox.bounds[2] = Math.min(mapbox.bounds[2], points[i][1]);
+                        mapbox.bounds[3] = Math.min(mapbox.bounds[3], points[i][0]);
                     }
 
-                    _c[0] = _c[0]/_p.length;
-                    _c[1] = _c[1]/_p.length;
+                    mapbox.center[0] = parseFloat((mapbox.center[0] / mapbox.points.length).toFixed(4));
+                    mapbox.center[1] = parseFloat((mapbox.center[1] / mapbox.points.length).toFixed(4));
 
-                    // console.log(_c);
+                    mapbox.size = [
+                        Math.abs(mapbox.bounds[1] - mapbox.bounds[3]), // width (lng)
+                        Math.abs(mapbox.bounds[0] - mapbox.bounds[2])  // height (lat)
+                    ];
+                    mapbox.start = mapbox.points[0];
+                    mapbox.finish = mapbox.points[(mapbox.points.length - 1)];
 
-                    const firstCoord = _p[0];
-                    const lastCoord = _p[_p.length - 1];
-                    const startMarker = `pin-l-marker+387edf(${firstCoord[1]},${firstCoord[0]})`;
-                    const endMarker = `pin-l-marker+387edf(${lastCoord[1]},${lastCoord[0]})`;
+                    // TODO : rise vertical bound
+                    let _offset = Math.max(mapbox.size[0], mapbox.size[1]) / 10;
+                    let _bounds = [
+                        [mapbox.bounds[0] + _offset, mapbox.bounds[1] + _offset],
+                        [mapbox.bounds[0], mapbox.bounds[1]],
+                        [mapbox.bounds[2], mapbox.bounds[3]],
+                        [mapbox.bounds[2] - _offset, mapbox.bounds[3] - _offset],
+                    ];
 
-                    const encodedPolyline = polyline.encode(_p);
-                    const _mapbox = {
-                        username : 'mapbox',
-                        style_id : 'light-v9',
-                        width : 540,
-                        height : 960,
-                        overlay : `path-5+286ecf-1(${urlencode(encodedPolyline)}),${startMarker},${endMarker}`,
-                        // location : `${_c[1]},${_c[0]},8.5,0,0`,
-                        location : 'auto',
-                        token : 'pk.eyJ1IjoiYWx0ZXJlYnJvIiwiYSI6ImNrZWhrMTR0aTFuZmUyeWx0c2dkemFlencifQ._7m9LHScKO_nv4HCXtsgaQ'
-                    }
-                    // let _urlMapbox = `https://api.mapbox.com/styles/v1/${_mapbox.username}/${_mapbox.style_id}/static/${_mapbox.overlay}/auto/${_mapbox.width}x${_mapbox.height}@2x?logo=false&attribution=false&maxBounds=140&access_token=${_mapbox.token}`;
-                    let _urlMapbox = `https://api.mapbox.com/styles/v1/${_mapbox.username}/${_mapbox.style_id}/static/${_mapbox.overlay}/${_mapbox.location}/${_mapbox.width}x${_mapbox.height}@2x?logo=false&attribution=false&access_token=${_mapbox.token}`;
+                    mapbox.options.overlay += `path-1+343432-0(${urlencode(polyline.encode(_bounds))})`;
+                    mapbox.options.overlay += `,path-5+286ecf-1(${urlencode(polyline.encode(mapbox.points))})`;
+                    mapbox.options.overlay += `,pin-l-marker+387edf(${mapbox.start[1]},${mapbox.start[0]})`;
+                    mapbox.options.overlay += `,pin-l-marker+387edf(${mapbox.finish[1]},${mapbox.finish[0]})`;
+
+                    let _urlMapbox = `${mapbox.options.endpoint}${mapbox.options.username}/${mapbox.options.style_id}/static/${mapbox.options.overlay}/${mapbox.options.location}/${mapbox.options.width}x${mapbox.options.height}@2x`;
+                        _urlMapbox += `?logo=false&attribution=false&access_token=${mapbox.options.token}`;
 
                     _output = _urlMapbox;
                     break;
 
-                case 'yandex':
 
-                    // Yandex Static Maps API : https://tech.yandex.com/maps/staticapi/
-                    let _interval = Math.ceil(points.length / 96);
-                    let _points = [points[0]];
-                    for (let i = 1; i < points.length; i += _interval) {
-                        _points.push(points[i]);
+                case 'yandex': // Yandex Static Maps API : https://tech.yandex.com/maps/staticapi/
+
+                    let _intervalYandex = Math.ceil(points.length / 96);
+                    let _pointsYandex = [points[0]];
+                    for (let i = 1; i < points.length; i += _intervalYandex) {
+                        _pointsYandex.push(points[i]);
                     }
-                    _points.push(points[points.length-1]);
+                    _pointsYandex.push(points[points.length-1]);
 
                     let _urlYandex = `https://static-maps.yandex.ru/1.x/?lang=en_US&l=map`;
                         _urlYandex += `&size=450,450&scale=1`;
-                        _urlYandex += `&pt=` + _points[0] + ',vkgrm'
-                        _urlYandex += `~` + _points[_points.length-1] + ',vkgrm'
-                        _urlYandex += `&pl=c:286ecfff,w:5,` + _points.join(',');
+                        _urlYandex += `&pt=` + _pointsYandex[0] + ',vkgrm'
+                        _urlYandex += `~` + _pointsYandex[_pointsYandex.length-1] + ',vkgrm'
+                        _urlYandex += `&pl=c:286ecfff,w:5,` + _pointsYandex.join(',');
 
                     _output = _urlYandex;
                     break;
@@ -360,13 +387,9 @@ export default App;
 
 // temp
 .image-maps {
-
     display: flex;
     display: none;
-
-    > div {
-        flex: 0 0 460px;
-    }
+    > div { flex: 0 0 460px; }
     img {
         width: 450px;
         height: auto;
