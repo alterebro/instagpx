@@ -36,12 +36,12 @@ const Data = {
     imageMapLoaded : false,
     imageMap : {},
 
-    imageSourceInput : false, // false : map, true : image
+    imageSourceMap : true, // true : map, false : input image
 
     outputRatioModes : Config.imageModes,
     dateTemplates : Config.timestampTemplates,
     options : { // Image default options
-        mode : '1:1',
+        mode : '4:5',
         padding: 60, // 80?
         activity : 'ride', // ride || run
         units : 'metric', // metric || imperial

@@ -102,14 +102,19 @@
                         </span>
                     </p>
 
+                    <p class="form-selector form-checkbox" v-if="gpxLoaded && imageLoaded">
+                        <input type="checkbox" name="activity-map" id="activity-map" v-model="imageSourceMap" />
+                        <label for="activity-map">Show Map</label>
+                    </p>
+
                     <p class="form-selector form-checkbox">
                         <input type="checkbox" name="activity-graph" id="activity-graph" v-model="options.graph" />
-                        <label for="activity-graph">Show elevation graph</label>
+                        <label for="activity-graph">Show Elevation Graph</label>
                     </p>
 
                     <p class="form-selector form-checkbox">
                         <input type="checkbox" name="activity-promote" id="activity-promote" v-model="options.promote" />
-                        <label for="activity-promote">Show instagpx.com label</label>
+                        <label for="activity-promote">Show <em>instagpx.com</em> Label</label>
                     </p>
 
                     <p class="form-submit-container">
@@ -126,14 +131,13 @@
 </template>
 
 <script>
-import polyline from '@mapbox/polyline';
-import urlencode from 'urlencode';
 
 import tinytime from 'tinytime';
 import { Config, Data } from '../config.js';
 import { filename, preloadFont, destroyPreloadedFonts } from '../lib/Utils.js';
 import readGPX from '../lib/GPX.js';
 import createIMG from '../lib/IMG.js';
+import createMap from '../lib/Map.js';
 import instaGPX from '../lib/InstaGPX.js';
 import reverseGeocoding from '../lib/GeoCode.js';
 import Header from './Header.vue';
@@ -178,151 +182,25 @@ const App =  {
 
     methods : {
 
-        createImageMap(points, provider, callback) {
-
-            let _output = '';
-            switch (provider) {
-
-                /*
-                case 'mapquest' : // https://developer.mapquest.com/documentation/static-map-api/v4/
-                    _output = false; break;
-                case 'mapquest-open' : // https://developer.mapquest.com/documentation/open/static-map-api/v4/
-                    _output = false; break;
-                case 'here' : // https://developer.here.com/documentation/map-image/dev_guide/topics/examples.html
-                    _output = false; break;
-                */
-
-                case 'mapbox' :
-
-                    // https://docs.mapbox.com/api/maps/#static-images
-                    // https://blog.mapbox.com/generate-gradient-lines-with-the-static-image-api-368eb28068a3
-                    // https://blog.mapbox.com/static-api-with-overlays-932ffc5fcf3d
-                    // https://github.com/pirxpilot/google-polyline
-
-                    const mapbox = {
-
-                        interval : 0,
-                        points : [],
-                        center : [0, 0],
-                        bounds : [0, 0, 0, 0], // maxlat, maxlng, minlat, minlng
-                        size : [0, 0], // width (lng), height (lat)
-                        start : null,
-                        finish : null,
-
-                        options : {
-                            steps : 100, // ~ 100
-                            endpoint : 'https://api.mapbox.com/styles/v1/',
-                            username : 'mapbox',
-                            style_id : 'dark-v10',
-                            width : 540,
-                            height : 960,
-                            overlay : '',
-                            location : 'auto',
-                            token : 'pk.eyJ1IjoiYWx0ZXJlYnJvIiwiYSI6ImNrZWhrMTR0aTFuZmUyeWx0c2dkemFlencifQ._7m9LHScKO_nv4HCXtsgaQ'
-                        }
-                    };
-
-                    mapbox.bounds = [ points[0][1], points[0][0], points[0][1], points[0][0] ];
-                    mapbox.interval = (points.length <= mapbox.options.steps) ? points.length : Math.ceil(points.length / mapbox.options.steps);
-
-                    for ( let i = 0; i < points.length; i += mapbox.interval ) {
-
-                        mapbox.points.push([points[i][1], points[i][0]]);
-
-                        mapbox.center[0] += points[i][1]; // latitude
-                        mapbox.center[1] += points[i][0]; // longitude
-
-                        mapbox.bounds[0] = Math.max(mapbox.bounds[0], points[i][1]);
-                        mapbox.bounds[1] = Math.max(mapbox.bounds[1], points[i][0]);
-                        mapbox.bounds[2] = Math.min(mapbox.bounds[2], points[i][1]);
-                        mapbox.bounds[3] = Math.min(mapbox.bounds[3], points[i][0]);
-                    }
-
-                    mapbox.center[0] = parseFloat((mapbox.center[0] / mapbox.points.length).toFixed(4));
-                    mapbox.center[1] = parseFloat((mapbox.center[1] / mapbox.points.length).toFixed(4));
-
-                    mapbox.size = [
-                        Math.abs(mapbox.bounds[1] - mapbox.bounds[3]), // width (lng)
-                        Math.abs(mapbox.bounds[0] - mapbox.bounds[2])  // height (lat)
-                    ];
-                    mapbox.start = mapbox.points[0];
-                    mapbox.finish = mapbox.points[(mapbox.points.length - 1)];
-
-                    let _offsetH = Math.max(mapbox.size[0], mapbox.size[1]) / 10;
-                    let _offsetV = Math.max(mapbox.size[0], mapbox.size[1]) / 3;
-                    let _bounds = [
-                        [mapbox.bounds[0] + _offsetV, mapbox.bounds[1] + _offsetH],
-                        [mapbox.bounds[0], mapbox.bounds[1]],
-                        [mapbox.bounds[2], mapbox.bounds[3]],
-                        [mapbox.bounds[2] - _offsetV, mapbox.bounds[3] - _offsetH],
-                    ];
-
-                    mapbox.options.overlay += `path-1+343432-0(${urlencode(polyline.encode(_bounds))})`;
-                    mapbox.options.overlay += `,path-5+286ecf-1(${urlencode(polyline.encode(mapbox.points))})`;
-                    mapbox.options.overlay += `,pin-l-marker+387edf(${mapbox.start[1]},${mapbox.start[0]})`;
-                    mapbox.options.overlay += `,pin-l-marker+387edf(${mapbox.finish[1]},${mapbox.finish[0]})`;
-
-                    let _urlMapbox = `${mapbox.options.endpoint}${mapbox.options.username}/${mapbox.options.style_id}/static/${mapbox.options.overlay}/${mapbox.options.location}/${mapbox.options.width}x${mapbox.options.height}@2x`;
-                        _urlMapbox += `?logo=false&attribution=false&access_token=${mapbox.options.token}`;
-
-                    _output = _urlMapbox;
-                    break;
-
-
-                case 'yandex': // Yandex Static Maps API : https://tech.yandex.com/maps/staticapi/
-
-                    let _intervalYandex = Math.ceil(points.length / 96);
-                    let _pointsYandex = [points[0]];
-                    for (let i = 1; i < points.length; i += _intervalYandex) {
-                        _pointsYandex.push(points[i]);
-                    }
-                    _pointsYandex.push(points[points.length-1]);
-
-                    let _urlYandex = `https://static-maps.yandex.ru/1.x/?lang=en_US&l=map`;
-                        _urlYandex += `&size=450,450&scale=1`;
-                        _urlYandex += `&pt=` + _pointsYandex[0] + ',vkgrm'
-                        _urlYandex += `~` + _pointsYandex[_pointsYandex.length-1] + ',vkgrm'
-                        _urlYandex += `&pl=c:286ecfff,w:5,` + _pointsYandex.join(',');
-
-                    _output = _urlYandex;
-                    break;
-
-                default:
-                    _output = false;
-                    break;
-            }
-
-            _output = _output || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-
-            let _imageMap = new Image();
-                _imageMap.src = _output;
-                _imageMap.crossOrigin = "Anonymous";
-                _imageMap.onload = function() {
-
-                    let _w = _imageMap.width;
-                    let _h = _imageMap.height;
-
-                    let _el = document.createElement('canvas');
-                        _el.width = _w;
-                        _el.height = _h;
-                    let _ctx = _el.getContext('2d');
-                        _ctx.drawImage(_imageMap, 0, 0, _w, _h);
-
-                    let _ctxData = _ctx.getImageData(0, 0, _w, _h);
-                    callback(_ctxData);
-                }
-
-            // return _output;
-            // return _output || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-        },
-
         postGPX() {
 
             let _latStart = this.gpx.coords.start.lat;
             let _lonStart = this.gpx.coords.start.lon;
             let _latEnd = this.gpx.coords.end.lat;
             let _lonEnd = this.gpx.coords.end.lon;
+            let _distance = this.gpx.distance.km;
+            let _speed = this.gpx.speed.kmh;
+            let _act = 'ride';
+
+                if ( _distance <= 12 ) { if (_speed < 14 ) { _act = 'run' } }
+                else if ( _distance > 12 && _distance <= 25 ) { if (_speed < 13 ) { _act = 'run' } }
+                else if ( _distance > 25 && _distance <= 45 ) { if (_speed < 12 ) { _act = 'run' } }
+                else { if (_speed < 8 ) { _act = 'run' } }
+
+            this.options.activity = _act;
+            this.options.show = (_act == 'run') ? 'speed' : 'elevation';
             this.options.title = (_latStart).toFixed(6) +', '+ (_lonStart).toFixed(6);
+
             reverseGeocoding(_latStart, _lonStart, (start) => {
 
                 reverseGeocoding(_latEnd, _lonEnd, (end) => {
@@ -333,19 +211,10 @@ const App =  {
                             : start.displayName;
 
                     Data.options.title = _output;
+                    // TODO : callback here
                 });
             });
 
-            let _distance = this.gpx.distance.km;
-            let _speed = this.gpx.speed.kmh;
-            let _act = 'ride';
-            if ( _distance <= 12 ) { if (_speed < 14 ) { _act = 'run' } }
-            else if ( _distance > 12 && _distance <= 25 ) { if (_speed < 13 ) { _act = 'run' } }
-            else if ( _distance > 25 && _distance <= 45 ) { if (_speed < 12 ) { _act = 'run' } }
-            else { if (_speed < 8 ) { _act = 'run' } }
-
-            this.options.activity = _act;
-            this.options.show = (_act == 'run') ? 'speed' : 'elevation';
         },
 
         loadGPX(e) {
@@ -359,19 +228,17 @@ const App =  {
                     Data.gpx = gpxData;
                     Data.gpxLoaded = true;
                     this.postGPX();
-                    this.loadMap(gpxData.points);
-                    if (this.userDataLoaded) { this.regenerateImage(); }
+
+                    createMap(gpxData.points, this.outputSize, 'mapbox', (imageMapData) => {
+
+                        Data.imageMap = imageMapData
+                        Data.imageMapLoaded = true;
+                        // instaGPX(this.gpx, imageMapData, this.outputSize);
+                        this.generateImage();
+
+                    });
                 }
             );
-        },
-
-        loadMap(dataPoints) {
-            this.createImageMap(dataPoints, 'mapbox', (imageMapData) => {
-
-                Data.imageMap = imageMapData
-                Data.imageMapLoaded = true;
-                instaGPX(this.gpx, this.imageMap, this.outputSize);
-            });
         },
 
         loadIMG(e) {
@@ -384,18 +251,49 @@ const App =  {
                 (imgData) => {
                     Data.image = imgData;
                     Data.imageLoaded = true;
-                    if (this.userDataLoaded) { this.regenerateImage(); }
+                    Data.imageSourceMap = false;
+                    if (this.userDataLoaded) { this.generateImage(); }
                 }
             );
         },
+
+        generateImage() {
+
+            instaGPX(
+                this.gpx,
+                (this.imageSourceMap)
+                    ? this.imageMap
+                    : this.image,
+                this.outputSize
+            );
+        },
+
+        regenerateImage() {
+
+            if ( this.imageSourceMap ) {
+
+                createMap(this.gpx.points, this.outputSize, 'mapbox', (imageMapData) => {
+
+                    Data.imageMap = imageMapData
+                    Data.imageMapLoaded = true;
+                    // instaGPX(this.gpx, imageMapData, this.outputSize);
+                    this.generateImage();
+
+                });
+
+            } else {
+
+                instaGPX( this.gpx, this.image, this.outputSize );
+            }
+
+        },
+
         showModal() {
             let _modalWindow = this.$refs.modal;
                 _modalWindow.showModal();
         },
-        regenerateImage() {
-            instaGPX(this.gpx, this.image, this.outputSize);
-            destroyPreloadedFonts();
-        }
+
+        // TODO : destroyPreloadedFonts();
     },
 
     created() {
@@ -515,6 +413,7 @@ export default App;
             flex-direction: column;
             justify-content: space-between;
 
+            form { padding: 2rem 0 0 0 }
             .button, button { width: 100% }
             a.button { font-weight: bold }
         }
@@ -524,7 +423,6 @@ export default App;
             max-width: 572px;
 
             figure { margin: 0 0 2rem; }
-            aside form { padding: 2rem 0 0 0 }
         }
         @media #{$mobile} {
             padding: 1.5rem 1.5rem 2rem 1.5rem;

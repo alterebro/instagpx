@@ -324,6 +324,10 @@ a {
 // InstaGPX Output:
 
 #output {
+
+    border-radius: .5rem;
+    overflow: hidden;
+
     canvas, img {
         display: block;
         width: 100%;
