@@ -3,11 +3,6 @@
 
         <Header></Header>
 
-        <div class="image-maps">
-            <!-- <div><img v-if="gpx.points" :src="gpx.points | imageMap('yandex')" /></div> -->
-            <div><img v-if="gpx.points" :src="gpx.points | imageMap('mapbox')" /></div>
-        </div>
-
         <section role="form">
             <div>
                 <h4><span v-if="gpxFile" class="file-ok"></span>GPX</h4>
@@ -159,14 +154,31 @@ const App =  {
         Footer,
         ModalThanks
     },
+
     filters : {
 
         renderTimestamp(value, template) {
             let _timestamp = tinytime(template, { padMonth: true, padDays : true, padHours: true });
             return _timestamp.render( new Date(value) );
+        }
+    },
+
+    computed : {
+        userDataLoaded : function() {
+            return this.gpxLoaded && this.imageLoaded
         },
 
-        imageMap(points, provider) {
+        outputSize : function() {
+            return {
+                'width' : this.outputRatioModes[this.options.mode].width,
+                'height' : this.outputRatioModes[this.options.mode].height
+            }
+        }
+    },
+
+    methods : {
+
+        createImageMap(points, provider) {
 
             let _output = '';
             switch (provider) {
@@ -281,21 +293,7 @@ const App =  {
             }
 
             return _output || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-        }
-    },
-    computed : {
-        userDataLoaded : function() {
-            return this.gpxLoaded && this.imageLoaded
         },
-
-        outputSize : function() {
-            return {
-                'width' : this.outputRatioModes[this.options.mode].width,
-                'height' : this.outputRatioModes[this.options.mode].height
-            }
-        }
-    },
-    methods : {
 
         postGPX() {
 
