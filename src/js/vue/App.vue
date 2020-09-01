@@ -3,10 +3,6 @@
 
         <Header></Header>
 
-        <!-- <div class="image-maps">
-            <div><img v-if="gpx.points" :src="imageMap" /></div>
-        </div> -->
-
         <section role="form">
             <div>
                 <h4><span v-if="gpxFile" class="file-ok"></span>GPX</h4>
@@ -169,7 +165,7 @@ const App =  {
 
     computed : {
         userDataLoaded : function() {
-            return this.gpxLoaded && this.imageLoaded
+            return this.gpxLoaded || (this.gpxLoaded && this.imageLoaded);
         },
 
         outputSize : function() {
@@ -182,7 +178,7 @@ const App =  {
 
     methods : {
 
-        createImageMap(points, provider) {
+        createImageMap(points, provider, callback) {
 
             let _output = '';
             switch (provider) {
@@ -296,7 +292,28 @@ const App =  {
                     break;
             }
 
-            return _output || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+            _output = _output || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+            let _imageMap = new Image();
+                _imageMap.src = _output;
+                _imageMap.crossOrigin = "Anonymous";
+                _imageMap.onload = function() {
+
+                    let _w = _imageMap.width;
+                    let _h = _imageMap.height;
+
+                    let _el = document.createElement('canvas');
+                        _el.width = _w;
+                        _el.height = _h;
+                    let _ctx = _el.getContext('2d');
+                        _ctx.drawImage(_imageMap, 0, 0, _w, _h);
+
+                    let _ctxData = _ctx.getImageData(0, 0, _w, _h);
+                    callback(_ctxData);
+                }
+
+            // return _output;
+            // return _output || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
         },
 
         postGPX() {
@@ -342,11 +359,19 @@ const App =  {
                     Data.gpx = gpxData;
                     Data.gpxLoaded = true;
                     this.postGPX();
+                    this.loadMap(gpxData.points);
                     if (this.userDataLoaded) { this.regenerateImage(); }
-
-                    Data.imageMap = this.createImageMap(gpxData.points, 'mapbox');
                 }
             );
+        },
+
+        loadMap(dataPoints) {
+            this.createImageMap(dataPoints, 'mapbox', (imageMapData) => {
+
+                Data.imageMap = imageMapData
+                Data.imageMapLoaded = true;
+                instaGPX(this.gpx, this.imageMap, this.outputSize);
+            });
         },
 
         loadIMG(e) {
@@ -388,17 +413,6 @@ export default App;
 <style lang="scss" scoped>
 @import "./../../scss/_fonts.scss";
 @import "./../../scss/_variables.scss";
-
-// temp
-.image-maps {
-    display: flex;
-    // display: none;
-    > div { flex: 0 0 460px; }
-    img {
-        width: 450px;
-        height: auto;
-    }
-}
 
 .app {
 
