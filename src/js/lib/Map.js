@@ -73,16 +73,17 @@ function createMap(points, size, provider, callback) {
             mapbox.start = mapbox.points[0];
             mapbox.finish = mapbox.points[(mapbox.points.length - 1)];
 
-            let _offsetH = Math.max(mapbox.size[0], mapbox.size[1]) / 10;
-            let _offsetV = Math.max(mapbox.size[0], mapbox.size[1]) / 3;
+            let _offsetH = Math.max(mapbox.size[0], mapbox.size[1]) / 12; // Horizontal
+            let _offsetT = Math.max(mapbox.size[0], mapbox.size[1]) / 3;  // Top
+            let _offsetB = Math.max(mapbox.size[0], mapbox.size[1]) / 2;  // Bottom
             let _bounds = [
-                [mapbox.bounds[0] + _offsetV, mapbox.bounds[1] + _offsetH],
+                [mapbox.bounds[0] + _offsetT, mapbox.bounds[1] + _offsetH],
                 [mapbox.bounds[0], mapbox.bounds[1]],
                 [mapbox.bounds[2], mapbox.bounds[3]],
-                [mapbox.bounds[2] - _offsetV, mapbox.bounds[3] - _offsetH],
+                [mapbox.bounds[2] - _offsetB, mapbox.bounds[3] - _offsetH],
             ];
 
-            mapbox.options.overlay += `path-1+343432-0(${urlencode(polyline.encode(_bounds))})`;
+            mapbox.options.overlay += `path-1+343432-0(${urlencode(polyline.encode(_bounds))})`; // path-1+343432-0
             mapbox.options.overlay += `,path-5+286ecf-1(${urlencode(polyline.encode(mapbox.points))})`;
             mapbox.options.overlay += `,pin-l-marker+387edf(${mapbox.start[1]},${mapbox.start[0]})`;
             mapbox.options.overlay += `,pin-l-marker+387edf(${mapbox.finish[1]},${mapbox.finish[0]})`;
