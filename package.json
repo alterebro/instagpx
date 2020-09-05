@@ -1,6 +1,6 @@
 {
   "name": "instagpx",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Create beautiful sharing pictures adding activity stats from a GPX file to your photos with InstaGPX",
   "main": "src/main.js",
   "scripts": {
