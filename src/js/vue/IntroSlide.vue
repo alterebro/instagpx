@@ -19,11 +19,12 @@ export default {
             current: 0,
             imagesPath : './images/intro/',
             images : [
+                { url : 'jpg/instagpx-map-viana-oporto.jpg' },
                 { url : 'jpg/instagpx-viana-oporto.jpg' },
+                { url : 'jpg/instagpx-map-puigcerda-perpignan.jpg' },
                 { url : 'jpg/instagpx-viarhona.jpg' },
+                { url : 'jpg/instagpx-map-barcelona.jpg' },
                 { url : 'jpg/instagpx-culoz-geneva.jpg' },
-                { url : 'jpg/instagpx-allemond-grenoble.jpg' },
-                { url : 'jpg/instagpx-beziers-montpellier.jpg' }
             ]
         };
     },
