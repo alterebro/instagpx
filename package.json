@@ -8,7 +8,9 @@
     "dev": "parcel src/app.html -d .localserver",
     "prebuild": "rm -rf dist",
     "build": "parcel build src/app.html --out-file index.html --public-url './' --no-cache --no-source-maps",
-    "deploy": "npm run build && netlify deploy --dir dist --prod"
+    "deploy": "npm run build && netlify deploy --dir dist --prod",
+    "version": "npm run build && git add -A dist/",
+    "postversion": "git push && git push --tags && npm publish"
   },
   "postcss": {
     "modules": false,
