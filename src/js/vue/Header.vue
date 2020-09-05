@@ -2,8 +2,8 @@
     <header role="banner">
         <h1><a href="./" title="InstaGPX. Add GPX activity stats to your photos">InstaGPX</a></h1>
         <div class="subheader">
-            <h2>Add GPX activity stats to your photos</h2>
-            <h3>Create beautiful sharing pictures adding activity stats from any GPX file to your photos with InstaGPX</h3>
+            <h2>Create beautiful pictures from your GPX files</h2>
+            <h3>Generate images with your GPX activity stats, route track map and your own pictures with InstaGPX.</h3>
         </div>
     </header>
 </template>

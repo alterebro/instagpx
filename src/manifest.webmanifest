@@ -1,7 +1,7 @@
 {
   "short_name": "InstaGPX",
-  "name": "InstaGPX. Add GPX activity stats to your photos",
-  "description" : "Create beautiful sharing pictures adding activity stats from a GPX file to your photos",
+  "name": "InstaGPX. Create beautiful pictures from your GPX files",
+  "description" : "Generate images with your GPX activity stats, route track map and your own pictures with InstaGPX",
   "display": "standalone",
   "icons": [
     {
