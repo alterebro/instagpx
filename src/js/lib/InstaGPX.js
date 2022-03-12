@@ -264,10 +264,12 @@ function instaGPX(gpxData, imgData, outputSize) {
         txtSize.distance = ctx.measureText(output.distance).width;
 
         let _xDurationOffset = 0;
-        output.duration.forEach((el, i) => {
-            ctx.fillText(el.v, config.padding*2 + _third + _xDurationOffset, outputSize.height - config.padding);
-            _xDurationOffset += txtSize.duration[i].v + txtSize.duration[i].u + (config.wordSpacing*2);
-        })
+        if (config.time) {
+            output.duration.forEach((el, i) => {
+                ctx.fillText(el.v, config.padding*2 + _third + _xDurationOffset, outputSize.height - config.padding);
+                _xDurationOffset += txtSize.duration[i].v + txtSize.duration[i].u + (config.wordSpacing*2);
+            })
+        }
 
         ctx.fillText(output[output.optionLabel], (config.padding*3) + (_third*2), outputSize.height - config.padding);
         txtSize.option = ctx.measureText(output[output.optionLabel]).width;
@@ -278,12 +280,14 @@ function instaGPX(gpxData, imgData, outputSize) {
         ctx.font = '36px Montserrat';
         ctx.fillText(output.distanceUnit, config.padding + txtSize.distance + config.wordSpacing, outputSize.height - config.padding);
 
-        _xDurationOffset = 0; // Reset
-        output.duration.forEach((el, i) => {
-            _xDurationOffset += txtSize.duration[i].v + config.wordSpacing;
-            if ( el.u ) { ctx.fillText(el.u, config.padding*2 + _third + _xDurationOffset, outputSize.height - config.padding) }
-            _xDurationOffset += config.wordSpacing + txtSize.duration[i].u;
-        })
+        if (config.time) {
+            _xDurationOffset = 0; // Reset
+            output.duration.forEach((el, i) => {
+                _xDurationOffset += txtSize.duration[i].v + config.wordSpacing;
+                if ( el.u ) { ctx.fillText(el.u, config.padding*2 + _third + _xDurationOffset, outputSize.height - config.padding) }
+                _xDurationOffset += config.wordSpacing + txtSize.duration[i].u;
+            })
+        }
 
         let _optionUnits = (output.optionLabel == 'elevation') ? 'm' : (output.optionLabel == 'speed')
             ? (config.units == 'metric') ? 'km/h' : 'mi/h'
@@ -298,7 +302,9 @@ function instaGPX(gpxData, imgData, outputSize) {
         // let _labelOffsetY = 80;
         let _labelOffsetY = 70;
         ctx.fillText('DISTANCE', config.padding, outputSize.height - config.padding - _labelOffsetY);
-        ctx.fillText('ACTIVITY TIME', config.padding*2 + _third, outputSize.height - config.padding - _labelOffsetY);
+        if (config.time) {
+            ctx.fillText('ACTIVITY TIME', config.padding*2 + _third, outputSize.height - config.padding - _labelOffsetY);
+        }
         ctx.fillText(output.optionLabel.toUpperCase(), (config.padding*3) + (_third*2), outputSize.height - config.padding - _labelOffsetY);
 
         ctx.textBaseline = 'hanging';
