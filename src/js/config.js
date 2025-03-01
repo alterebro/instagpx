@@ -50,7 +50,8 @@ const Data = {
         title : '',
         timestampPattern : 0,
         promote : true,
-        graph : true // Elevation graph
+        graph : true, // Elevation graph
+        time : true // Atcivity time
     },
 
     modalVisible : false,

@@ -113,6 +113,11 @@
                     </p>
 
                     <p class="form-selector form-checkbox">
+                        <input type="checkbox" name="activity-time" id="activity-time" v-model="options.time" />
+                        <label for="activity-time">Show Activity Time</label>
+                    </p>
+
+                    <p class="form-selector form-checkbox">
                         <input type="checkbox" name="activity-promote" id="activity-promote" v-model="options.promote" />
                         <label for="activity-promote">Show <em>instagpx.com</em> Label</label>
                     </p>
